@@ -1,0 +1,97 @@
+﻿@model int
+@{
+    ViewBag.Title = "Manage Support Team";
+}
+<link href="@Url.Content("~/Content/bootstrap-duallistbox.css")" rel="stylesheet" />
+<script src="@Url.Content("~/Scripts/jquery.bootstrap-duallistbox.js")"></script>
+<script src="@Url.Content("~/Scripts/bootstrap-multiselect.min.js")"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('<span class="lbl"></span>').insertAfter(":checkbox");
+        if ('@ViewBag.tab' == 'Members')
+            LoadMembers();
+        else if ('@ViewBag.tab' == 'Permissions')
+            LoadPermission();
+        else
+            LoadDetails();
+    });
+
+    function LoadDetails() {
+        $('#dvRow').block();
+        $("#dvLoadData").load("/Admin/SupportTeams/Details?id=" + '@Model', function () { $('#dvRow').unblock(); });
+        if ('@Model' > 0) {
+            $("#tabDetails").addClass("active");
+            $("#tabMembers").removeClass("active");
+            $("#tabPermissions").removeClass("active");
+        }
+        else {
+            $("#tabDetails").addClass("active");
+            $("#tabMembers").addClass('hide');
+            $("#tabPermissions").addClass('hide');
+        }
+    }
+
+    function LoadMembers() {
+        if ('@Model' != null && '@Model' != '0') {
+            $('#dvRow').block();
+            $("#dvLoadData").load("/Admin/SupportTeams/Members?id=" + '@Model', function () { $('#dvRow').unblock(); });
+            $("#tabDetails").removeClass("active");
+            $("#tabMembers").addClass("active");
+            $("#tabPermissions").removeClass("active");
+        }
+        else
+            alert("Please first Details.");
+    }
+
+    function LoadPermission() {
+        if ('@Model' != null && '@Model' != '0') {
+            $('#dvRow').block();
+            $("#dvLoadData").load("/Admin/SupportTeams/Permissions?id=" + '@Model', function () { $('#dvRow').unblock(); });
+            $("#tabDetails").removeClass("active");
+            $("#tabMembers").removeClass("active");
+            $("#tabPermissions").addClass("active");
+        }
+        else
+            alert("Please first Details.");
+    }
+</script>
+
+@Html.Partial("_ResultMessage")
+<div class="breadcrumbs breadcrumbs-fixed" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="@Url.Action("Index","Dashboard")">Home</a>
+        </li>
+        <li class="active">Support Teams</li>
+    </ul>
+</div>
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+            Manage Support Team
+        </h1>
+    </div>
+    <div class="row" id="dvRow">
+        <div class="col-xs-12">
+            <div class="tabbable">
+                <ul class="nav nav-tabs" id="myTab">
+                    <li class="" id="tabDetails">
+                        <a href="javascript:void(0);" data-toggle="tab" aria-expanded="false" onclick="LoadDetails();">Details</a>
+                    </li>
+                    <li class="" id="tabMembers">
+                        <a href="javascript:void(0);" data-toggle="tab" aria-expanded="false" onclick="LoadMembers();">Members</a>
+                    </li>
+                    <li class="" id="tabPermissions">
+                        <a href="javascript:void(0);" data-toggle="tab" aria-expanded="false" onclick="LoadPermission();">Permissions</a>
+                    </li>
+                </ul>
+                <br />
+                <div class="tab-pane active" id="dvLoadData"></div>
+            </div>
+        </div>
+    </div>
+</div>
+

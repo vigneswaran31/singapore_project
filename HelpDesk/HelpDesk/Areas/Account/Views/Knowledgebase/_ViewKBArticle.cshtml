@@ -1,0 +1,67 @@
+﻿@model HelpDeskEntity.vw_KBArticle
+@using HelpDeskEntity
+@using HelpDeskEntity.Classes
+@using HelpDeskBAL
+@using Utility
+@{
+    List<Attachment> lstAttachment = new AttachmentsBL().GetByTypeAndId((int)En_LinkType.KBArticle, Model.ArticleId);
+}
+<script type="text/javascript">
+    function DownloadFile(id) {
+        window.open("@Url.Content("~/Account/KBArticles/DownloadFile/")" + id, "_self");
+    }
+</script>
+<div class="page-content">
+    <div class="row" id="ManageData">
+        <div class="panel panel-default">
+            <div class="page-content">
+                <div class="page-header">
+                    <h5>
+                        <span id="icon" class="ace-icon glyphicon glyphicon-book"></span>&nbsp;&nbsp;@Model.Title
+                    </h5>
+                </div>
+                @Html.Raw(Model.Description)<br /><br />
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><span id="icon" class="ace-icon fa fa-download"></span>&nbsp;&nbsp;Files for Download</h3>
+                    </div>
+                    <div class="atached-file">
+                        @if (lstAttachment.Count == 0)
+                            {
+                            <div class="alert alert-info" role="alert">No Files Attached.</div>
+                            }
+                            else
+                            {
+                            <ul id="lightGallery">
+                                @foreach (Attachment itm in lstAttachment)
+                                    {
+                                        if (CommonFunction.IsImage(itm.FileName))
+                                        {
+                                    <li>
+                                        @*<span>@itm.FileName </span><br />*@
+                                        <a href="@(Url.Content(Constants.ImgUploadPath + "/" + itm.FilePath))" data-lightbox="attachment">
+                                            <img style="max-width:120px;max-height:120px;" src="@(Url.Content(Constants.ImgUploadPath + "/" + itm.FilePath.Replace(".", "_thumb.")))" alt="@itm.FileName" />
+                                        </a>
+                                        <br /><br />
+                                        <button type="button" onclick="DownloadFile('@itm.AttachmentId')" title="Download" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-save" aria-hidden="true"></span> Download</button>
+                                    </li>
+                                        }
+                                        else
+                                        {
+                                    <li>
+                                        @*<span>@itm.FileName </span><br />*@
+                                        <img src="~/Content/Images/file-icon.png" alt="@itm.FileName" />
+                                        <br /><br />
+                                        <button type="button" onclick="DownloadFile('@itm.AttachmentId')" title="Download" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-save" aria-hidden="true"></span> Download</button>
+                                    </li>
+                                        }
+                                    }
+                            </ul>
+                            }
+                        <div class="c"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

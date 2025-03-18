@@ -1,0 +1,173 @@
+﻿@model HelpDeskEntity.User
+@using HelpDeskEntity.Classes
+@{
+    int CompanySuperUserRoleId = (int)En_CompanyUserRole.CompanySuperUser;
+}
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        var url = window.location.href;
+        var id = url.substring(url.indexOf('?') + 4, url.indexOf('&'));
+   
+        if (id > 0)
+            $("#CompanyId").val(id);
+
+        $.validator.unobtrusive.parse($("#Manage-User-Form"));
+
+        $("#CompanyId").rules("add", { required: true, messages: { required: "Please select Company." } });
+        $("#LanguageId").rules("add", { required: true, messages: { required: "Please select Language." } });
+
+        $('<span class="lbl"></span>').insertAfter(":checkbox"); //apply checkbox ace design
+
+        if ('@Model.UserId' > 0) {
+            if ('@Model.RoleId' == '@CompanySuperUserRoleId.ToString()') {
+                $("#IsSuperUser").prop('checked', true);
+            }
+        }
+    });
+
+    function Cancel() {
+        $('#dv_PopUp').modal('hide');
+    }
+
+    function SaveUser() {
+        $.validator.unobtrusive.parse($("#Manage-User-Form"));
+        if ($('#Manage-User-Form').valid()) {
+            $('#ManageData').block();
+            var formData = $("#Manage-User-Form").serialize();
+            $.post("@Url.Content("~/Admin/CompanyUsers/Save")", formData, function (data) {
+                if (data.success) {//on success refrsh view
+                    $('#dv_PopUp').modal('hide');
+                    SuccessMessage(data.message);
+                    $("#UserDataGrid").trigger('reloadGrid');
+                } else {
+                    $('#ManageData').unblock();
+                    ErrorMessage(data.message);
+                }
+            });
+        }
+    }
+
+</script>
+<div id="modal-dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="bigger">Manage Company User</h4>
+            </div>
+            <div class="modal-body" id="ManageData">
+                <div class="col-xs-12">
+                    <div class="row">
+                        @using (Html.BeginForm("Save", "CompanyUsers", FormMethod.Post, new { @class = "form-horizontal", Id = "Manage-User-Form" }))
+                        {
+                            @Html.HiddenFor(c => c.UserId)
+                            @Html.HiddenFor(c => c.CreatedOn)
+                            @Html.HiddenFor(c => c.CreatedBy)
+
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span> Name</label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(c => c.Name, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(c => c.Name)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"> Int. role</label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(c => c.RoleDescription, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span> Email</label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(c => c.Email, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(c => c.Email)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"> Skype</label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(c => c.Skype, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span> Password</label>
+                                <div class="col-sm-8">
+                                    @Html.PasswordFor(c => c.Password, new { @class = "form-control" })
+                                    <span data-valmsg-replace="true" data-valmsg-for="Password" class="field-validation-valid"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"> Access password</label>
+                                <div class="col-sm-8">
+                                    @Html.PasswordFor(c => c.AccessPassword, new { @class = "form-control" })
+                                    <span data-valmsg-replace="true" data-valmsg-for="Password" class="field-validation-valid"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"> Contact</label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(c => c.Contact, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(c => c.Contact)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"> Contact description</label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(c => c.ContactDescription, new { @class = "form-control" })            
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span> Company</label>
+                                <div class="col-sm-8">
+                                    @Html.DropDownListFor(p => p.CompanyId, new SelectList(ViewBag.lstCompanies as System.Collections.IEnumerable, "CompanyId", "CompanyName"), "--- Select ---", new { @class = "form-control" })
+                                    <span data-valmsg-replace="true" data-valmsg-for="CompanyId" class="field-validation-valid"></span>
+                                </div>
+                            </div>
+                              <div class="form-group">
+                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span> Language</label>
+                                <div class="col-sm-8">
+                                    @Html.DropDownListFor(p => p.LanguageId, new SelectList(ViewBag.lstLanguages as System.Collections.IEnumerable, "Id", "Description"), "--- Select ---", new { @class = "form-control" })
+                                    <span data-valmsg-replace="true" data-valmsg-for="LanguageId" class="field-validation-valid"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"> Is SuperUser</label>
+                                <label class="col-sm-8 " style="margin-top:6px">
+                                    <input type="checkbox" id="IsSuperUser" name="IsSuperUser" class="ace">
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"> Is Enable </label>
+                                <label class="col-sm-8 " style="margin-top:6px">
+                                    @Html.CheckBoxFor(c => c.IsEnable, new { @class = "ace" })
+                                </label>
+                            </div>
+                        }
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div style="text-align:center;">
+                    <button class="btn btn-sm btn-primary" type="button" onclick="SaveUser();">
+                        <i class="ace-icon fa fa-check bigger-110"></i>
+                        Save
+                    </button>
+                    &nbsp;
+                    <button class="btn btn-sm" type="button" onclick="Cancel();">
+                        <i class="ace-icon fa fa-times"></i>
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

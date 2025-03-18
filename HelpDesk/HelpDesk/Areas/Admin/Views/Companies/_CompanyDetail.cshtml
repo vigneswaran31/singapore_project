@@ -1,0 +1,196 @@
+﻿@using HelpDeskEntity;
+@using HelpDeskBAL;
+@model HelpDeskEntity.Company
+@{
+    ViewBag.Title = "Manage Company Detail";
+    Company oCompany = new Company();
+    if(Model.CompanyId > 0)
+    { 
+       oCompany = new CompanyBL().GetAllEnableCompanies().Where(p => p.ParentId == Model.CompanyId).FirstOrDefault();
+    }
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        //apply checkbox ace design
+        //   $('#CategoryId').chosen({ allow_single_deselect: true });
+        $.validator.unobtrusive.parse($("#Company-Form"));
+        $("#dvSharePrntCntrct").css("display", "none");
+
+        if ('@oCompany' == "") 
+            $('#ParentId').prop("disabled", false);
+        else
+            $('#ParentId').prop("disabled", true);
+
+        if ('@Model.CompanyId' !== '0') {
+            var ddlParentId = $("#ParentId option:selected").text();
+            if (ddlParentId !== "--Select--") {
+                $("#dvSharePrntCntrct").css("display", "block");
+            }
+            else {
+                $("#dvSharePrntCntrct").css("display", "none");
+            }
+        }
+
+        $("#ParentId").change(function () {
+            var ddlParentId = $("#ParentId option:selected").text();
+            if (ddlParentId!=="--Select--") {
+                $("#dvSharePrntCntrct").css("display", "block");
+            }
+            else {
+                $("#dvSharePrntCntrct").css("display", "none");
+            }
+        });
+
+    })
+
+</script>
+@Html.Partial("_ResultMessage")
+<div class="col-xs-12" id="dvcmpnyfrm">
+    @using (Html.BeginForm("Save", "Companies", FormMethod.Post, new { @class = "form-horizontal", Id = "Company-Form" }))
+    {
+        @Html.HiddenFor(c => c.CompanyId)
+        @Html.HiddenFor(c => c.CreatedOn)
+        @Html.HiddenFor(c => c.CreatedBy)
+        <div class="form-group">
+
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span> Name  </label>
+            <div class="col-sm-9">
+                @Html.TextBoxFor(c => c.CompanyName, new { @class = "col-xs-10 col-sm-5" })
+                @Html.ValidationMessageFor(c => c.CompanyName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Select Category </label>
+            <div class="col-sm-9">
+                @Html.DropDownListFor(p => p.CategoryId, new SelectList(ViewBag.ddlCategories as System.Collections.IEnumerable, "Value", "Text"), "--Select--", new { @class = "col-xs-10 col-sm-5" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Select Parent </label>
+            <div class="col-sm-9">
+                @Html.DropDownListFor(p => p.ParentId, new SelectList(ViewBag.ddlParentCompany as System.Collections.IEnumerable, "Value", "Text"), "--Select--", new { @class = "col-xs-10 col-sm-5" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Address </label>
+            <div class="col-sm-9">
+                @Html.TextAreaFor(c => c.Address, new { @class = "col-xs-10 col-sm-5", @rows = "2" })
+                @Html.ValidationMessageFor(c => c.Address)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> City </label>
+            <div class="col-sm-9">
+                @Html.TextBoxFor(c => c.City, new { @class = "col-xs-10 col-sm-5" })
+                @Html.ValidationMessageFor(c => c.City)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> C.A.P </label>
+            <div class="col-sm-9">
+                @Html.TextBoxFor(c => c.CAP, new { @class = "col-xs-10 col-sm-5" })
+                @Html.ValidationMessageFor(c => c.CAP)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Contact </label>
+            <div class="col-sm-9">
+                @Html.TextBoxFor(c => c.Contact, new { @class = "col-xs-10 col-sm-5" })
+                @Html.ValidationMessageFor(c => c.Contact)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Mail </label>
+            <div class="col-sm-9">
+                @Html.TextBoxFor(c => c.Mail, new { @class = "col-xs-10 col-sm-5" })
+                @Html.ValidationMessageFor(c => c.Mail)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> PEC </label>
+            <div class="col-sm-9">
+                @Html.TextBoxFor(c => c.PEC, new { @class = "col-xs-10 col-sm-5" })
+                @Html.ValidationMessageFor(c => c.PEC)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Badge format </label>
+            <div class="col-sm-9">
+                @Html.TextBoxFor(c => c.BadgeFormat, new { @class = "col-xs-10 col-sm-5" })
+                @Html.ValidationMessageFor(c => c.BadgeFormat)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Access ID </label>
+            <div class="col-sm-9">
+                @Html.TextBoxFor(c => c.AccessId, new { @class = "col-xs-10 col-sm-5" })
+                @Html.ValidationMessageFor(c => c.AccessId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Notes </label>
+            <div class="col-sm-9">
+                @Html.TextAreaFor(c => c.Note, new { @class = "form-control", @rows = "3" })
+                @Html.ValidationMessageFor(c => c.Note)
+            </div>
+        </div>
+          <div class="form-group" id="dvSharePrntCntrct">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Share Parent Contract </label>
+            <label class="col-sm-9" style="margin-top:6px">
+                @Html.CheckBoxFor(c => c.ShareParentContract, new { @class = "ace" })
+            </label>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Is Enable </label>
+            <label class="col-sm-9" style="margin-top:6px">
+                @Html.CheckBoxFor(c => c.IsEnable, new { @class = "ace" })
+            </label>
+        </div>
+
+        <div class="clearfix form-group form-actions">
+            <div class="col-md-offset-3 col-md-9">
+                <button class="btn btn-sm btn-primary" type="submit">
+                    <i class="ace-icon fa fa-check bigger-110"></i>
+                    Save
+                </button>
+                &nbsp;
+                <button class="btn btn-sm" type="button" onclick="CancelComp();">
+                    <i class="ace-icon fa fa-times"></i>
+                    Cancel
+                </button>
+            </div>
+        </div>
+    }
+</div><!-- /.col -->
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('<span class="lbl"></span>').insertAfter(":checkbox"); //apply checkbox ace design
+        $.validator.unobtrusive.parse($("#MCompany-Form"));
+    })
+
+    function SaveCompany() {
+        if ($('#Company-Form').valid()) {
+            $('#dvcmpnyfrm').block({ message: 'Please Wait..' });
+            var formData = $("#Company-Form").serialize();
+            $.post("@Url.Content("~/Admin/Companies/Save")", formData, function (data) {
+                $('#dvcmpnyfrm').unblock();
+                if (data.success) {//on success refresh view
+                    SuccessMessage(data.message);
+                    window.location.href = "/Admin/Companies/Index";
+                } else {
+                    ErrorMessage(data.message);
+                }
+            });
+        }
+    }
+    function CancelComp() {
+        window.location.href = "/Admin/Companies/Index";
+    }
+</script>

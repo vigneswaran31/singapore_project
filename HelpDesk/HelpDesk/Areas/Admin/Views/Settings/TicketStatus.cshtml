@@ -1,0 +1,124 @@
+﻿@{
+    ViewBag.Title = "Ticket Status";
+}
+
+<div class="breadcrumbs breadcrumbs-fixed" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="@Url.Action("Index","Dashboard")">Home</a>
+        </li>
+        <li class="active">Helpdesk Elements</li>
+        <li class="active">Ticket Status</li>
+    </ul>
+</div>
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+            Ticket Status
+        </h1>
+    </div>
+    <div class="row" id="dv_row">
+        <div class="col-xs-12">
+            <div class="text-right mar-15">
+                <input type="submit" onclick="ManageTicketStatus(0);" class="btn btn-sm btn-primary" value="Add Status">
+            </div>
+            <table id="TicketStatusDataGrid"></table>
+            <div id="TicketStatusDataPager"></div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="dv_PopUp" role="dialog"></div>
+
+<script type="text/javascript">
+
+    var grid_selector = "#TicketStatusDataGrid";
+    var pager_selector = "#TicketStatusDataPager";
+
+    jQuery(function ($) {
+
+       
+        jQuery(grid_selector).jqGrid({
+            url: '/Admin/Settings/TicketStatusGetGridData',
+
+            viewrecords: true, sortname: 'OrderByNo', sortorder: "asc",
+            colNames: ['TicketStatusId', 'Status Name', 'Enable ?', 'Default ?','Closed Status ?', 'Icon Color','Order #', 'Created On', "Actions"],
+            colModel: [
+                        { name: 'TicketStatusId', width: 1, hidden: true, key: true, align: 'center' },
+                        { name: 'StatusName', index: 'StatusName', width: 100, align: 'left', search: true, searchoptions: JQ_sopt_string },
+                        { name: 'IsEnable', index: 'IsEnable', width: 20, align: "center", search: true, searchoptions: JQ_sopt_bool },
+                        { name: 'DefaultForNewTicket', index: 'DefaultForNewTicket', width: 20, align: "center", search: true, searchoptions: JQ_sopt_bool },
+                        { name: 'IsClosedStatus', index: 'IsClosedStatus', width: 30, align: "center", search: true, searchoptions: JQ_sopt_bool },
+                        { name: 'IconColor', index: 'IconColor', width: 30, align: 'center', formatter: ActionFormatter, search: false, sortable: false },
+                        { name: 'OrderByNo', index: 'OrderByNo', width: 22, align: 'center', search: true, searchoptions: JQ_sopt_int },
+                        {
+                            name: 'CreatedOn', index: 'CreatedOn', width: 30, align: "center", formatter: "date", search: true, searchoptions: {
+                                sopt: ['ge'], dataInit: function (el) {
+                                    $(el).datepicker({
+                                        autoclose: true
+                                    }).on("changeDate", function (e) { $('#TicketStatusDataGrid')[0].triggerToolbar(); });
+                                }
+                            }
+                        },
+
+                        { name: 'Action', index: 'TicketStatusId', width: 25, align: 'center', formatter: LinkFormatter, search: false, sortable: false },
+            ],
+            pager: pager_selector,
+            rowNum: JQ_pagination,
+            rowList: JQ_rowList,
+            autowidth: true,
+            height: '100%',
+            datatype: 'json',
+            cmTemplate: { title: false },
+            viewrecords: true,
+            mtype: 'GET',
+            loadComplete: function () { ResizeJqgrid(); },
+            jsonReader: {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: false,
+                userdata: "userdata"
+            },
+        }).navGrid('#TicketStatusDataPager', { view: false, del: false, add: false, edit: false, search: false, referesh: true },
+           {}, // default settings for edit
+           {}, // default settings for add
+           {}, // delete instead that del:false we need this
+           { closeOnEscape: true, multipleSearch: true, closeAfterSearch: true }, // search options
+           {} /* view parameters*/
+         ).jqGrid('filterToolbar', { stringResult: true, searchOnEnter: false, defaultSearch: 'cn' });
+    });
+
+    function ActionFormatter(cellvalue, options, rowObject) {
+        return "<div height='30' width='100' style='background-color:" + cellvalue + ";'>" + rowObject["StatusName"] + "</div>";
+    }
+
+    function ManageTicketStatus(PriorityId) {
+        $('#dv_PopUp').modal('show');
+        $('#dv_PopUp').html("");
+        $("#dv_PopUp").load('@Url.Action("ManageTicketStatus", "Settings", new { area = "Admin" })', { id: PriorityId }, function () { })
+    }
+
+    function LinkFormatter(cellvalue, options, rowObject) {
+        return "<a href='javascript:void(0);'class='ace-icon fa fa-pencil blue bigger-120' onclick='ManageTicketStatus(\"" + rowObject["TicketStatusId"] + "\");' data-rel='tooltip' title='' data-original-title='Edit'  data-placement='left' ></a> | " +
+          "<a href='javascript:void(0);' class='ace-icon fa fa-trash-o red bigger-120' onclick='DeleteTicketStatus(\"" + rowObject["TicketStatusId"] + "\");' data-rel='tooltip' title='' data-original-title='Delete' data-placement='left' ></a>";
+    }
+
+    function DeleteTicketStatus(StatusId) {
+        if (confirm("Are you sure you want to delete this Ticket Status?")) {
+            $("#dv_row").block();
+            $.post("/Admin/Settings/DeleteTicketStatus/" + StatusId, function (data, status) {
+                if (data.success) {
+                    SuccessMessage(data.Message);
+                    $("#TicketStatusDataGrid").trigger('reloadGrid');
+                } else {
+                    ErrorMessage(data.error);
+                }
+                $("#dv_row").unblock();
+            });
+        }
+    }
+</script>
+
+

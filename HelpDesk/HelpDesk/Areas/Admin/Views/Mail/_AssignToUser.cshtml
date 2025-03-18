@@ -1,0 +1,75 @@
+﻿@model int
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+     
+    });
+
+        function Assign() {
+            $.validator.unobtrusive.parse($("#Manage-User-Form"));
+            if ($('#Manage-User-Form').valid()) {
+                if ($("#OperatorId").val() == "") {
+                    alert("Please select Operator");
+                }
+                else {
+                    $('#ManageData').block();
+                    var formData = $("#Manage-User-Form").serialize();
+                    $.post("@Url.Content("~/Admin/Mail/SaveAssignOperator")", { OperatorId: $("#OperatorId").val(), TicketId: $("#TicketId").val() }, function (data) {
+                        if (data.success) {//on success refrsh view
+                            $('#dv_PopUp').modal('hide');
+                            SuccessMessage(data.message);
+                            $("#IncomingDataGrid").trigger('reloadGrid');
+                        } else {
+                            $('#ManageData').unblock();
+                            ErrorMessage(data.message);
+                        }
+                    });
+                }
+            }
+        }
+
+    function Cancel() {
+        $('#dv_PopUp').modal('hide');
+    }
+</script>
+<div id="modal-dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="bigger">Assign Operator</h4>
+            </div>
+            <div class="modal-body" id="ManageData">
+                <div class="col-xs-12">
+                    <div class="row">
+                     @using (Html.BeginForm("SaveAssignOperator", "Mail", FormMethod.Post, new { @class = "form-horizontal", Id = "Manage-User-Form" }))
+                     { 
+                            @Html.Hidden("InboxId")
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span> Select Operator</label>
+                                <div class="col-sm-8">
+                                    @Html.DropDownList("OperatorId", new SelectList(ViewBag.LstOperators as System.Collections.IEnumerable, "Value", "Text", ViewBag.OperatorId), "--- Select ---", new { @class = "form-control", @id = "OperatorId" })
+                                    <span data-valmsg-replace="true" data-valmsg-for="Operator" class="field-validation-valid"></span>
+                                </div>
+                            </div>
+                     }
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div style="text-align:center;">
+                    <button class="btn btn-sm btn-primary" type="submit" onclick="Assign();">
+                        <i class="ace-icon fa fa-check bigger-110"></i>
+                        Save
+                    </button>
+                    &nbsp;
+                    <button class="btn btn-sm" type="button" onclick="Cancel();">
+                        <i class="ace-icon fa fa-times"></i>
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

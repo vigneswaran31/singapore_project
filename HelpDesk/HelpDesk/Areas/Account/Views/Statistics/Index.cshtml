@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "My Statistics";
+}
+<script type="text/javascript">
+    function LoadDataTable() {
+        $('#dvRow').block();
+        $("#dvLoadStatisticsData").load("/Account/Statistics/Data", function () {
+            $('#dvRow').unblock();
+            $("#tabDatadetails").addClass("active");
+            $("#tabCharts").removeClass("active");
+        });
+    }
+    function LoadCharts() {
+        $('#dvRow').block();
+        $("#dvLoadStatisticsData").load("/Account/Statistics/Charts", function () {
+            $('#dvRow').unblock();
+            $("#tabCharts").addClass("active");
+            $("#tabDatadetails").removeClass("active");
+        });
+    }
+</script>
+<div class="breadcrumbs breadcrumbs-fixed" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="@Url.Action("Index","Dashboard")">Home</a>
+        </li>
+        <li class="active">Statistics</li>
+    </ul>
+
+</div>
+
+<div class="page-content">
+
+    <div class="row" id="dvRow">
+        <div class="col-xs-12">
+            <div class="tabbable">
+                <ul class="nav nav-tabs" id="myTab">
+                    <li class="active" id="tabDatadetails">
+                        <a href="javascript:void(0);" data-toggle="tab" aria-expanded="false" onclick="LoadDataTable();">Data Table</a>
+                    </li>
+                    <li class="" id="tabCharts">
+                        <a href="javascript:void(0);" data-toggle="tab" aria-expanded="false" onclick="LoadCharts();">Charts</a>
+                    </li>
+                </ul>
+                <br />
+                <div class="tab-pane active" id="dvLoadStatisticsData">
+                    @{Html.RenderAction("Data", "Statistics", new { Area = "Account" });}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+﻿@if (TempData["errormsg"] != null)
+{
+    <script type="text/javascript">
+        $('body').showMessage({
+            'thisMessage': ['@TempData["errormsg"]'],
+            className: 'fail',
+            displayNavigation: false,
+            location: 'top',
+            autoClose: true
+        });
+    </script>
+}
+else if (TempData["successmsg"] != null)
+{
+    <script type="text/javascript">
+        $('body').showMessage({
+            'thisMessage': ['@TempData["successmsg"]'],
+            className: 'success',
+            displayNavigation: false,
+            location: 'top',
+            autoClose: true
+        });
+    </script>
+}
+

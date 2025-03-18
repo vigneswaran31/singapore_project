@@ -1,0 +1,101 @@
+﻿@{
+    ViewBag.Title = "";
+}
+<link href="@Url.Content("~/Content/jstree/style.min.css")" rel="stylesheet" />
+<script src="@Url.Content("~/Scripts/jstree.min.js")"></script>
+<script src="~/Scripts/jquery.blockUI.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+
+        var myJSONstring = '@Html.Raw(ViewBag.lstParents)';
+
+        var myTree = $('#KBCategory').jstree({
+            'core': {
+                'data': {
+                    'url': function (node) {
+                        return node.id === '#' ?
+                         '/Account/Knowledgebase/GetChildNodes?id=0' :
+                         '/Account/Knowledgebase/GetChildNodes?id=' + node.id;
+                    },
+                    'data': function (node) {
+                        return { 'id': node.id };
+                    }
+                }
+            }
+        });
+
+        $('#KBCategory').on("select_node.jstree", function (e, data) {
+            var id = $('#KBCategory').jstree('get_selected');
+            $('#dvRow').block({ message: 'Please Wait..' });
+            $("#dvLoadData").load("/Account/Knowledgebase/KBArticles?id=" + id, function () {
+                $('#dvRow').unblock();
+            });
+
+            $("#div").show();
+            $("#icon").addClass("ace-icon glyphicon glyphicon-book");
+            $("#icon").removeClass("ace-icon fa fa-search icon-on-right bigger-110");
+            $("#title").text("Knowledge Base Articles");
+            $("#text").text("Welcome to our Knowledge Base. Use the Search or browse the Categories using the tree on the left panel.")
+        });
+
+    });
+
+    function Search() {
+        var text = $("#search").val();
+
+        $("#search").val("");
+        $("#div").show();
+        $("#icon").removeClass("ace-icon glyphicon glyphicon-book");
+        $("#icon").addClass("ace-icon fa fa-search icon-on-right bigger-110");
+        $("#title").text("Search Results");
+        $("#text").text("This is a list of articles that was found for your search.")
+
+        $('#dvRow').block({ message: 'Please Wait..' });
+        $("#dvLoadData").load("/Account/Knowledgebase/Search?SearchText=" + text, function () {
+            $('#dvRow').unblock();
+        });
+    }
+
+</script>
+<div class="col-xs-12 col-sm-12 col-md-12" >
+    <br />
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Knowledgebase</h3>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-xs-12 col-sm-3 col-md-3">
+                    <div class="left-panel">
+                        <label class="label-bg">Search</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" style="border-right:0px;" name="search" id="search" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-sm btn-default" type="button" onclick="Search();">
+                                    <span class="ace-icon fa fa-search icon-on-right bigger-110"></span>
+                                </button>
+                            </span>
+                        </div>
+                        <br />
+                        <label class="label-bg">KB Categories</label>
+                        <div id="KBCategory"></div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-9 col-md-9" id="dvRow">
+                    <div id="div">
+                        <span id="icon"></span>&nbsp;
+                        <label><b id="title"></b></label>
+                        <p id="text"></p><br />
+                    </div>
+                    <div id="dvLoadData">
+                    </div>
+                </div>
+                <div class="c"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

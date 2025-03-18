@@ -1,0 +1,84 @@
+﻿@model HelpDesk.Models.LoginViewModel
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Areas/Admin/Views/Shared/_LoginLayout.cshtml";
+}
+
+@Html.Partial("_ResultMessage")
+<div class="main-container">
+    <div class="main-content">
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+                <div class="login-container">
+                    <div class="center">
+                        <h1>
+                            <!--<span class="red">Aspscriptsonline.Com</span>-->
+                            <span class="white" id="id-text2">Helpdesk Admin</span>
+                        </h1>
+                    </div>
+                    <div class="space-6"></div>
+                    @if (!String.IsNullOrEmpty(ViewBag.Error))
+                    {
+                        <div role="alert" class="alert alert-danger alert-dismissible fade in">
+                            <button aria-label="Close" data-dismiss="alert" class="close" type="button"><span aria-hidden="true">×</span></button>
+                            <strong>Login Failed : </strong>@ViewBag.Error
+                        </div>
+                    }
+                    <div class="position-relative">
+                        <div id="login-box" class="login-box visible widget-box no-border">
+                            <div class="widget-body">
+                                <div class="widget-main">
+                                    <h4 class="header blue lighter bigger">
+                                        @*<i class="ace-icon fa fa-coffee green"></i>*@
+                                        Admin LogIn
+                                    </h4>
+                                    @using (Html.BeginForm("Login", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <fieldset>
+                                            <label class="block clearfix">
+                                                <span class="block input-icon input-icon-right">
+                                                    @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", @placeholder = "Username" })
+                                                    <i class="ace-icon fa fa-user"></i>
+                                                    @Html.ValidationMessageFor(model => model.UserName)
+                                                </span>
+                                            </label>
+                                            <label class="block clearfix">
+                                                <span class="block input-icon input-icon-right">
+                                                    @Html.PasswordFor(model => model.Password, new { @class = "form-control", @placeholder = "Password" })
+                                                    <i class="ace-icon fa fa-lock"></i>
+                                                    @Html.ValidationMessageFor(model => model.Password)
+                                                </span>
+                                            </label>
+                                            <div class="space"></div>
+                                            <div class="clearfix">
+                                                <label class="inline">
+                                                    <input type="checkbox" class="ace" />
+                                                    <span class="lbl"> Remember Me</span>
+                                                </label>
+                                                <button type="submit" class="width-35 pull-right btn btn-sm btn-primary">
+                                                    <i class="ace-icon fa fa-key"></i>
+                                                    <span class="bigger-110">Login</span>
+                                                </button>
+                                            </div>
+                                            <div class="space-4"></div>
+                                        </fieldset>
+                                    }
+                                </div>
+                                <div class="toolbar clearfix">
+                                    <div>
+                                        <a href="/Admin/Home/ForgotPassword">
+                                            <i class="ace-icon fa fa-arrow-left"></i>
+                                            I forgot my password
+                                        </a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

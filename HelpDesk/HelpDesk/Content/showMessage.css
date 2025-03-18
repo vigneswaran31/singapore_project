@@ -1,0 +1,44 @@
+/* showMessage styles */
+#showMessage {
+	display: none;
+	left: 0;
+	width: 100%;
+	margin: 0;
+	color:#FFFFFF;
+    z-index:9999999999999999999999999999999999999999999!important;
+}
+
+span.messageNav {
+	float: right;
+	padding-right: 1em;
+	font-weight: bold;
+	font-size: small;
+}
+
+.stateHolder {
+	margin: 10px auto;
+    width: 90%;
+}
+
+#showMessage ul {
+	margin-left: 0;
+	padding-left: 0;
+}
+
+#showMessage li {
+    font-weight: bold;
+	list-style-image: none;
+	list-style-position: outside;
+	list-style-type: none;
+}
+
+/*.info {
+	background-color: #00A6FC;
+}*/
+.success {
+	background-color: #7FAE00;
+}
+.fail {
+	background-color: #C00000;
+}
+

@@ -1,0 +1,144 @@
+﻿@model HelpDeskEntity.EmailTemplate
+@{
+    ViewBag.Title = "Manage EmailTemplate";
+    var lstTokens = ViewBag.lstTokens;
+    int i = 0;
+}
+<script src="@Url.Content("~/Scripts/ckeditor/ckeditor.js")"></script>
+<script src="@Url.Content("~/Scripts/ckeditor/adapters/jquery.js")"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('<span class="lbl"></span>').insertAfter(":checkbox"); //apply checkbox ace design
+
+        name = ".HtmlEditor";
+        delete CKEDITOR.instances[name];
+        $(name).ckeditor({ height: '350px', toolbar: "Basic" });
+    });
+
+    function Cancel() {
+        window.location.href = "/Admin/EmailTemplate/Index";
+    }
+
+</script>
+<div class="breadcrumbs breadcrumbs-fixed" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="@Url.Action("Index","Dashboard")">Home</a>
+        </li>
+        <li class="active">Email Templates</li>
+    </ul>
+</div>
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+            Manage Email Template
+        </h1>
+    </div>
+    <div class="row" id="ManageData">
+        <div class="col-xs-12">
+            <!-- PAGE CONTENT BEGINS -->
+            @using (Html.BeginForm("Save", "EmailTemplate", FormMethod.Post, new { @class = "form-horizontal", Id = "Manage-Article-Form" }))
+            {
+                @Html.HiddenFor(c => c.EmailTemplateId)
+                @Html.HiddenFor(c => c.Key)
+                @Html.HiddenFor(c => c.EmailType)
+                @Html.HiddenFor(c => c.IsHtml)
+                @Html.HiddenFor(c => c.IsEnable)
+                @Html.HiddenFor(c => c.PredefinedTags)
+                <!-- #section:elements.form -->
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span> Select Language</label>
+                    <div class="col-sm-9">
+                        @Html.DropDownListFor(p => p.LanguageId, new SelectList(ViewBag.lstLanguages as System.Collections.IEnumerable, "Id", "Description"), "--- Select ---", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(c => c.LanguageId)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span> Subject</label>
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(c => c.Subject, new { @class = "col-xs-10 col-sm-12" })
+                        @Html.ValidationMessageFor(c => c.Subject)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span> Body</label>
+                    <div class="col-sm-9">
+                        @Html.TextAreaFor(p => p.Body, new { @class = "col-xs-10 col-sm-12 HtmlEditor", @rows = "15" })
+                        @Html.ValidationMessageFor(p => p.Body)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Is Enable </label>
+                    <label class="col-sm-9 " style="margin-top:6px">
+                        @Html.CheckBoxFor(c => c.IsEnable.Value, new { @class = "ace" })
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right"> List of Tokens</label>
+                    <div class="col-sm-9" style="margin-top : 10px;">
+                        @if (lstTokens.Count > 0)
+                        {
+                            while (lstTokens.Count != i)
+                            {
+                                if (i == lstTokens.Count - 1)
+                                {
+                                    <div class="row">
+                                        <div class="col-xs-4">
+                                            <label>
+                                                <span class="lbl">@lstTokens[i]</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="row">
+                                        <div class="col-xs-4">
+                                            <label>
+                                                <span class="lbl">@lstTokens[i]</span>
+                                            </label>
+                                        </div>
+                                        @{
+                                    i = i + 1;
+                                        }
+                                        <div class="col-xs-4">
+                                            <label>
+                                                <span class="lbl">@lstTokens[i]</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                }
+                                i = i + 1;
+                            }
+                        }
+                    </div>
+                </div>
+
+                <div class="clearfix form-group form-actions">
+                    <div class="col-md-offset-3 col-md-9">
+                        <button class="btn btn-sm btn-primary" type="submit">
+                            <i class="ace-icon fa fa-check bigger-110"></i>
+                            Save
+                        </button>
+                        &nbsp;
+                        <button class="btn btn-sm" type="button" onclick="Cancel();">
+                            <i class="ace-icon fa fa-times"></i>
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            }
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</div>
+
+
+
+
+

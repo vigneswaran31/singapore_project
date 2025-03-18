@@ -1,0 +1,115 @@
+﻿@{
+    ViewBag.Title = "Knowledgebase Category";
+}
+<div class="breadcrumbs breadcrumbs-fixed" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="@Url.Action("Index","Dashboard")">Home</a>
+        </li>
+        <li class="active">Knowledgebase</li>
+        <li class="active">Categories</li>
+    </ul>
+</div>
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+            Knowledgebase Categories
+        </h1>
+    </div>
+    <div class="row" id="dv_row">
+        <div class="col-xs-12">
+            <div class="text-right mar-15">
+                <input type="submit" onclick="ManageCategory(0);" class="btn btn-sm btn-primary" value="Add Category">
+            </div>
+            <table id="CategoryDataGrid"></table>
+            <div id="CategoryDataPager"></div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="dv_PopUp" role="dialog"></div>
+
+<script type="text/javascript">
+
+    var grid_selector = "#CategoryDataGrid";
+    var pager_selector = "#CategoryDataPager";
+
+    jQuery(function ($) {
+
+        jQuery(grid_selector).jqGrid({
+            url: '/Admin/KBCategories/GetGridData',
+
+            viewrecords: true, sortname: 'CategoryName', sortorder: "asc",
+            colNames: ['KBCategoryId', 'Category Name', 'Parent Category', 'Enable ?', 'Created On', "Actions"],
+            colModel: [
+                        { name: 'KBCategoryId', width: 1, hidden: true, key: true, align: 'center' },
+                        { name: 'CategoryName', index: 'CategoryName', width: 70, align: 'left', search: true, searchoptions: JQ_sopt_string },
+                        { name: 'ParentCategoryName', index: 'ParentCategoryName', width: 60, align: 'left', search: true, searchoptions: JQ_sopt_string },
+                        { name: 'IsEnable', index: 'IsEnable', width: 15, align: 'center', search: true, searchoptions: JQ_sopt_bool },
+                         {
+                             name: 'CreatedOn', index: 'CreatedOn', width: 15, align: "center", formatter: "date", search: true, searchoptions: {
+                                 sopt: ['ge'], dataInit: function (el) {
+                                     $(el).datepicker({
+                                         autoclose: true
+                                     }).on("changeDate", function (e) { $('#CategoryDataGrid')[0].triggerToolbar(); });
+                                 }
+                             }
+                         },
+                         { name: 'Action', index: 'KBCategoryId', width: 15, align: 'center', formatter: LinkFormatter, search: false, sortable: false },
+            ],
+            pager: pager_selector,
+            rowNum: 10,
+            rowList: [5, 10, 20, 50, 100],
+            autowidth: true,
+            height: '100%',
+            datatype: 'json',
+            cmTemplate: { title: false },
+            viewrecords: true,
+            mtype: 'GET',
+            loadComplete: function () { ResizeJqgrid(); },
+            jsonReader: {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: false,
+                userdata: "userdata"
+            },
+        }).navGrid('#CategoryDataPager', { view: false, del: false, add: false, edit: false, search: false, referesh: true },
+           {}, // default settings for edit
+           {}, // default settings for add
+           {}, // delete instead that del:false we need this
+           { closeOnEscape: true, multipleSearch: true, closeAfterSearch: true }, // search options
+           {} /* view parameters*/
+         ).jqGrid('filterToolbar', { stringResult: true, searchOnEnter: false, defaultSearch: 'cn' });
+    });
+
+
+
+    function ManageCategory(CategoryId) {
+        $('#dv_PopUp').modal('show');
+        $('#dv_PopUp').html("");
+        $("#dv_PopUp").load("/Admin/KBCategories/Manage?id=" + CategoryId);
+    }
+
+    function LinkFormatter(cellvalue, options, rowObject) {
+        return "<a href='javascript:void(0);'class='ace-icon fa fa-pencil blue bigger-120' onclick='ManageCategory(\"" + rowObject["KBCategoryId"] + "\");' data-rel='tooltip' title='' data-original-title='Edit'  data-placement='left'></a> | " +
+     "<a href='javascript:void(0);' class='ace-icon fa fa-trash-o red bigger-120' onclick='DeleteCategory(\"" + rowObject["KBCategoryId"] + "\");' data-rel='tooltip' title='' data-original-title='Delete' data-placement='left' ></a>";
+    }
+
+    function DeleteCategory(companyId) {
+        if (confirm("Are you sure you want to delete this Category?")) {
+            $("#dv_row").block();
+            $.post("/Admin/KBCategories/Delete/" + companyId, function (data, status) {
+                if (data.success) {
+                    SuccessMessage(data.message);
+                    $("#CategoryDataGrid").trigger('reloadGrid');
+                } else {
+                    ErrorMessage(data.message);
+                }
+                $("#dv_row").unblock();
+            });
+        }
+    }
+</script>
+

@@ -1,0 +1,146 @@
+﻿@using HelpDeskEntity.Classes;
+@using HelpDesk.Classes;
+@{
+    ViewBag.Title = "Company Contarct";
+}
+@Html.Partial("_ResultMessage")
+
+<div class="breadcrumbs breadcrumbs-fixed" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="@Url.Action("Index","Dashboard")">Home</a>
+        </li>
+        <li class="active">Support Tickets</li>
+    </ul>
+</div>
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+            Support Tickets
+        </h1>
+    </div>
+    <div class="row" id="dv_row">
+        <div class="col-xs-12">
+            <div class="text-left mar-15 l">
+                <div class="heading-btn"><input name="" type="button" class="btn btn-purple btn-sm " value="Advanced Search" onclick="AdvancedSearch()" /> </div><div class="c"></div>
+            </div>
+
+                <div class="text-right mar-15 r">
+                    <input type="submit" onclick="ManageSupportTickets();" class="btn btn-sm btn-primary" value="Create Support Ticket">
+                </div>
+
+            <div class="c"></div>
+            <div id="AdvancedSearch">
+                @Html.Action("AdvancedSearch", "SupportTicket")
+            </div>
+            <table id="TicketDataGrid"></table>
+            <div id="TicketDataPager"></div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="dv_PopUp" role="dialog"></div>
+
+<script type="text/javascript">
+    var grid_selector = "#TicketDataGrid";
+    var pager_selector = "#TicketDataPager";
+
+    jQuery(function ($) {
+
+        var ddlStatus = '@ViewBag.ddlStatus';
+        var ddlOptPriorities = '@ViewBag.ddlOptPriorities';
+        var ddlCusPriorities = '@ViewBag.ddlCusPriorities';
+        var ddlCategories='@ViewBag.ddlCategories';
+
+        jQuery(grid_selector).jqGrid({
+            url: '/Admin/SupportTicket/GetGridData',
+            viewrecords: true, sortname: 'TicketId', sortorder: "asc",
+            colNames: ['Ticket #','TicketId', 'TicketGuid', 'Title', 'Category', 'Company', 'Company user', 'Opt.Pri', 'Cus.Pri', 'Assign To', 'Status', 'Status','RespDue', 'SoluDue','Resp.', 'Solu.'],
+            colModel: [
+                        { name: 'TicketViewId', index: 'TicketViewId', width: 30, search: true, align: 'center', formatter: TicketLinkFormatter, searchoptions: JQ_sopt_int },
+                        { name: 'TicketId', index: 'TicketId', width: 1, hidden: true, key: true, align: 'center' },
+                        { name: 'TicketGuid', index: 'TicketGuid', width: 1, hidden: true, key: true, align: 'center' },
+                        { name: 'Title', index: 'Title', width: 40, align: 'left', search: true, searchoptions: JQ_sopt_string },
+                        { name: 'CategoryName', index: 'CategoryName', width: 30, align: 'left', search: true, stype: 'select', searchoptions: { sopt: ['eq'], value: ddlCategories } },
+                        { name: 'CompanyName', index: 'CompanyName', width: 1, hidden: true, key: true, align: 'center' },
+                        { name: 'CompanyUserName', index: 'CompanyUserName', width: 40, align: 'left', formatter: CompanyUserFormatter, search: true, searchoptions: JQ_sopt_string },
+                        { name: 'OperatorPriority', index: 'OperatorPriority', width: 25, align: 'left', search: true, stype: 'select', searchoptions: { sopt: ['eq'], value: ddlOptPriorities } },
+                        { name: 'CustomerPriority', index: 'CustomerPriority', width: 25, align: 'left', search: true, stype: 'select', searchoptions: { sopt: ['eq'], value: ddlCusPriorities } },
+                        { name: 'AssignToName', index: 'AssignToName', width: 30, align: 'left', search: true, searchoptions: JQ_sopt_string },
+                        { name: 'StatusName', index: 'StatusName', width: 20, align: 'center', formatter: StatusColourFormatter, search: true, stype: 'select', searchoptions: { sopt: ['eq'], value: ddlStatus } },
+                        { name: 'StatusColor', index: 'StatusColor', width: 1, hidden: true, key: true, align: 'center' },
+                        { name: 'ResponseDeadline', index: 'ResponseDeadline', width: 1, hidden: true, key: true, align: 'center', formatoptions: { newformat: 'DD-MM-YYYYTHH:mm:ss' } },
+                        { name: 'SolutionDeadline', index: 'SolutionDeadline', width: 1, hidden: true, key: true, align: 'center', formatoptions: { newformat: 'DD-MM-YYYYTHH:mm:ss' } },
+                        { name: 'ResponseStatusData', index: 'ResponseStatus', width: 15, search: false, align: 'center', searchoptions: JQ_sopt_int },
+                        { name: 'SolutionStatusDate', index: 'SolutionStatus', width: 15, search: false, align: 'center', searchoptions: JQ_sopt_int },
+            ],
+            pager: pager_selector,
+            rowNum: JQ_pagination,
+            rowList: JQ_rowList,
+            autowidth: true,
+            height: '100%',
+            datatype: 'json',
+            cmTemplate: { title: false },
+            viewrecords: true,
+            mtype: 'GET',
+            loadComplete: function () {
+                ResizeJqgrid();
+            },
+            jsonReader: {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: false,
+                userdata: "userdata"
+            },
+        }).navGrid('#TicketDataPager', { view: false, del: false, add: false, edit: false, search: false, referesh: true },
+           {}, // default settings for edit
+           {}, // default settings for add
+           {}, // delete instead that del:false we need this
+           { closeOnEscape: true, multipleSearch: true, closeAfterSearch: true }, // search options
+           {} /* view parameters*/
+         ).jqGrid('filterToolbar', { stringResult: true, searchOnEnter: false, defaultSearch: 'cn' });
+
+    });
+
+    function ManageSupportTickets() {
+        window.location.href = "/Admin/SupportTicket/Create";
+    }
+    function ViewSupportTickets(TicketId) {
+        window.location.href = "/Admin/SupportTicket/View_Detail?id=" + TicketId + "&tab=TicketView";
+    }
+    function TicketLinkFormatter(cellvalue, options, rowObject) {
+        return "<a href='javascript:void(0);'  style='color: #4E9CAF;'  onclick='ViewSupportTickets(\"" + rowObject["TicketGuid"] + "\");'>" + cellvalue + "</a>";
+    }
+    function StatusColourFormatter(cellvalue, options, rowObject) {
+        return "<div height='30' width='100' style='background-color:" + rowObject["StatusColor"] + ";'>" + cellvalue + "</div>";
+    }
+    function CompanyUserFormatter(cellvalue, options, rowObject) {
+        return cellvalue + " " + "(" + rowObject["CompanyName"] + ")"
+    }
+
+    function AdvancedSearch() {
+        $(".ui-search-toolbar").toggle();
+        $("#AdvancedSearch").slideToggle("slow", function () {});
+    }
+
+    function Search() {
+        $(grid_selector).setGridParam({
+            url: "/Admin/SupportTicket/GetAdvSearchResult?" + $("#search-form").serialize(),
+            page: 1
+        }).trigger("reloadGrid");
+    }
+
+    function Clear() {
+        $('#search-form').trigger("reset");
+
+        $(grid_selector).setGridParam({
+            url: "/Admin/SupportTicket/GetGridData?",
+            page: 1,
+            search: false
+        }).trigger("reloadGrid");
+    }
+</script>
+
+

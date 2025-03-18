@@ -1,0 +1,152 @@
+﻿@{
+    ViewBag.Title = "Statistics and Reports";
+}
+
+<div class="breadcrumbs breadcrumbs-fixed" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="@Url.Action("Index","Dashboard")">Home</a>
+        </li>
+        <li class="active">Statistics</li>
+    </ul>
+</div>
+<div class="page-content">
+    <div id="dvLoadChartandDetails">
+        <div class="page-header">
+            <h1>
+                <i class="glyphicon glyphicon-stats"></i>
+                Statistics and Reports
+            </h1>
+            <div class="c"></div>
+            <small>
+                Please choose the statistic report that you want to display.
+            </small>
+        </div>
+        <div class="widget-box">
+            <div class="widget-header">
+                <h5 class="widget-title lighter smaller">
+                    SLA performances and Tickets distribuition
+                </h5>
+            </div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    <div>
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <a href="javascript:void(0);" style="text-decoration:none; color:#0099ff;" onclick="LoadTicketandSLAbyCategories();">Tickets and SLA by Categories</a>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <a href="javascript:void(0);" style="text-decoration:none; color:#0099ff;" onclick="LoadTicketandSLAbyOperators();">Tickets and SLA by Operators</a>
+                        </div>
+                        <div class="c"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="space c"></div>
+        <div class="widget-box">
+            <div class="widget-header">
+                <h5 class="widget-title lighter smaller">
+                    Tickets distribuition by Priorities
+                </h5>
+            </div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    <div>
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <a href="javascript:void(0);" style="text-decoration:none; color:#0099ff;" onclick="LoadTicketbyOptPriority();">Tickets by Priority (Operator)</a>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <a href="javascript:void(0);" style="text-decoration:none; color:#0099ff;" onclick="LoadTicketbyCusPriority();">Tickets by Priority (Customer)</a>
+                        </div>
+                        <div class="c"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="space c"></div>
+        <div class="widget-box">
+            <div class="widget-header">
+                <h5 class="widget-title lighter smaller">
+                    Status and Teams distribuition
+                </h5>
+            </div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    <div>
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <a href="javascript:void(0);" style="text-decoration:none; color:#0099ff;" onclick="LoadTicketbyStatus();">Tickets by Status</a>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <a href="javascript:void(0);" style="text-decoration:none; color:#0099ff;" onclick="LoadTicketbyTeams();">Tickets by Teams</a>
+                        </div>
+                        <div class="c"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="space c"></div>
+        <div class="widget-box">
+            <div class="widget-header">
+                <h5 class="widget-title lighter smaller">
+                    Companies and Current Contract distribuition
+                </h5>
+            </div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    <div>
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <a href="javascript:void(0);" style="text-decoration:none; color:#0099ff;" onclick="LoadTicketByCompanies();">Tickets by Companies</a>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <a href="javascript:void(0);" style="text-decoration:none; color:#0099ff;" onclick="LoadTicketByCompanies_Historic();">Tickets by Historic last 5 years</a>
+                        </div>
+                        <div class="c"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function LoadTicketandSLAbyCategories() {
+        $('#dvLoadChartandDetails').html("");
+        $("#dvLoadChartandDetails").load('@Url.Action("TicketByCategories", "Statistics", new { area = "Admin" })', function () { })
+    }
+
+    function LoadTicketandSLAbyOperators() {
+        $('#dvLoadChartandDetails').html("");
+        $("#dvLoadChartandDetails").load('@Url.Action("TicketByOperators", "Statistics", new { area = "Admin" })', function () { })
+    }
+
+    function LoadTicketbyOptPriority() {
+        $('#dvLoadChartandDetails').html("");
+        $("#dvLoadChartandDetails").load('@Url.Action("TicketByOptPriority", "Statistics", new { area = "Admin" })', function () { })
+    }
+
+    function LoadTicketbyCusPriority() {
+        $('#dvLoadChartandDetails').html("");
+        $("#dvLoadChartandDetails").load('@Url.Action("TicketByCusPriority", "Statistics", new { area = "Admin" })', function () { })
+    }
+
+    function LoadTicketbyStatus() {
+        $('#dvLoadChartandDetails').html("");
+        $("#dvLoadChartandDetails").load('@Url.Action("TicketByStatus", "Statistics", new { area = "Admin" })', function () { })
+    }
+
+    function LoadTicketbyTeams() {
+        $('#dvLoadChartandDetails').html("");
+        $("#dvLoadChartandDetails").load('@Url.Action("TicketByTeams", "Statistics", new { area = "Admin" })', function () { })
+    }
+
+    function LoadTicketByCompanies() {
+        $('#dvLoadChartandDetails').html("");
+        $("#dvLoadChartandDetails").load('@Url.Action("TicketByCompanies", "Statistics", new { area = "Admin" })', function () { })
+    }
+
+    function LoadTicketByCompanies_Historic() {
+        $('#dvLoadChartandDetails').html("");
+        $("#dvLoadChartandDetails").load('@Url.Action("TicketByCompaniesHistoric", "Statistics", new { area = "Admin" })', function () { })
+    }
+
+</script>

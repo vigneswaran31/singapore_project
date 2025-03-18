@@ -1,0 +1,57 @@
+﻿@model HelpDeskEntity.SupportTeam
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        //apply checkbox ace design
+        $('<span class="lbl"></span>').insertAfter(":checkbox");
+        $.validator.unobtrusive.parse($("#Manage-Details-Form"));
+    })
+
+</script>
+<div class="col-xs-12">
+
+    @using (Html.BeginForm("SaveDetails", "SupportTeams", FormMethod.Post, new { @class = "form-horizontal", Id = "Manage-Details-Form" }))
+    {
+        @Html.HiddenFor(c => c.TeamId)
+        @Html.HiddenFor(c => c.CreatedOn)
+        @Html.HiddenFor(c => c.CreatedBy)
+                <!-- #section:elements.form -->
+       
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span> Name</label>
+            <div class="col-sm-9">
+                @Html.TextBoxFor(c => c.Name, new { @class = "col-xs-10 col-sm-5" })
+                @Html.ValidationMessageFor(c => c.Name)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span> Description</label>
+            <div class="col-sm-9">
+                @Html.TextAreaFor(c => c.Description, new { @class="col-xs-10 col-sm-5"})
+                @Html.ValidationMessageFor(c => c.Description)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Is Enable </label>
+            <label class="col-sm-9 " style="margin-top:6px">
+                @Html.CheckBoxFor(c => c.IsEnable, new { @class = "ace" })
+            </label>
+        </div>
+        <div class="clearfix form-group form-actions">
+            <div class="col-md-offset-3 col-md-9">
+                <button class="btn btn-sm btn-primary" type="submit">
+                    <i class="ace-icon fa fa-check bigger-110"></i>
+                    Save
+                </button>
+                &nbsp;
+                <button class="btn btn-sm" type="button" onclick="window.location='/Admin/SupportTeams/Index'">
+                    <i class="ace-icon fa fa-times"></i>
+                    Cancel
+                </button>
+            </div>
+        </div>
+    }
+
+</div>

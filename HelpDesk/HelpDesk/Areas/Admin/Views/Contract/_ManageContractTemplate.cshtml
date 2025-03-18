@@ -1,0 +1,125 @@
+﻿@using HelpDeskEntity;
+@model HelpDeskEntity.ContractTemplate
+@{
+    Layout = null;
+}
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('<span class="lbl"></span>').insertAfter(":checkbox"); //apply checkbox ace design
+    })
+
+    function Cancel() {
+        $('#dv_PopUp').modal('hide');
+    }
+
+    function SaveContractTemplat() {
+        $.validator.unobtrusive.parse($("#Manage-ContractTemplate-Form"));
+        if ($('#Manage-ContractTemplate-Form').valid()) {
+            $('#ManageContractTemplate').block();
+            var formData = $("#Manage-ContractTemplate-Form").serialize();
+            $.post("@Url.Content("~/Admin/Contract/SaveContractTemplate")", formData, function (data) {
+                if (data.success) {//on success refrsh view
+                    $('#dv_PopUp').modal('hide');
+                    SuccessMessage(data.message);
+                    $("#ContractTemplateDataGrid").trigger('reloadGrid');
+                } else {
+                    $('#ManageContractTemplate').unblock();
+                    ErrorMessage(data.message);
+                }
+            });
+        }
+    }
+</script>
+
+<div id="modal-dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="bigger">Manage Contract Template</h4>
+            </div>
+            <div class="modal-body" id="ManageContractTemplate">
+                <div class="col-xs-12">
+                    <div class="row">
+                        @using (Html.BeginForm("SaveContractTemplate", "Contract", FormMethod.Post, new { Id = "Manage-ContractTemplate-Form", @name = "Manage-Category-Form", @class = "form-horizontal" }))
+                        {
+                            @Html.HiddenFor(c => c.ContractTemplateId)
+                            @Html.HiddenFor(c => c.CreatedOn)
+                            @Html.HiddenFor(c => c.CreatedBy)
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span>  Template Name </label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(c => c.TemplateName, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(c => c.TemplateName)
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"> Description </label>
+
+                                <div class="col-sm-8">
+                                    @Html.TextAreaFor(c => c.Description, new { @class = "form-control", @rows = "2" })
+                                    @Html.ValidationMessageFor(c => c.Description)
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"> No Of Tickets</label>
+                                <div class="col-sm-4">
+                                    @Html.TextBoxFor(c => c.NoOfTickets, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(c => c.NoOfTickets)
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"> Responce With In Hours</label>
+                                <div class="col-sm-4">
+                                    @Html.TextBoxFor(c => c.ResponseWithInHours, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(c => c.ResponseWithInHours)
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"> Solution With In Hours</label>
+                                <div class="col-sm-4">
+                                    @Html.TextBoxFor(c => c.SolutionWithInHours, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(c => c.SolutionWithInHours)
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"> Budget In Hours</label>
+                                <div class="col-sm-4">
+                                    @Html.TextBoxFor(c => c.Hours, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(c => c.Hours)
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"> Is Enable </label>
+                                <label class="col-sm-5" style="margin-top:6px">
+                                    @Html.CheckBoxFor(c => c.IsEnable, new { @class = "ace" })
+                                </label>
+                            </div>
+
+
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div style="text-align:center;">
+                    <button type="button" class="btn btn-sm btn-primary" onclick="SaveContractTemplat();">
+                        <i class="ace-icon fa fa-check bigger-110"></i>Save
+                    </button>
+                    <button type="button" class="btn btn-sm" onclick="Cancel();">
+                        <i class="ace-icon fa fa-times"></i>
+                        Cancel
+                    </button>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>

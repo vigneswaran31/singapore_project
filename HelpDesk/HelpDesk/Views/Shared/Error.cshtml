@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "Error";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+<div class="main-container">
+    <div class="main-content">
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+                <div class="login-container1">
+                    <div class="center">
+                        <h1>
+                            <span class="red">Help</span>
+                            <span class="white" id="id-text2">Desk </span>
+                        </h1>
+                    </div>
+                    <div class="space-6"></div>
+
+                    <div class="position-relative">
+                        <div id="login-box" class="login-box visible widget-box no-border">
+                            <div class="widget-body">
+                                <div class="widget-main">
+                                    <h4 class="header blue lighter bigger">An error occurred while processing your request.</h4>
+                                    @{
+                                        if (String.IsNullOrEmpty(ViewBag.ErrorMessage))
+                                        {
+                                            <p>An error occurred while processing your request.</p>
+                                        }
+                                        else
+                                        {
+                                            <p class="red text-danger bigger-130">@ViewBag.ErrorMessage</p>
+                                        }
+                                    }
+                                </div>
+                                <div class="toolbar clearfix">
+                                    &nbsp;
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

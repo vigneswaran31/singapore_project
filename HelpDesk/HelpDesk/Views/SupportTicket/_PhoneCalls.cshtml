@@ -1,0 +1,74 @@
+﻿@{
+    ViewBag.Title = "Phone Calls";
+    int TicketId = ViewBag.TicketId;
+}
+
+@Html.Partial("_ResultMessage")
+
+<table id="PhoneCallsDataGrid"></table>
+<div id="PhoneCallsDataPager"></div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('<span class="lbl"></span>').insertAfter(":checkbox"); //apply checkbox ace design
+    });
+
+    var grid_selector = "#PhoneCallsDataGrid";
+    var pager_selector = "#PhoneCallsDataPager";
+
+    jQuery(function ($) {
+
+        jQuery(grid_selector).jqGrid({
+            url: '/SupportTicket/GetPhoneCallsGridData?Id=' + '@TicketId',
+            viewrecords: true, sortname: 'Id', sortorder: "desc",
+            colNames: ['Id', 'Date', 'Phone', 'Name', 'Comment', 'Call Time'],
+            colModel: [
+                   { name: 'Id', width: 1, hidden: true, key: true, align: 'center' },
+                   {
+                       name: 'Date', index: 'Date', width: 10, align: "center", formatter: "date", search: true, searchoptions: {
+                           sopt: ['ge'], dataInit: function (el) {
+                               $(el).datepicker({
+                                   autoclose: true
+                               }).on("changeDate", function (e) { $('#PhoneCallsDataGrid')[0].triggerToolbar(); });
+                           }
+                       }
+                   },
+                   { name: 'Phone', index: 'Phone', width: 10, align: 'center', search: true, searchoptions: JQ_sopt_string },
+                   { name: 'Name', index: 'Name', width: 20, align: 'left', search: true, searchoptions: JQ_sopt_string },
+                   { name: 'Comment', index: 'Comment', width: 50, align: 'center', search: true, searchoptions: JQ_sopt_string },
+                   { name: 'CallTime', index: 'CallTime', width: 20, align: 'center', search: true, searchoptions: JQ_sopt_string },
+
+            ],
+            pager: pager_selector,
+            rowNum: 10,
+            rowList: [5, 10, 20, 50, 100],
+            autowidth: true,
+            height: '100%',
+            datatype: 'json',
+            cmTemplate: { title: false },
+            viewrecords: true,
+            mtype: 'GET',
+            loadComplete: function () { ResizeJqgrid(); },
+            jsonReader: {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: false,
+                userdata: "userdata"
+            },
+        }).navGrid('#PhoneCallsDataPager', { view: false, del: false, add: false, edit: false, search: false, referesh: true },
+           {}, // default settings for edit
+           {}, // default settings for add
+           {}, // delete instead that del:false we need this
+           { closeOnEscape: true, multipleSearch: true, closeAfterSearch: true }, // search options
+           {} /* view parameters*/
+         ).jqGrid('filterToolbar', { stringResult: true, searchOnEnter: false, defaultSearch: 'cn' });
+    });
+
+</script>
+
+
+
+

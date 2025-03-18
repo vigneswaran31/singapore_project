@@ -1,0 +1,67 @@
+﻿@using HelpDeskEntity
+@using HelpDeskBAL
+@using HelpDeskEntity.Classes
+@{
+    ViewBag.Title = "Auto Assign";
+}
+
+<div class="breadcrumbs breadcrumbs-fixed" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="@Url.Action("Index","Dashboard")">Home</a>
+        </li>
+        <li class="active">Auto Assign</li>
+    </ul>
+</div>
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+            Auto Assign
+        </h1>
+    </div>
+    <div class="row" id="dvRow">
+        <div class="col-xs-12">
+            <div class="tabbable">
+                <ul class="nav nav-tabs" id="myTab">
+                    <li class="" id="tabCompany">
+                        <a href="javascript:void(0);" data-toggle="tab" aria-expanded="false" onclick="LoadCompany();">Company</a>
+                    </li>
+                    <li class="" id="tabCategory">
+                        <a href="javascript:void(0);" data-toggle="tab" aria-expanded="false" onclick="LoadCategory();">Category</a>
+                    </li>
+                </ul>
+                <br />
+                <div class="tab-pane active" id="dvLoadData"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        LoadCompany();
+    });
+
+    function LoadCompany() {
+          $('#dvRow').block();
+        $("#dvLoadData").load("/Admin/AutoAssign/Company", function () {
+             $('#dvRow').unblock();
+        });
+        $("#tabCategory").removeClass("active");
+        $("#tabCompany").addClass("active");
+    }
+
+    function LoadCategory() {
+
+        $('#dvRow').block();
+        $("#dvLoadData").load("/Admin/AutoAssign/Category", function () {
+          $('#dvRow').unblock();
+        });
+        $("#tabCompany").removeClass("active");
+        $("#tabCategory").addClass("active");
+    }
+
+</script>
+<div class="modal fade" id="dv_PopUp" role="dialog"></div>
+<div class="modal fade" id="dv_Category_PopUp" role="dialog"></div>

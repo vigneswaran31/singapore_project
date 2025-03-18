@@ -1,0 +1,160 @@
+﻿@model int
+
+@using HelpDeskEntity
+@using HelpDesk.Classes
+@using HelpDeskEntity.Classes
+@using HelpDeskBAL
+@{
+    ViewBag.Title = "Manage Article";
+    Config config = new ConfigsBL().GetByName(En_Config.AttachmentType.ToString());
+}
+<!-- required for wyswin editor -->
+<script src="@Url.Content("~/Scripts/jquery.ui.touch-punch.js")"></script>
+<script src="@Url.Content("~/Scripts/markdown.min.js")"></script>
+<script src="@Url.Content("~/Scripts/bootstrap-markdown.min.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery.hotkeys.min.js")"></script>
+<script src="@Url.Content("~/Scripts/bootstrap-wysiwyg.min.js")"></script>
+<script src="@Url.Content("~/Scripts/ace/elements.colorpicker.js")"></script>
+<script src="@Url.Content("~/Scripts/ace/elements.wysiwyg.js")"></script>
+<link href="@Url.Content("~/Content/dropzone.css")" rel="stylesheet" />
+<script src="@Url.Content("~/Scripts/dropzone.js")"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var IsError = false;
+        Dropzone.options.dzAttachments = {
+            paramName: "file", // The name that will be used to transfer the file
+            maxFilesize: 2, // MB
+            autoProcessQueue: false,
+            dictDefaultMessage: 'Drop files here or click to upload.',
+            addRemoveLinks: true,
+            acceptedFiles: '@config.Value',
+            init: function () {
+                var myDropzone = this; //closure
+                $('#SaveFiles').click(function () {
+                    myDropzone.processQueue();
+                    $('#dzAttachments').block();
+                });
+            },
+            queuecomplete: function () {
+                if (!IsError) {
+                    $('#dzAttachments').unblock();
+                    $('#dv_files_popup').modal('hide');
+                    var myDropzone = this; //closure
+                    myDropzone.removeAllFiles();
+                    LoadAttachments();
+                }
+            },
+            success: function () {
+                var myDropzone = this; //closure
+                myDropzone.processQueue();
+            },
+            error: function (file) {
+                IsError = true;
+                if (!file.accepted) {
+                    this.removeFile(file);
+                    alert("You cannot add this type of file.");
+                }
+                $('#dzAttachments').unblock();
+            }
+        };
+
+        $('<span class="lbl"></span>').insertAfter(":checkbox");
+
+        if ('@ViewBag.tab' == 'Details')
+            LoadDetails();
+        else 
+            LoadAttachments();
+
+    });
+    function LoadDetails() {
+        $('#dvRow').block();
+        $("#dvLoadData").load("/Admin/KBArticles/ManageArticle?id=" + '@Model', function () { $('#dvRow').unblock(); });
+        if ('@Model' > 0) {
+            $("#tabDetails").addClass("active");
+            $("#tabAttachments").removeClass("active");
+        }
+        else {
+            $("#tabDetails").addClass("active");
+            $("#tabAttachments").addClass("hide");
+        }
+    }
+
+    function LoadAttachments() {
+        if ('@Model' != null && '@Model' != '0') {
+            $('#dvRow').block();
+            $("#dvLoadData").load("/Admin/KBArticles/Attachments?id=" + '@Model', function () { $('#dvRow').unblock(); });
+            $("#tabDetails").removeClass("active");
+            $("#tabAttachments").addClass("active");
+        }
+    }
+
+</script>
+<div class="breadcrumbs breadcrumbs-fixed" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="@Url.Action("Index","Dashboard")">Home</a>
+        </li>
+        <li class="active">Knowledgebase</li>
+        <li class="active">Articles</li>
+    </ul>
+</div>
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+            Manage Article
+        </h1>
+    </div>
+    <div class="row" id="dvRow">
+        <div class="col-xs-12">
+            <div class="tabbable">
+                <ul class="nav nav-tabs" id="myTab">
+                    <li class="" id="tabDetails">
+                        <a href="javascript:void(0);" data-toggle="tab" aria-expanded="false" onclick="LoadDetails();">Details</a>
+                    </li>
+                    <li class="" id="tabAttachments">
+                        <a href="javascript:void(0);" data-toggle="tab" aria-expanded="false" onclick="LoadAttachments();">Attachments</a>
+                    </li>
+                </ul>
+                <br />
+                <div class="tab-pane active" id="dvLoadData">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" role="dialog" id="dv_files_popup">
+    <div class="modal-dialog modal-sm1" style="width:800px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"> Add Files </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <!-- PAGE CONTENT BEGINS -->
+                        <div class="dzdetails">
+                            <form action="~/Admin/KBArticles/AddFiles?id=@Model" class="dropzone" id="dzAttachments" method="post" enctype="multipart/form-data"></form>
+                        </div><!-- PAGE CONTENT ENDS -->
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+                <div class="clearfix form-group form-actions">
+                    <div style="text-align:center">
+                        <button class="btn btn-sm btn-primary" type="button" id="SaveFiles">
+                            <i class="ace-icon fa fa-check bigger-110"></i>
+                            Save
+                        </button>
+                        &nbsp;
+                        <button class="btn btn-sm" type="button" onclick="$('#dv_files_popup').modal('hide');" id="SaveFiles">
+                            <i class="ace-icon fa fa-times"></i>
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,240 @@
+﻿@using HelpDeskEntity;
+@using HelpDeskEntity.Classes;
+@using HelpDeskBAL;
+@using Utility;
+@using HelpDesk.Classes;
+@model HelpDeskEntity.Ticket
+@{
+    ViewBag.Title = "Manage Company";
+    User oUser = (User)Session[En_UserSession.User.ToString()];
+    vw_SupportTicket ovw_SupportTicket = new SupportTicketBL().GetTicketViewDetailById(Model.TicketId);
+    List<Attachment> lstAttachment = ViewBag.lstAttachment;
+
+    int SourceId = (int)ViewBag.DefaultForTicket;
+    
+}
+@Html.Partial("_ResultMessage")
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.validator.unobtrusive.parse($("#Manage-SupportTicket-Form"));
+        $('#CategoryId').chosen({ allow_single_deselect: true });
+
+        var validator = $("#Manage-SupportTicket-Form").data('validator');
+        $.validator.setDefaults({ ignore: ":hidden:not(.chosen-select)" })
+        $("#SourceId").val('@SourceId');
+    })
+
+    function Cancel() {
+        window.location.href = "/Admin/SupportTicket/Index";
+    }
+
+    function DeleteSupportTickets(TicketId) {
+        if (confirm("Are you sure you want to delete this Ticket?")) {
+            $("#Manage-SupportTicket-Form").block();
+            $.post("/Admin/SupportTicket/Delete/" + TicketId, function (data, status) {
+                if (data.success) {
+                    SuccessMessage(data.Message);
+                    window.location.href = "/Admin/SupportTicket/Index";
+                } else {
+                    ErrorMessage(data.error);
+                }
+                $("#Manage-SupportTicket-Form").unblock();
+            });
+        }
+    }
+
+    function UpdateTicket() {
+        if ($('#Manage-SupportTicket-Form').valid()) {
+            $('#Manage-SupportTicket-Form').block();
+        }
+    }
+</script>
+
+
+<div class="col-xs-12">
+    @using (Html.BeginForm("Save", "SupportTicket", FormMethod.Post, new { Id = "Manage-SupportTicket-Form", @name = "Manage-Category-Form", @class = "form-horizontal" }))
+    {
+        @Html.HiddenFor(c => c.TicketGuid)
+        @Html.HiddenFor(c => c.TicketId)
+        @Html.HiddenFor(c => c.CustomerPriority)
+        if (ViewBag.CloseStatus == true)
+        {
+            @Html.HiddenFor(c => c.Title)
+            @Html.HiddenFor(c => c.ProblemDescription)
+            @Html.HiddenFor(c => c.CategoryId)
+            @Html.HiddenFor(c => c.OperatorPriority)
+            @Html.HiddenFor(c => c.AssignToOperator)
+            @Html.HiddenFor(c => c.AssignToSupportTeam)
+        }
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span> Title</label>
+            <div class="col-sm-9">
+                @if (ViewBag.CloseStatus == false)
+                {
+                    @Html.TextBoxFor(c => c.Title, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(c => c.Title)
+                }
+                else
+                {
+                    <label class="control-label ">@ovw_SupportTicket.Title</label>
+                }
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span>  Problem Description </label>
+            <div class="col-sm-9">
+                @if (ViewBag.CloseStatus == false)
+                {
+                    @Html.TextAreaFor(c => c.ProblemDescription, new { @class = "form-control", @Column = 3 })
+                    @Html.ValidationMessageFor(c => c.ProblemDescription)
+                }
+                else
+                {
+                    <label class="control-label ">@ovw_SupportTicket.ProblemDescription</label>
+                }
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Company User</label>
+            <div class="col-sm-4">
+                <label class="control-label ">@ovw_SupportTicket.CompanyUserName</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span> Select Category</label>
+            <div class="col-sm-4">
+
+                @if (ViewBag.CloseStatus == false)
+                {
+                    @Html.DropDownListFor(p => p.CategoryId, new SelectList(ViewBag.lstcategory as System.Collections.IEnumerable, "Value", "Text"), "--- Select ---", new { @class = "chosen-select form-control" })
+                    @Html.ValidationMessageFor(p => p.CategoryId)
+                }
+                else
+                {
+                    <label class="control-label ">@ovw_SupportTicket.CategoryName</label>
+                }
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span> Status</label>
+            <div class="col-sm-4">
+
+                @Html.DropDownListFor(p => p.CurrentStatus, new SelectList(ViewBag.TicketStatus as System.Collections.IEnumerable, "TicketStatusId", "StatusName"), "--- Select ---", new { @class = "form-control" })
+                @Html.ValidationMessageFor(p => p.CurrentStatus)
+            </div>
+        </div>
+        <div class="form-group">
+
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Contract</label>
+            <div class="col-sm-9 form-control-static">
+                @ovw_SupportTicket.ContractName  &nbsp;&nbsp;&nbsp;&nbsp;
+                @if (ovw_SupportTicket.ResponseWithInHours != null && @ovw_SupportTicket.SolutionWithInHours != null)
+                {
+                    @:<b> Response In : </b>
+                    <span>(@ovw_SupportTicket.ResponseWithInHours hrs)&nbsp; &nbsp; &nbsp; &nbsp;</span>
+                    @:<b>Solution In : </b>
+                    <span>(@ovw_SupportTicket.SolutionWithInHours hrs)</span>
+                }
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span> Operator Priority</label>
+            <div class="col-sm-4">
+
+
+                @if (ViewBag.CloseStatus == false)
+                {
+                    @Html.DropDownListFor(p => p.OperatorPriority, new SelectList(ViewBag.OperatorPriorities as System.Collections.IEnumerable, "TicketPriorityId", "Description"), "--- Select ---", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(p => p.OperatorPriority)
+                }
+                else
+                {
+                    <label class="control-label ">@ovw_SupportTicket.OperatorPriority</label>
+                }
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Solution Priority</label>
+            <div class="col-sm-4">
+                <label class="control-label ">@ovw_SupportTicket.CustomerPriority</label>
+            </div>
+        </div>
+
+        if (ViewBag.CloseStatus == false)
+        {
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Assign To</label>
+                <div class="col-sm-4">
+                    @Html.DropDownListFor(p => p.AssignToSupportTeam, new SelectList(ViewBag.LstSupportTeams as System.Collections.IEnumerable, "TeamId", "Name"), "--- Select Support Team ---", new { @class = "form-control ReAssign", @onchange = "return AssignedTo_Team();" })
+                    @Html.ValidationMessageFor(p => p.AssignToSupportTeam)
+
+                </div>
+                <div class="col-sm-1"><b>Or</b></div>
+
+                <div class="col-sm-4">
+                    @Html.DropDownListFor(p => p.AssignToOperator, new SelectList(ViewBag.LstOperators as System.Collections.IEnumerable, "Value", "Text"), "--- Select Operator ---", new { @class = "form-control ReAssign", @onchange = "return AssignedTo_Operator();" })
+                    @Html.ValidationMessageFor(p => p.AssignToOperator)
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Assign To</label>
+                <div class="col-sm-4">
+                    <label class="control-label ">@ovw_SupportTicket.AssignToName</label>
+                </div>
+            </div>
+        }
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Tickets Source</label>
+            <div class="col-sm-4">
+                @Html.DropDownListFor(p => p.SourceId,new SelectList(ViewBag.lstTicketsSource as System.Collections.IEnumerable, "Value", "Text"), "--- Select ---", new { @class = "form-control" })
+                @Html.ValidationMessageFor(p => p.SourceId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Is in guarantee </label>
+            <label class="col-sm-4" style="margin-top:6px">
+                @Html.CheckBoxFor(c => c.IsInGuarantee, new { @class = "ace" })
+            </label>
+        </div>
+
+        <div class="clearfix form-group form-actions">
+            <div style="text-align:center;">
+                <button id="btnSaveTickets" class="btn btn-sm btn-primary btncancel btnreopen ReAssign" onclick="UpdateTicket();">
+                    <i class="ace-icon fa fa-check bigger-110"></i>
+                    Save
+                </button>
+                &nbsp;
+                <button type="button" class="btn btn-sm btncancel btnreopen ReAssign" onclick="Cancel();">
+                    <i class="ace-icon fa fa-times"></i>
+                    Cancel
+                </button>
+                @if (ViewBag.CloseStatus == false)
+                {
+                    <button type="button" class="btn btn-sm btn-danger btncancel ReAssign r" onclick="DeleteSupportTickets('@Model.TicketId');">
+                        <i class="ace-icon fa fa-trash"></i>
+                        Delete
+                    </button>
+                }
+            </div>
+        </div>
+    }
+</div>
+<script type="text/javascript">
+
+    function AssignedTo_Team() {
+        $("select#AssignToOperator")[0].selectedIndex = 0;
+    }
+
+    function AssignedTo_Operator() {
+        $("select#AssignToSupportTeam")[0].selectedIndex = 0;
+    }
+
+</script>

@@ -1,0 +1,126 @@
+﻿@{
+    ViewBag.Title = "Users";
+    int TicketId = ViewBag.TicketId;
+}
+
+@Html.Partial("_ResultMessage")
+
+
+
+<div class="text-right mar-15">
+    <input type="submit" onclick="ManageActivity(0);" class="btn btn-sm btn-primary" value="Add Activity">
+</div>
+<table id="ActivityDataGrid"></table>
+<div id="ActivityDataPager"></div>
+
+
+<div class="modal fade" id="dv_PopUp" role="dialog"></div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('<span class="lbl"></span>').insertAfter(":checkbox"); //apply checkbox ace design
+    });
+
+    var grid_selector = "#ActivityDataGrid";
+    var pager_selector = "#ActivityDataPager";
+
+    jQuery(function ($) {
+
+        var ddlRole = '@ViewBag.ddlRole';
+        jQuery(grid_selector).jqGrid({
+            url: '/Account/SupportTicket/GetActivityGridData?Id=' + '@TicketId',
+
+            viewrecords: true, sortname: 'Id', sortorder: "desc",
+            colNames: ['Id', 'Description', 'Note', 'SubtractFromContract', 'From Date', 'To Date', 'Created On', "Actions"],
+            colModel: [
+                        { name: 'Id', width: 1, hidden: true, key: true, align: 'center' },
+                        { name: 'Description', index: 'Description', width: 20, align: 'left', search: true, searchoptions: JQ_sopt_string },
+                        { name: 'Note', index: 'Note', width: 20, align: 'left', search: true, searchoptions: JQ_sopt_string },
+                        { name: 'SubtractFromContract', index: 'SubtractFromContract', width: 13, align: 'center', search: true, searchoptions: JQ_sopt_bool },
+                        {
+                            name: 'FromDate', index: 'FromDate', width: 7, align: "center", formatter: 'date', formatoptions: { srcformat: "ISO8601Long", newformat: "m/d/Y h:i A" }, search: true, searchoptions: {
+                                sopt: ['ge'], dataInit: function (el) {
+                                    $(el).datepicker({
+                                        autoclose: true
+                                    }).on("changeDate", function (e) { $('#ActivityDataGrid')[0].triggerToolbar(); });
+                                }
+                            }
+                        },
+                       {
+                           name: 'ToDate', index: 'ToDate', width: 7, align: "center", formatter: 'date', formatoptions: { srcformat: "ISO8601Long", newformat: "m/d/Y h:i A" }, search: true, searchoptions: {
+                               sopt: ['ge'], dataInit: function (el) {
+                                   $(el).datepicker({
+                                       autoclose: true
+                                   }).on("changeDate", function (e) { $('#ActivityDataGrid')[0].triggerToolbar(); });
+                               }
+                           }
+                       },
+                       {
+                           name: 'CreatedOn', index: 'CreatedOn', width: 7, align: "center", formatter: "date", search: true, searchoptions: {
+                               sopt: ['ge'], dataInit: function (el) {
+                                   $(el).datepicker({
+                                       autoclose: true
+                                   }).on("changeDate", function (e) { $('#ActivityDataGrid')[0].triggerToolbar(); });
+                               }
+                           }
+                       },
+                      { name: 'Action', index: 'Id', width: 7, align: 'center', formatter: LinkFormatter, search: false, sortable: false },
+            ],
+            pager: pager_selector,
+            rowNum: 10,
+            rowList: [5, 10, 20, 50, 100],
+            autowidth: true,
+            height: '100%',
+            datatype: 'json',
+            cmTemplate: { title: false },
+            viewrecords: true,
+            mtype: 'GET',
+            loadComplete: function () { ResizeJqgrid(); },
+            jsonReader: {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: false,
+                userdata: "userdata"
+            },
+        }).navGrid('#ActivityDataPager', { view: false, del: false, add: false, edit: false, search: false, referesh: true },
+           {}, // default settings for edit
+           {}, // default settings for add
+           {}, // delete instead that del:false we need this
+           { closeOnEscape: true, multipleSearch: true, closeAfterSearch: true }, // search options
+           {} /* view parameters*/
+         ).jqGrid('filterToolbar', { stringResult: true, searchOnEnter: false, defaultSearch: 'cn' });
+    });
+
+    function ManageActivity(ActivityId) {
+        $('#dv_PopUp').modal('show');
+        $('#dv_PopUp').html("");
+        $("#dv_PopUp").load("/Account/SupportTicket/ManageActivity?id=" + ActivityId + "&TicketId=" + '@TicketId', function () {
+        });
+    }
+
+    function LinkFormatter(cellvalue, options, rowObject) {
+        return "<a href='javascript:void(0);'class='ace-icon fa fa-pencil blue bigger-120' onclick='ManageActivity(\"" + rowObject["Id"] + "\");' data-rel='tooltip' title='' data-original-title='Edit'  data-placement='left'></a> | " +
+     "<a href='javascript:void(0);' class='ace-icon fa fa-trash-o red bigger-120' onclick='DeleteActivity(\"" + rowObject["Id"] + "\");' data-rel='tooltip' title='' data-original-title='Delete' data-placement='left' ></a>";
+    }
+
+    function DeleteActivity(ActivityId) {
+        if (confirm("Are you sure you want to delete this Activity?")) {
+            $("#dv_row").block();
+            $.post("/Account/SupportTicket/DeleteActivity/" + ActivityId, function (data, status) {
+                if (data.success) {
+                    SuccessMessage(data.Message);
+                    $("#ActivityDataGrid").trigger('reloadGrid');
+                } else {
+                    ErrorMessage(data.message);
+                }
+                $("#dv_row").unblock();
+            });
+        }
+    }
+</script>
+
+
+

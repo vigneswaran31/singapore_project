@@ -1,0 +1,58 @@
+﻿@model HelpDeskEntity.User
+@using HelpDeskEntity
+
+<div class="widget-box">
+    <div class="widget-header">
+        <h4 class="widget-title lighter smaller">
+            <i class="ace-icon fa fa-user blue"></i>
+            Contact Details
+        </h4>
+    </div>
+    <div class="widget-body">
+        <div class="widget-main">
+            <div class="dialogs">
+                                
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <div class="row">
+                            <label class="col-xs-12 col-sm-4 col-md-4 control-label"><b> Name : </b></label>
+                            <div class="col-xs-12 col-sm-8 col-md-8">
+                                <label class="control-label ">@Model.Name @( ViewBag.CompanyName != null ? "- " + ViewBag.CompanyName : "")</label>
+                            </div>
+                        </div>
+                    </div>                    
+
+                    <div class="form-group">
+                        <div class="row">
+                            <label class="col-xs-12 col-sm-4 col-md-4 control-label"><b> Telephone : </b></label>
+                            <div class="col-xs-12 col-sm-8 col-md-8">
+                                <label class="control-label ">@Model.Contact @( ViewBag.UserContactDescription != null ? "- " + ViewBag.UserContactDescription : "")</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <div class="row">
+                            <label class="col-xs-12 col-sm-4 col-md-4 control-label"><b> Contact :</b></label>
+                            <div class="col-xs-12 col-sm-8 col-md-8">
+                                <label class="control-label ">@ViewBag.CompanyContact</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="row">
+                            <label class="col-xs-12 col-sm-4 col-md-4 control-label"><b> Email :</b></label>
+                            <div class="col-xs-12 col-sm-8 col-md-8">
+                                <label class="control-label ">@Model.Email</label>
+                            </div>
+                        </div>
+                    </div>                    
+                </div>
+                <div class="c"></div>
+                </div>
+        </div>
+    </div>
+</div>

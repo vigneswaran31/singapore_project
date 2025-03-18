@@ -1,0 +1,115 @@
+﻿@model HelpDeskEntity.Models.SearchTicketModel
+@using HelpDeskEntity
+@{
+
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".customdatepicker").datepicker({});
+        $('#Company').chosen({ allow_single_deselect: true });
+        $('#AssignedToOperator').chosen({ allow_single_deselect: true });
+        $('#AssignedToSupportTeam').chosen({ allow_single_deselect: true });
+        $('#Category').chosen({ allow_single_deselect: true });
+
+        $('#AdvancedSearch').hide();
+    });
+
+    function AssignedTo_Team() {
+        $("select#AssignedToOperator")[0].selectedIndex = 0;
+
+    }
+
+    function AssignedTo_Operator() {
+        $("select#AssignedToSupportTeam")[0].selectedIndex = 0;
+    }
+</script>
+
+<div class="row" style="padding-bottom:0;">
+    <div class="col-xs-12">
+        <div class="panel panel-default">
+            @*<div class="panel-heading"><strong>Advanced Search</strong> <div class="c"></div></div>*@
+            <div class="panel-body">
+                @using (Html.BeginForm("Search", "SupprtTickets", FormMethod.Post, new { @class = "form-horizontal", @id = "search-form" }))
+                {
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-xs-12 col-sm-2 col-md-2 control-label">Search (Title or Desc) : </label>
+                                <div class="col-xs-12 col-sm-4 col-md-4">
+                                    @Html.TextBoxFor(p => p.ProblemDescription, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-xs-12 col-sm-2 col-md-2 control-label"> Status : </label>
+                                <div class="col-xs-12 col-sm-4 col-md-4">
+                                    @Html.DropDownListFor(p => p.Status, new SelectList(ViewBag.ddlStatus as System.Collections.IEnumerable, "TicketStatusId", "StatusName"), "--Select--", new { @class = "form-control" })
+                                </div>
+                                <label class="col-xs-12 col-sm-2 col-md-2 control-label">  Company : </label>
+                                <div class="col-xs-12 col-sm-4 col-md-4">
+                                    @Html.DropDownListFor(p => p.Company, new SelectList(ViewBag.ddlCompanies as System.Collections.IEnumerable, "CompanyId", "CompanyName"), "--Select--", new { @class = "chosen-select form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-xs-12 col-sm-2 col-md-2 control-label">  Priority (Operator) : </label>
+                                <div class="col-xs-12 col-sm-4 col-md-4">
+                                    @Html.DropDownListFor(p => p.OperatorPriority, new SelectList(ViewBag.ddlOptPriorities as System.Collections.IEnumerable, "TicketPriorityId", "Description"), "--Select--", new { @class = "form-control" })
+                                </div>
+                                <label class="col-xs-12 col-sm-2 col-md-2 control-label">   Priority (Customer) : </label>
+                                <div class="col-xs-12 col-sm-4 col-md-4">
+                                    @Html.DropDownListFor(p => p.CustomerPriority, new SelectList(ViewBag.ddlCusPriorities as System.Collections.IEnumerable, "TicketPriorityId", "Description"), "--Select--", new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-xs-12 col-sm-2 col-md-2 control-label">   Assigned Operator : </label>
+                                <div class="col-xs-12 col-sm-4 col-md-4">
+                                    @Html.DropDownListFor(p => p.AssignedToOperator, new SelectList(ViewBag.ddlAssgnedToOperators as System.Collections.IEnumerable, "Value", "Text"), "--Select--", new { @class = "chosen-select form-control", @onchange = "return AssignedTo_Operator();" })
+                                </div>
+                                <label class="col-xs-12 col-sm-2 col-md-2 control-label">   Assigned Team : </label>
+                                <div class="col-xs-12 col-sm-4 col-md-4">
+                                    @Html.DropDownListFor(p => p.AssignedToSupportTeam, new SelectList(ViewBag.ddlAssgnedToSupportTeams as System.Collections.IEnumerable, "TeamId", "Name"), "--Select--", new { @class = "chosen-select form-control", @onchange = "return AssignedTo_Team();" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-xs-12 col-sm-2 col-md-2 control-label">Category : </label>
+                                <div class="col-xs-12 col-sm-4 col-md-4">
+                                    @Html.DropDownListFor(p => p.Category, new SelectList(ViewBag.ddlCategories as System.Collections.IEnumerable, "Value", "Text"), "--Select--", new { @class = "chosen-select form-control" })
+                                </div>
+                                <label class="col-xs-5 col-sm-2 col-md-2 control-label"> Date range : </label>
+                                <div class="col-xs-12 col-sm-2 col-md-2">
+                                    @Html.TextBoxFor(p => p.DateTicketFrom, new { @class = "form-control bts_datepicker" })
+                                </div>@*<div class="Todate l">To</div>*@
+                                <div class="col-xs-12 col-sm-2 col-md-2">
+                                    @Html.TextBoxFor(p => p.DateTicketTo, new { @class = "form-control bts_datepicker" })
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="c"></div>
+
+                    <div class="clearfix">
+                        <div class="col-md-offset-5 col-md-7">
+                            <button id="btnSaveTickets" type="button" class="btn btn-sm btn-success" onclick="Search()">
+                                <i class="ace-icon fa fa-search bigger-110"></i>
+                                Search
+                            </button>
+                            &nbsp;
+                            <button type="button" class="btn btn-sm btn-warning" onclick="Clear();">
+                                <i class="ace-icon fa fa-times"></i>
+                                Clear
+                            </button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

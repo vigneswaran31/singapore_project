@@ -1,0 +1,278 @@
+﻿<script type="text/javascript">
+    $(document).ready(function () {
+        $('#sidebar').find('.active').closest('ul').closest('li').addClass("active open");
+    });
+</script>
+<div id="sidebar" class="sidebar sidebar-fixed responsive">
+    <ul class="nav nav-list">
+        <li class="@(Request.Url.ToString().Contains("/Dashboard/Index") ? "active" : "")">
+            <a href="~/Admin/Dashboard/Index">
+                <i class="menu-icon fa fa-tachometer"></i>
+                <span class="menu-text"> Dashboard </span>
+            </a>
+            <b class="arrow"></b>
+        </li>
+        <li class="">
+            <a href="#" class="dropdown-toggle">
+                <i class="menu-icon fa fa-users"></i>
+                <span class="menu-text"> Helpdesk Users </span>
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+            <b class="arrow"></b>
+            <ul class="submenu">
+                <li class="@(Request.Url.ToString().Contains("/Admin/Users") ? "active" : "")">
+                    <a href="~/Admin/Users">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        <span class="menu-text">
+                            Users
+                        </span>
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+                <li class="@(Request.Url.ToString().Contains("/Admin/SupportTeams/") ? "active" : "")">
+                    <a href="~/Admin/SupportTeams/Index">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        <span class="menu-text"> Support Teams</span>
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+                <li class="@(Request.Url.ToString().Contains("/AutoAssign/Index") ? "active" : "")">
+                    <a href="~/Admin/AutoAssign/Index">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        <span class="menu-text"> Auto Assign </span>
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+            </ul>
+        </li>
+        <li class="">
+            <a href="#" class="dropdown-toggle">
+                <i class="menu-icon glyphicon glyphicon-inbox"></i>
+                <span class="menu-text">Companies</span>
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+            <b class="arrow"></b>
+            <ul class="submenu">
+                <li class="@(Request.Url.ToString().Contains("/Admin/Companies/") ? "active" : "")">
+                    <a href="~/Admin/Companies">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Manage
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+                <li class="@(Request.Url.ToString().Contains("/Admin/CompanyCategories") ? "active" : "")">
+                    <a href="~/Admin/CompanyCategories">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Categories
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+                <li class="@(Request.Url.ToString().Contains("/Admin/Languages") ? "active" : "")">
+                    <a href="~/Admin/Languages">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Languages
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+            </ul>
+        </li>
+        <li class="@(Request.Url.ToString().Contains("/SupportTicket/Index") ? "active" : "")">
+            <a href="~/Admin/SupportTicket/Index">
+                <i class="menu-icon glyphicon glyphicon-tags"></i>
+                <span class="menu-text"> Support Tickets </span>
+            </a>
+            <b class="arrow"></b>
+        </li>
+        <li class="">
+            <a href="#" class="dropdown-toggle">
+                <i class="menu-icon fa fa-cog"></i>
+                <span class="menu-text"> Helpdesk Elements</span>
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+            <b class="arrow"></b>
+            <ul class="submenu">
+                <li class="@(Request.Url.ToString().Contains("/Admin/Settings/SupportCategories") ? "active" : "")">
+                    <a href="~/Admin/Settings/SupportCategories">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Categories
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+                <li class="@(Request.Url.ToString().Contains("/Admin/Settings/TicketStatus") ? "active" : "")">
+                    <a href="~/Admin/Settings/TicketStatus">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Ticket Status
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+                <li class="@(Request.Url.ToString().Contains("/Admin/Settings/OptPriorities") ? "active" : "")">
+                    <a href="~/Admin/Settings/OptPriorities">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Operator Priorities
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+                <li class="@(Request.Url.ToString().Contains("/Admin/Settings/CustPriorities") ? "active" : "")">
+                    <a href="~/Admin/Settings/CustPriorities">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Customer Priorities
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+                <li class="@(Request.Url.ToString().Contains("/Admin/EmailTemplate/Index") ? "active" : "")">
+                    <a href="~/Admin/EmailTemplate/Index">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        <span class="menu-text"> Email Templates</span>
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+                <li class="@(Request.Url.ToString().Contains("/TicketSource") ? "active" : "")">
+                    <a href="~/Admin/TicketSource">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        <span class="menu-text"> Ticket Sources</span>
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+            </ul>
+        </li>
+        <li class="">
+            <a href="#" class="dropdown-toggle">
+                <i class="menu-icon glyphicon glyphicon-inbox"></i>
+                <span class="menu-text"> Knowledge Base</span>
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+            <b class="arrow"></b>
+            <ul class="submenu">
+                <li class="@(Request.Url.ToString().Contains("/Admin/KBCategories/") ? "active" : "")">
+                    <a href="~/Admin/KBCategories/">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Categories
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+                <li class="@(Request.Url.ToString().Contains("/Admin/KBArticles") ? "active" : "")">
+                    <a href="~/Admin/KBArticles/">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Articles
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+            </ul>
+        </li>
+        <li class="">
+            <a href="#" class="dropdown-toggle">
+                <i class="menu-icon fa fa-gavel"></i>
+                <span class="menu-text"> Support Contracts </span>
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+            <b class="arrow"></b>
+            <ul class="submenu">
+                <li class="@(Request.Url.ToString().Contains("/Admin/Contract/ContractTemplate") ? "active" : "")">
+                    <a href="~/Admin/Contract/ContractTemplate">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Templates
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+                <li class="@(Request.Url.ToString().Contains("/Admin/Contract/CompanyContract") ? "active" : "")">
+                    <a href="~/Admin/Contract/CompanyContract">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Companies Contracts
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+
+            </ul>
+        </li>
+        <li class="@(Request.Url.ToString().Contains("/Configs/Index") ? "active" : "")">
+            <a href="~/Admin/Configs/Index">
+                <i class="menu-icon fa fa-cog"></i>
+                <span class="menu-text"> Configs</span>
+            </a>
+            <b class="arrow"></b>
+        </li>
+        <li class="">
+            <a href="#" class="dropdown-toggle">
+                <i class="menu-icon glyphicon glyphicon-stats"></i>
+                <span class="menu-text"> Statistics </span>
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+            <b class="arrow"></b>
+            <ul class="submenu">
+                <li class="@(Request.Url.ToString().Contains("/Admin/Statistics/Index") ? "active" : "")">
+                    <a href="~/Admin/Statistics/Index">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Tickets
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+                <li class="@(Request.Url.ToString().Contains("/Admin/Statistics/Value") ? "active" : "")">
+                    <a href="~/Admin/Statistics/Value">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Values
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+            </ul>
+        </li>
+
+        <li class="">
+            <a href="#" class="dropdown-toggle">
+                <i class="menu-icon glyphicon glyphicon-envelope"></i>
+                <span class="menu-text"> Mail </span>
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+            <b class="arrow"></b>
+            <ul class="submenu">
+                <li class="@(Request.Url.ToString().Contains("/Admin/Mail/BlackList") ? "active" : "")">
+                    <a href="~/Admin/Mail/BlackList">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Black List
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+                <li class="@(Request.Url.ToString().Contains("/Admin/Mail/Incoming") ? "active" : "")">
+                    <a href="~/Admin/Mail/Incoming">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Incoming
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+            </ul>
+        </li>
+
+        <li class="">
+            <a href="#" class="dropdown-toggle">
+                <i class="menu-icon fa fa-comment"></i>
+                <span class="menu-text">Live Chat</span>
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+            <b class="arrow"></b>
+            <ul class="submenu">
+                <li class="@(Request.Url.ToString().Contains("/CuteSoft_Client/CuteChat/SupportAdmin/") ? "active" : "")">
+                    <a href="/CuteSoft_Client/CuteChat/SupportAdmin/" target="_blank">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Support Admin
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+                <li class="@(Request.Url.ToString().Contains("/CuteSoft_Client/CuteChat/ChatAdmin/") ? "active" : "")">
+                    <a href="/CuteSoft_Client/CuteChat/ChatAdmin/" target="_blank">
+                        <i class="menu-icon fa fa-caret-right" ace-icon ></i>
+                        Chat Admin
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+        <i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+    </div>
+    <script type="text/javascript">
+        try { ace.settings.check('sidebar', 'collapsed') } catch (e) { }
+    </script>
+</div>
+
+
+

@@ -1,0 +1,86 @@
+﻿@model HelpDeskEntity.EmailBlackList
+@{
+    Layout = null;
+}
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $.validator.unobtrusive.parse($("#Manage-BlackList-Form"));
+
+      //  $("#MailAddress").rules("add", { required: true, messages: { required: "Please enter MailAddress." } });
+        $('<span class="lbl"></span>').insertAfter(":checkbox"); //apply checkbox ace design
+    });
+
+    function Cancel() {
+        $('#dv_PopUp').modal('hide');
+    }
+
+    function SaveBlackList() {
+        $.validator.unobtrusive.parse($("#Manage-BlackList-Form"));
+        if ($('#Manage-BlackList-Form').valid()) {
+            $('#ManageData').block();
+            var formData = $("#Manage-BlackList-Form").serialize();
+            $.post("@Url.Content("~/Admin/Mail/SaveBlackList")", formData, function (data) {
+                if (data.success) {//on success refrsh view
+                    $('#dv_PopUp').modal('hide');
+                    SuccessMessage(data.message);
+                    $("#BlackListDataGrid").trigger('reloadGrid');
+                } else {
+                    $('#ManageData').unblock();
+                    ErrorMessage(data.message);
+                }
+            });
+        }
+    }
+
+</script>
+
+<div id="modal-dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="bigger">Manage Email Black List</h4>
+            </div>
+            <div class="modal-body" id="ManageData">
+                <div class="col-xs-12">
+                    <div class="row">
+                        @using (Html.BeginForm("SaveBlackList", "Mail", FormMethod.Post, new { @class = "form-horizontal", Id = "Manage-BlackList-Form" }))
+                        {
+                            @Html.HiddenFor(c => c.Id)
+
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span> Mail Address</label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(c => c.MailAddress, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(c => c.MailAddress)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"> Delete On Read </label>
+                                <label class="col-sm-8 " style="margin-top:6px">
+                                    @Html.CheckBoxFor(c => c.DeleteOnRead, new { @class = "ace" })
+                                </label>
+                            </div>
+                        }
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div style="text-align:center;">
+                    <button class="btn btn-sm btn-primary" type="button" onclick="SaveBlackList();">
+                        <i class="ace-icon fa fa-check bigger-110"></i>
+                        Save
+                    </button>
+                    &nbsp;
+                    <button class="btn btn-sm" type="button" onclick="Cancel();">
+                        <i class="ace-icon fa fa-times"></i>
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

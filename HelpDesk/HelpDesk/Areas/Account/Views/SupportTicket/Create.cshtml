@@ -1,0 +1,485 @@
+﻿@using HelpDeskEntity;
+@using HelpDeskEntity.Classes;
+@using HelpDeskBAL;
+@using HelpDesk.Classes
+@model HelpDeskEntity.Ticket
+@{
+    ViewBag.Title = "Create Ticket";
+    User oUser = (User)Session[En_UserSession.User.ToString()];
+    Config config = new ConfigsBL().GetByName(En_Config.AttachmentType.ToString());
+    int SourceId = (int)ViewBag.DefaultForTicket;
+}
+@Html.Partial("_ResultMessage")
+
+<link href="@Url.Content("~/Content/dropzone.css")" rel="stylesheet" />
+<script src="@Url.Content("~/Scripts/dropzone.js")"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.validator.unobtrusive.parse($("#Manage-SupportTicket-Form"));
+        $('#CompanyUserId').chosen({ allow_single_deselect: true });
+
+        $("#SourceId").val('@SourceId');
+
+        var validator = $("#Manage-SupportTicket-Form").data('validator');
+        validator.settings.ignore = ":hidden:not(select)";
+
+        if ('@Model.TicketId' == 0) {
+            jQuery(function ($) {
+                var IsError = false;
+                Dropzone.autoDiscover = false;
+                try {
+                    var myDropzone = new Dropzone("#dropzone", {
+                        url: "/Account/SupportTicket/SaveUploadedFile?TicketId=0",
+                        paramName: "file", // The name that will be used to transfer the file
+                        maxFilesize: 20, // MB
+                        maxFiles: 5,
+                        addRemoveLinks: true,
+                        acceptedFiles: '@config.Value',
+                        clickable: true,
+                        parallelUploads: 1,
+                        dictDefaultMessage:
+                        '<span class="bigger-150 bolder"><i class="ace-icon fa fa-caret-right red"></i> Drop files</span> to upload \
+			            <span class="smaller-80 grey">(or click)</span> <br /> \
+			            <i class="upload-icon ace-icon fa fa-cloud-upload blue fa-3x"></i>',
+                        dictResponseError: 'Error while uploading file!',
+                        autoProcessQueue: true,
+                        //change the previewTemplate to use Bootstrap progress bars
+                        previewTemplate: "<div class=\"dz-preview dz-file-preview\">\n  <div class=\"dz-details\">\n      <img data-dz-thumbnail />\n  </div>\n  <div class=\"progress progress-small progress-striped active\"><div class=\"progress-bar progress-bar-success\" data-dz-uploadprogress></div></div>\n  <div class=\"dz-success-mark\"><span></span></div>\n  <div class=\"dz-error-mark\"><span></span></div>\n  <div class=\"dz-error-message\"><span data-dz-errormessage></span></div>\n</div>"
+                        ,
+                        init: function () {
+                            var thisDropzone = this;
+                            var Attachments = JSON.parse('@Html.Raw(ViewBag.Attachments)');
+                            var imagepath = "";
+                            if (Attachments.length > 0) {
+                                for (var i = 0; i < Attachments.length; i++) {
+                                    var mockFile = { name: Attachments[i].FilePath, fileId: Attachments[i].AttachmentId };
+                                    thisDropzone.emit("addedfile", mockFile);
+                                    imagepath = "@(SiteUtility.GetImageUrl())" + "/Tickets/" + Attachments[i].FilePath;
+
+                                    thisDropzone.emit("thumbnail", mockFile, imagepath);
+
+                                    thisDropzone.files[i] = mockFile;
+                                }
+
+                                thisDropzone.options.maxFiles = thisDropzone.options.maxFiles - Attachments.length; //adjust max file count
+                                $('.dz-preview').addClass('dz-success'); //mark imgs uploaded
+                                RefreshMainImg();
+
+                                $('.dropzone img').each(function () {
+                                    var $this = $(this);
+                                    if (!$this.parent().is("a"))
+                                        $this.wrap('<a data-rel="colorbox" href="' + $this.attr('src') + '"></a>');
+                                });
+                            }
+                        }
+                    });
+                } catch (e) {
+                }
+
+                myDropzone.on("maxfilesexceeded", function (file) {
+                    file.FilesExceeded = true;
+                    myDropzone.removeFile(file);
+                    alert("You cannot add more files.");
+                });
+                myDropzone.on("removedfile", function (file) {
+                    if (file.FilesExceeded == true || IsError)
+                        return;
+                    if (file.fileId > 0) {
+                        $.post("/Account/SupportTicket/DeleteUploadedFile", { serverId: 0, fileId: file.fileId },
+                            function (data) {
+                                SuccessMessage(data.message);
+                                if (file.notUpdateMaxfiles != true)
+                                    myDropzone.options.maxFiles += 1; //adjust max file count if db file deleted
+                            });
+                    }
+                    else {
+                        $.post("/Account/SupportTicket/DeleteUploadedFile", { serverId: file.serverId, fileId: 0 });
+                        $('input[name="adImgs"][value="' + file.serverId + '"]').remove();
+                    }
+                    RefreshMainImg();
+                });
+                myDropzone.on("success", function (file, response) {
+                    if (response.fileId != null) {
+                        file.fileId = response.fileId;
+                        file.notUpdateMaxfiles = true;
+                        SuccessMessage(response.message);
+                    }
+                    else {
+                        file.serverId = response.serverId;
+                        $('#Manage-SupportTicket-Form').append('<input type="hidden" name="adImgs" value="' + file.serverId + '" />');
+                        $('#Manage-SupportTicket-Form').append('<input type="hidden" name="imgNames" value="' + file.name + '" />');
+                    }
+                    RefreshMainImg();
+                });
+                myDropzone.on("error", function (file) {
+                    IsError = true;
+                    if (!file.accepted) {
+                        this.removeFile(file);
+                        alert("You cannot add this type of file.");
+                    }
+                });
+            });
+        }
+
+    })
+
+    function RefreshMainImg() {
+        if ($('.dz-preview:first').find('.dz-mainimg-mark').length <= 0)
+            $('.dz-preview:first').append("<div class='dz-mainimg-mark'><span></span></div>");
+    }
+
+    function Cancel() {
+        window.location.href = "/Account/SupportTicket/Index";
+    }
+
+    function CreateTicket() {
+        if ($('#Manage-SupportTicket-Form').valid()) {
+            $('#Manage-SupportTicket-Form').block();
+        }
+    }
+
+
+</script>
+
+<div class="breadcrumbs breadcrumbs-fixed" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="@Url.Action("Index","Dashboard")">Home</a>
+        </li>
+        <li class="active">Create Ticket</li>
+    </ul>
+
+</div>
+
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+            Create Support Ticket
+        </h1>
+    </div>
+
+    <div class="col-xs-12">
+        @using (Html.BeginForm("Save", "SupportTicket", FormMethod.Post, new { @id = "Manage-SupportTicket-Form", @name = "Manage-SupportTicket-Form", @class = "form-horizontal" }))
+        {
+            @Html.HiddenFor(c => c.TicketId)
+            @Html.HiddenFor(c => c.CreatedOn)
+            @Html.HiddenFor(c => c.CompanyId)
+            if (Model.TicketId == 0)
+            {
+                @Html.HiddenFor(c => c.CurrentStatus)
+            }
+            else
+            {
+                @Html.HiddenFor(c => c.CompanyId)
+                @Html.HiddenFor(c => c.ContractId)
+                @Html.HiddenFor(c => c.CategoryId)
+            }
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span> Title</label>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(c => c.Title, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(c => c.Title)
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span>  Problem Description </label>
+                <div class="col-sm-9">
+                    @Html.TextAreaFor(c => c.ProblemDescription, new { @class = "form-control", @rows = "5" })
+                    @Html.ValidationMessageFor(c => c.ProblemDescription)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span> Company User</label>
+                <div class="col-sm-4">
+                    @Html.DropDownListFor(p => p.CompanyUserId, new SelectList(ViewBag.CompanyUsers as System.Collections.IEnumerable, "Value", "Text"), "-- Select Company User --", new { @class = "chosen-select form-control", @onchange = "return Get_Contract();" })
+                    @Html.ValidationMessageFor(p => p.CompanyUserId)
+                </div>
+            </div>
+            <div class="form-group" style="display:none;" id="divContractBlock">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Note</label>
+                <div class="col-sm-4" id="divContractError" style="color:#b94a48;">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span> Select Contract</label>
+                <div class="col-sm-4">
+                    @Html.DropDownListFor(p => p.ContractId, Enumerable.Empty<SelectListItem>(), "--- Select ---", new { @class = "form-control", @onchange = "return Get_Category();" })
+                    @Html.ValidationMessageFor(p => p.ContractId)
+                </div>
+            </div>
+            <div class="form-group" style="display:none;" id="divContractDetail">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"></label>
+                <div class="col-sm-4">
+                    <div class="row">
+                        <div class="col-sm-8" id="lblcontrctexpire" style="display:none"><b>Contract Expires On :</b></div>
+                        <div class="col-sm-4" id="dvexpdt"></div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-8" id="lblResponse" style="display:none"><b>Response Due within hrs :</b></div>
+                        <div class="col-sm-4" id="dvresponse"></div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-8" id="lblSolution" style="display:none"><b>Solution Due within hrs :</b></div>
+                        <div class="col-sm-4" id="dvSolution"></div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-8" id="lblTicketLeft" style="display:none"><b>Ticket Left :</b></div>
+                        <div class="col-sm-4" id="dvTicketLeft"></div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" style="display:none;" id="divTicketBlock">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Note</label>
+                <div class="col-sm-4" id="divTicketError" style="color:#b94a48; ">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span> Select Category</label>
+                <div class="col-sm-4">
+                    @Html.DropDownListFor(p => p.CategoryId, Enumerable.Empty<SelectListItem>(), "--- Select ---", new { @class = "chosen-select form-control" })
+                    @Html.ValidationMessageFor(p => p.CategoryId)
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span> Operator Priority</label>
+                <div class="col-sm-4">
+                    @Html.DropDownListFor(p => p.OperatorPriority, new SelectList(ViewBag.OperatorPriorities as System.Collections.IEnumerable, "TicketPriorityId", "Description"), "--- Select ---", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(p => p.OperatorPriority)
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span> Solution Priority</label>
+                <div class="col-sm-4">
+                    @Html.DropDownListFor(p => p.CustomerPriority, new SelectList(ViewBag.CustomerPriorities as System.Collections.IEnumerable, "TicketPriorityId", "Description"), "--- Select ---", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(p => p.CustomerPriority)
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Tickets Source</label>
+                <div class="col-sm-4">
+                    @Html.DropDownListFor(p => p.SourceId, new SelectList(ViewBag.lstTicketsSource as System.Collections.IEnumerable, "Value", "Text", ViewBag.DefaultForTicket), "--- Select ---", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(p => p.SourceId)
+                </div>
+            </div>
+            if (SiteUtility.IsAllow((int)En_Permission.ReassignOwnTickets))
+            {
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Assign To</label>
+                    <div class="col-sm-4">
+                        @Html.DropDownListFor(p => p.AssignToSupportTeam, new SelectList(ViewBag.LstSupportTeams as System.Collections.IEnumerable, "TeamId", "Name"), "--- Select Support Team ---", new { @class = "form-control", @onchange = "return AssignedTo_Team();" })
+                        @Html.ValidationMessageFor(p => p.AssignToSupportTeam)
+                    </div>
+                    <div class="col-sm-1"><b>Or</b></div>
+                    <div class="col-sm-4">
+                        @Html.DropDownListFor(p => p.AssignToOperator, new SelectList(ViewBag.LstOperators as System.Collections.IEnumerable, "Value", "Text"), "--- Select Operator ---", new { @class = "form-control", @onchange = "return AssignedTo_Operator();" })
+                        @Html.ValidationMessageFor(p => p.AssignToOperator)
+                    </div>
+                </div>
+            }
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right">Attachments</label>
+                <div class="col-sm-9">
+                    <div class="dropzone" id="dropzone" style="min-height:200px;">
+                        <div class="fallback">
+                            <input name="file" type="file" multiple="" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="clearfix form-group form-actions">
+                <div class="col-md-offset-3 col-md-9">
+
+
+                    <button id="btnSaveTickets" type="submit" class="btn btn-sm btn-primary" onclick="CreateTicket();">
+                        <i class="ace-icon fa fa-check bigger-110"></i>
+                        Save
+                    </button>
+                    &nbsp;
+                    <button type="button" class="btn btn-sm" onclick="Cancel();">
+                        <i class="ace-icon fa fa-times"></i>
+                        Cancel
+                    </button>
+                </div>
+            </div>
+            
+            
+        }
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    function Get_Contract() {
+        ClearData();
+        if ($('#CompanyUserId :selected').val()) {
+            $('#Manage-SupportTicket-Form').block();
+            var id = "ContractId";
+            $("#" + id).empty();
+            $("#" + id).append($('<option/>', {
+                value: "",
+                text: "-- Select --"
+            }));
+            $.post("/Account/SupportTicket/GetContractByCompanyId", { selectedCompanyUser: $('#CompanyUserId :selected').val() }, function (data) {
+                if (data.success) {
+                    var select = $("#" + id);
+                    $.each(data.lstContracts, function (index, itemData) {
+                        select.append($('<option/>', {
+                            value: itemData.Value,
+                            text: itemData.Text
+                        }));
+                    });
+                    $("#CompanyId").val(data.CompanyId)
+
+                    if ('@Model.CompanyUserId' != 0) {
+                        $("#ContractId").val('@Model.ContractId');
+                    }
+                }
+                else if (data.lstContracts == "") {
+                    $("#divContractBlock").css("display", "block");
+                    $("#divContractError").html("The Selected Company Doesn't have any Active Contract!");
+
+                }
+                $('#Manage-SupportTicket-Form').unblock();
+            });
+        }
+
+    }
+
+    function ClearData() {
+        $("#divContractBlock").css("display", "none");
+        $("#divContractError").html("");
+
+        $("#divTicketBlock").css("display", "none");
+        $("#divTicketError").html("");
+
+        $("#ContractId").html("");
+        $("#ContractId").append($('<option/>', {
+            value: "",
+            text: "-- Select --"
+        }));
+
+
+        $("#dvexpdt").html("");
+        $("#dvresponse").html("");
+        $("#dvSolution").html("");
+        $("#dvTicketLeft").html("");
+        $("#divContractDetail").css("display", "none");
+
+
+    }
+
+
+
+    function Get_Category() {
+        if ($('#ContractId :selected').val()) {
+            $('#Manage-SupportTicket-Form').block();
+            var id = "CategoryId";
+            $("#" + id).empty();
+            $("#" + id).append($('<option/>', {
+                value: "",
+                text: "-- Select --"
+            }));
+            $.post("/Account/SupportTicket/GetCategoryByCompanyId", { selectedCompany: $('#CompanyId').val(), SelectedContract: $('#ContractId :selected').val() }, function (data) {
+                if (data.success) {
+                    var select = $("#" + id);
+
+                    $.each(data.lstCategories, function (index, itemData) {
+                        select.append($('<option/>', {
+                            value: itemData.Value,
+                            text: itemData.Text
+                        }));
+                    });
+                    $('#CategoryId').chosen({ allow_single_deselect: true });
+
+                    if ('@Model.CompanyId' != 0) {
+                        $("#CategoryId").val('@Model.ContractId');
+                    }
+                }
+                else if (data.lstCategories == "NoTickets") {
+                    $("#divTicketBlock").css("display", "block");
+                    $("#divTicketError").html("Sorry your all Tickets are used, Please renew your Contract.");
+                    $("#ContractId").html("");
+                    $("#ContractId").append($('<option/>', {
+                        value: "",
+                        text: "-- Select --"
+                    }));
+
+                }
+                $('#Manage-SupportTicket-Form').unblock();
+            });
+        }
+
+        GetContractDetails()
+    }
+
+    function GetContractDetails() {
+        $.getJSON("/Account/SupportTicket/LoadContractDetail", { CompanyId: $('#CompanyId').val(), Contract: $('#ContractId :selected').val() },
+               function (oContractDetail) {
+                   if (oContractDetail != null) {
+                       if (oContractDetail.EndDate != "") {
+                           $("#divContractDetail").css('display', 'block');
+                           $("#lblcontrctexpire").css('display', 'block');
+                           var jsonDate = '/Date(' + oContractDetail.EndDate + ')/';
+                           var date = ConvertJsonDateString(jsonDate);
+                           $("#dvexpdt").html(date);
+                       }
+                       if (oContractDetail.ResponseWithInHours != null) {
+                           $("#divContractDetail").css('display', 'block');
+                           $("#lblResponse").css('display', 'block');
+                           $("#dvresponse").html(oContractDetail.ResponseWithInHours + " hrs.");
+                       }
+                       if (oContractDetail.SolutionWithInHours != null) {
+                           $("#divContractDetail").css('display', 'block');
+                           $("#lblSolution").css('display', 'block');
+                           $("#dvSolution").html(oContractDetail.SolutionWithInHours + " hrs.");
+                       }
+                       if (oContractDetail.TicketsLeft != null) {
+                           $("#divContractDetail").css('display', 'block');
+                           $("#lblTicketLeft").css('display', 'block');
+                           $("#dvTicketLeft").html(oContractDetail.TicketsLeft);
+                       } else {
+                           $("#divContractDetail").css('display', 'block');
+                           $("#lblTicketLeft").css('display', 'block');
+                           $("#dvTicketLeft").html('(Unlimited)');
+                       }
+                   }
+               });
+    }
+
+    function ConvertJsonDateString(jsonDate) {
+        var shortDate = null;
+        if (jsonDate) {
+            var regex = /-?\d+/;
+            var matches = regex.exec(jsonDate);
+            var dt = new Date(parseInt(matches[0]));
+            var month = dt.getMonth() + 1;
+            var monthString = month > 9 ? month : '0' + month;
+            var day = dt.getDate();
+            var dayString = day > 9 ? day : '0' + day;
+            var year = dt.getFullYear();
+            shortDate = monthString + '-' + dayString + '-' + year;
+        }
+        return shortDate;
+    };
+    function AssignedTo_Team() {
+        $('#AssignToOperator').get(0).selectedIndex = 0;
+    }
+
+    function AssignedTo_Operator() {
+        $('#AssignToSupportTeam').get(0).selectedIndex = 0;
+    }
+
+</script>

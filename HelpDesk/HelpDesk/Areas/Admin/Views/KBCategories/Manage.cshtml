@@ -1,0 +1,90 @@
+﻿@model HelpDeskEntity.KBCategory
+@{
+    Layout = null;
+}
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('<span class="lbl"></span>').insertAfter(":checkbox"); //apply checkbox ace design
+
+        $('#dv_PopUp').on('shown.bs.modal', function () {
+            $('#ParentId').chosen({ allow_single_deselect: true });
+        });
+    })
+
+    function Cancel() {
+        $('#dv_PopUp').modal('hide');
+    }
+
+    function SaveCategory() {
+        $.validator.unobtrusive.parse($("#Manage-Category-Form"));
+        if ($('#Manage-Category-Form').valid()) {
+            $('#ManageData').block();
+            var formData = $("#Manage-Category-Form").serialize();
+            $.post("@Url.Content("~/Admin/KBCategories/Save")", formData, function (data) {
+                if (data.success) {//on success refrsh view
+                    $('#dv_PopUp').modal('hide');
+                    SuccessMessage(data.message);
+                    $("#CategoryDataGrid").trigger('reloadGrid');
+                } else {
+                    $('#ManageData').unblock();
+                    ErrorMessage(data.message);
+                }
+            });
+        }
+    }
+</script>
+<div id="modal-dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="bigger">Manage Category</h4>
+            </div>
+            <div class="modal-body" id="ManageData">
+                <div class="col-xs-12">
+                    <div class="row">
+                        @using (Html.BeginForm("Save", "KBCategories", FormMethod.Post, new { @class = "form-horizontal", Id = "Manage-Category-Form" }))
+                        {
+                            @Html.HiddenFor(c => c.KBCategoryId)
+                            @Html.HiddenFor(c => c.CreatedOn)
+                            @Html.HiddenFor(c => c.CreatedBy)
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span> Category Name</label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(c => c.CategoryName, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(c => c.CategoryName)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1">Parent Category</label>
+                                <div class="col-sm-8">
+                                    @Html.DropDownListFor(p => p.ParentId, new SelectList(ViewBag.lstCategories as System.Collections.IEnumerable, "KBCategoryId", "CategoryName"), "Choose a Parent Category...", new { @class = "chosen-select form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"> Is Enable </label>
+                                <label class="col-sm-8 " style="margin-top:6px">
+                                    @Html.CheckBoxFor(c => c.IsEnable, new { @class = "ace" })
+                                </label>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div style="text-align:center;">
+                    <button class="btn btn-sm btn-primary" type="button" onclick="SaveCategory();">
+                        <i class="ace-icon fa fa-check bigger-110"></i>
+                        Save
+                    </button>
+                    &nbsp;
+                    <button class="btn btn-sm" type="button" onclick="Cancel();">
+                        <i class="ace-icon fa fa-times"></i>
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

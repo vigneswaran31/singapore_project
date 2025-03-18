@@ -1,0 +1,138 @@
+﻿@model HelpDeskEntity.DashboardCountModel
+@{
+    ViewBag.Title = "Dashboard";
+}
+<div class="breadcrumbs breadcrumbs-fixed" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="#">Home</a>
+        </li>
+        <li class="active">Dashboard</li>
+    </ul>
+</div>
+<div class="page-content">
+    <!-- #section:settings.box -->
+    <!-- /.ace-settings-container -->
+    <div class="page-header">
+        <h1>Dash Board</h1>
+    </div>
+    <div class="row" id="LoadData">
+        <div class="col-xs-12">
+            <!-- PAGE CONTENT BEGINS -->
+            <!-- Modal -->
+            <div class="row">
+                <div class="space-6"></div>
+                <div class="col-sm-12 infobox-container" style="text-align: left">
+                    <!-- #section:pages/dashboard.infobox -->
+                    <div class="infobox infobox-purple">
+                        <div class="infobox-icon">
+                            <i class="ace-icon glyphicon glyphicon-tags"></i><b></b>
+                        </div>
+                        <a class="infobox-data" href="@Url.Action("Index", "SupportTicket")">
+                            <span class="infobox-data-number">@Model.SupportTickets</span>
+                            <div class="infobox-content">Support Tickets</div>
+                        </a>
+                    </div>
+                    <div class="infobox infobox-red">
+                        <div class="infobox-icon">
+                            <i class="ace-icon fa fa-cog"></i><b></b>
+                        </div>
+                        <a class="infobox-data" href="@Url.Action("SupportCategories", "Settings")">
+                            <span class="infobox-data-number">@Model.SupportCategories</span>
+                            <div class="infobox-content">Support Categories</div>
+                        </a>
+                    </div>
+                    <div class="space-6"></div>
+                </div>
+
+                <div class="col-sm-12 infobox-container" style="text-align: left">
+                    <!-- #section:pages/dashboard.infobox -->
+                    <div class="infobox infobox-purple">
+                        <div class="infobox-icon">
+                            <i class="ace-icon fa fa-user"></i><b></b>
+                        </div>
+                        <a class="infobox-data" href="@Url.Action("Index", "Users")">
+                            <span class="infobox-data-number">@Model.Admins</span>
+                            <div class="infobox-content">Admins</div>
+                        </a>
+                    </div>
+                    <div class="infobox infobox-green">
+                        <div class="infobox-icon">
+                            <i class="ace-icon fa fa-ticket"></i><b></b>
+                        </div>
+                        <a class="infobox-data" href="@Url.Action("Index", "SupportTeams")">
+                            <span class="infobox-data-number">@Model.SupportTeams</span>
+                            <div class="infobox-content">Support Teams</div>
+                        </a>
+                    </div>
+                    <div class="infobox infobox-red">
+                        <div class="infobox-icon">
+                            <i class="ace-icon fa fa-user"></i><b></b>
+                        </div>
+                        <a class="infobox-data" href="@Url.Action("Index", "Users")">
+                            <span class="infobox-data-number">@Model.Operators</span>
+                            <div class="infobox-content">Operators</div>
+                        </a>
+                    </div>
+                    <div class="space-6"></div>
+                </div>
+
+                <div class="col-sm-12 infobox-container" style="text-align: left">
+                    <!-- #section:pages/dashboard.infobox -->
+                    <div class="infobox  infobox-blue3 ">
+                        <div class="infobox-icon">
+                            <i class="ace-icon glyphicon glyphicon-briefcase "></i>
+                        </div>
+                        <a class="infobox-data" href="@Url.Action("Index", "Companies")">
+                            <span class="infobox-data-number">@Model.Companies</span>
+                            <div class="infobox-content">Companies</div>
+                        </a>
+                    </div>
+                </div>
+
+
+                <div class="col-sm-12 infobox-container" style="text-align: left">
+                    <!-- #section:pages/dashboard.infobox -->
+                    <div class="infobox infobox-blue2">
+                        <div class="infobox-icon">
+                            <i class="ace-icon glyphicon glyphicon-inbox"></i>
+                        </div>
+                        <a class="infobox-data" href="@Url.Action("Index", "KBCategories")">
+                       
+                            <span class="infobox-data-number">@Model.KBCategories</span>
+                            <div class="infobox-content">KB Categories</div>
+                        </a>
+                    </div>
+                    <div class="infobox infobox-orange">
+                        <div class="infobox-icon">
+                            <i class="ace-icon glyphicon glyphicon-inbox"></i>
+                        </div>
+                        <a class="infobox-data" href="@Url.Action("Index", "KBArticles", new { status = "False" })">
+                            <span class="infobox-data-number">@Model.KBArticles</span>
+                            <div class="infobox-content">KB Articles</div>
+                        </a>
+                    </div>
+                    <div class="space-6"></div>
+                </div>
+
+                <div class="col-sm-12 infobox-container" style="text-align: left">
+                    <div class="infobox  infobox-blue3 ">
+                        <div class="infobox-icon">
+                            <i class="ace-icon fa fa-inbox  "></i>
+                        </div>
+                        <a class="infobox-data" href="@Url.Action("UnProcessedEmailInbox", "Mail")">
+                            <span class="infobox-data-number">@Model.EmailInbox</span>
+                            <div class="infobox-content">Email inbox to process</div>
+                        </a>
+                    </div>
+                    <div class="space-6"></div>
+                </div>
+
+                <div class="vspace-12-sm"></div>
+            </div>
+            <!-- PAGE CONTENT ENDS -->
+        </div>
+        <!-- /.col -->
+    </div>
+</div>

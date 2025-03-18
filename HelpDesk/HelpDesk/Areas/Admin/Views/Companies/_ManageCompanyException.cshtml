@@ -1,0 +1,53 @@
+﻿
+<link href="@Url.Content("~/Content/bootstrap-duallistbox.css")" rel="stylesheet" />
+<script src="@Url.Content("~/Scripts/jquery.bootstrap-duallistbox.js")"></script>
+@Html.Partial("_ResultMessage")
+<div class="col-xs-12">
+    @using (Html.BeginForm("SaveCompCatException", "Companies", FormMethod.Post, new { @class = "form-horizontal", Id = "Manage-Exception-Form" }))
+    {
+        @Html.Hidden("CompanyId")
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Category Exceptions </label>
+
+            <div class="col-sm-9">
+                @Html.DropDownList("CategoryId", new SelectList(ViewBag.lstSprtCategories as System.Collections.IEnumerable, "CategoryId", "CategoryName"), new { @multiple = "multiple", @id = "duallist", style = "height:250px;" })
+                <div class="hr hr-16 hr-dotted"></div>
+                <span data-valmsg-replace="true" data-valmsg-for="UserId" class="field-validation-valid"></span>
+
+            </div>
+        </div>
+
+        <div class="clearfix form-group form-actions">
+            <div class="col-md-offset-3 col-md-9">
+                <button class="btn btn-sm btn-primary" type="submit" onclick="SaveException('@Model');">
+                    <i class="ace-icon fa fa-check bigger-110"></i>
+                    Save
+                </button>
+                &nbsp;
+                <button class="btn btn-sm" type="button" onclick="Cancel();">
+                    <i class="ace-icon fa fa-times"></i>
+                    Cancel
+                </button>
+            </div>
+        </div>
+    }
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#CompanyId").val('@ViewBag.CompanyId');
+
+        var Categories = '@ViewBag.SelectedCategory';
+        $("#duallist").val(Categories.split(","));
+
+        var demo1 = $('select[name="CategoryId"]').bootstrapDualListbox({ infoTextFiltered: '<span class="label label-purple label-lg">Filtered</span>' });
+        var container1 = demo1.bootstrapDualListbox('getContainer');
+        container1.find('.btn').addClass('btn-white btn-info btn-bold');
+    });
+   
+    function Cancel()
+    {
+        window.location.href = "/Admin/Companies/Index";
+    }
+</script>

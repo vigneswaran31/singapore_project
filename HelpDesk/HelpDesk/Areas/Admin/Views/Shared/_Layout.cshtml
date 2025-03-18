@@ -1,0 +1,89 @@
+﻿@using HelpDeskBAL
+@using HelpDeskEntity.Classes
+<!DOCTYPE html>
+@{
+    string Copyright = new ConfigsBL().GetByName(En_Config.Copyright.ToString()).Value;
+}
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="utf-8" />
+    <title>HelpDesk Admin | @ViewBag.Title</title>
+
+    <meta name="description" content="overview &amp; stats" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+    <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
+    @*<link href="@Url.Content("~/Content/bootstrap.css")" rel="stylesheet" />*@
+    <link href="@Url.Content("~/Content/font-awesome.css")" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="@Url.Content("~/Content/showMessage.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/common.css")" rel="stylesheet" />
+    <!-- Custom styles for Jq Grid -->
+    <link href="@Url.Content("~/Content/ui.jqgrid.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/datepicker.css")" rel="stylesheet" />
+    <link href="~/Content/datepicker.css" rel="stylesheet" />
+
+    <!-- page specific plugin styles -->
+    <!-- text fonts -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/ace-fonts.css")" />
+    <link href="@Url.Content("~/Content/chosen.css")" rel="stylesheet" />
+    <!-- ace styles -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/ace.css")" class="ace-main-stylesheet" id="main-ace-style" />
+
+    <script src="@Url.Content("~/Scripts/jquery-1.10.2.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.showMessage.min.js")"></script>
+</head>
+<body class="no-skin">
+    @Html.Partial("_Header")
+    <div class="main-container" id="main-container">
+        @Html.Partial("_Sidebar")
+        <div class="main-content">
+            <div class="main-content-inner">
+                @RenderBody()
+            </div>
+        </div>
+        <div class="footer">
+            <div class="footer-inner">
+                <div class="footer-content">
+                    <span class="bigger-120">
+                        <span class="blue bolder">@Copyright</span>
+                    </span>
+                    &nbsp; &nbsp;
+                </div>
+            </div>
+        </div>
+        <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+            <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+        </a>
+    </div>
+    <script src="@Url.Content("~/Scripts/ace-extra.min.js")"></script>
+
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-en.js")"></script>
+
+    <script src="@Url.Content("~/Scripts/Common.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.blockUI.js")"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap-datepicker.js")"></script>
+    <script src="@Url.Content("~/Scripts/ace/ace.js")"></script>
+    <script src="@Url.Content("~/Scripts/chosen.jquery.js")"></script>
+  
+
+    <!-- ace scripts -->
+    <script src="../../Scripts/ace/elements.scroller.js"></script>
+
+    <script src="../../Scripts/ace/ace.sidebar.js"></script>
+    <script src="../../Scripts/ace/ace.sidebar-scroll-1.js"></script>
+    <script src="../../Scripts/ace/ace.submenu-hover.js"></script>
+    <script src="../../Scripts/ace/ace.widget-box.js"></script>
+    
+    <script src="~/Scripts/flot/jquery.flot.js"></script>
+    <script src="~/Scripts/flot/jquery.flot.pie.js"></script>
+    <script src="~/Scripts/flot/jquery.flot.resize.js"></script>
+    <script src="~/Scripts/flot/jquery.flot.categories.js"></script>
+</body>
+</html>

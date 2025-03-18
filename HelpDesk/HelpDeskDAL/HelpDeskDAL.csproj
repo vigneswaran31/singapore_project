@@ -1,0 +1,326 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E3BFDD20-0A7B-49E0-99A7-A54117881FDB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HelpDeskDAL</RootNamespace>
+    <AssemblyName>HelpDeskDAL</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.0.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.0.0\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Attachment.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoAssign.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Comment.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Company.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyCategory.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyCategoryException.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyContract.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyProduct.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Config.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ContractTemplate.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CuteChat4_InstantMessage.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CuteChat4_Lobby.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CuteChat4_LogEvent.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CuteChat4_LogMessage.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CuteChat4_Portal.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CuteChat4_Rule.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CuteChat4_Settings.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CuteChat4_SupportAgent.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CuteChat4_SupportCustomer.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CuteChat4_SupportDepartment.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CuteChat4_SupportFeedback.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CuteChat4_SupportMessage.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CuteChat4_SupportSession.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CuteChat4_User.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmailBlackList.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmailInbox.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmailQueue.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmailTemplate.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Event.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HelpDesk.Context.cs" />
+    <Compile Include="HelpDesk.Designer.cs">
+      <DependentUpon>HelpDesk.edmx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="KBArticle.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KBCategory.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Language.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Metadata\BlackListMetadata.cs" />
+    <Compile Include="Metadata\CommentMetadata.cs" />
+    <Compile Include="Metadata\CompanyCategoryMetadata.cs" />
+    <Compile Include="Metadata\CompanyContractMetadata.cs" />
+    <Compile Include="Metadata\CompanyMetadata.cs" />
+    <Compile Include="Metadata\ConfigMetadata.cs" />
+    <Compile Include="Metadata\ContractTemplateMetadata.cs" />
+    <Compile Include="Metadata\EmailTemplateMetadata.cs" />
+    <Compile Include="Metadata\KBArticleMetadata.cs" />
+    <Compile Include="Metadata\KBCategoryMetadata.cs" />
+    <Compile Include="Metadata\LanguageMetadata.cs" />
+    <Compile Include="Metadata\SupportCategoryMetadata.cs" />
+    <Compile Include="Metadata\SupportTeamMemebersMetadata.cs" />
+    <Compile Include="Metadata\SupportTeamMetadata.cs" />
+    <Compile Include="Metadata\TicketActivityMetadata.cs" />
+    <Compile Include="Metadata\TicketMetadata.cs" />
+    <Compile Include="Metadata\TicketPriorityMetadata.cs" />
+    <Compile Include="Metadata\TicketSourceMetadata.cs" />
+    <Compile Include="Metadata\TicketStatusMetadata.cs" />
+    <Compile Include="Metadata\UserMetadata.cs" />
+    <Compile Include="OperatorPermission.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Permission.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PhoneCall.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Role.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetCategoryList_Result.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetSupportCategoryList_Result.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Supplier.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SupplierProduct.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SupplierProductsType.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SupportCategory.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SupportTeam.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SupportTeamMember.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SupportTeamPermission.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ticket.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TicketActivity.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TicketPriority.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TicketsSource.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TicketStatu.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="User.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_AutoAssign.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_Comments.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_CompanyCategoryException.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_CompanyContract.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_CompanyUser.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_Events.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_KBArticle.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_KBCategory.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_SupportCategory.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_SupportTicket.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_User.cs">
+      <DependentUpon>HelpDesk.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="HelpDesk.Context.tt">
+      <DependentUpon>HelpDesk.edmx</DependentUpon>
+    </None>
+    <None Include="HelpDesk.edmx.diagram">
+      <DependentUpon>HelpDesk.edmx</DependentUpon>
+    </None>
+    <None Include="HelpDesk.tt">
+      <DependentUpon>HelpDesk.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="HelpDesk.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>HelpDesk.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

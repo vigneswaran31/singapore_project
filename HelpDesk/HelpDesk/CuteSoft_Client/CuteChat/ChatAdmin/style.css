@@ -1,0 +1,75 @@
+body { padding:0;margin:0;font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;  font-size: 14px;color:#000;}
+#leftcolumn { width: 205px;margin: 0px; padding: 4px 0px 0px 6px; background-color: #f4f4f3;border-right: #cccccc 1px solid;}
+#leftcolumn ul {padding:0 0 4px 10px; list-style-position: outside; margin: 0; margin-bottom: 5px; list-style: none;}
+#leftcolumn li {padding:2px 4px 2px 0;}
+#leftcolumn li a { color: #000000; text-decoration: none; }
+#leftcolumn li a:hover{color:#000000;text-decoration: underline; }
+.leftcolumntitle {padding: 2px 0 4px 8px; border-top: #cccccc 1px solid; DISPLAY: block; margin-top: 2px; COLOR: black; font-weight:600;}
+#footer { clear: both;	padding: 1em; text-align: center;border-top:solid 1px #cccccc;	height:30px;}		
+#content { padding:24px;}
+.dialogPageHeader{margin: 0px;border-bottom: #cccccc 1px solid;}
+H1 {color: #003399; font-size:20px}
+p{margin:0px}
+td, p, div,input,select {font-size: 14px;font-weight:300;}
+a, a:visited, a:link { color: #003399; text-decoration: underline;}
+.boxTitle
+{
+	padding:5px 5px 5px 15px;
+	background-color: #eeeeee;
+	font-weight: bold;
+	height:32px;
+    line-height:32px;
+}
+.boxArea
+{
+	background-color: #ffffff;
+	padding:15px 15px 5px 15px;
+}
+.box
+{
+	width: 600px;
+	background-color: #cccccc;
+}
+td {vertical-align:top }
+table.Grid
+{
+	border-width: 5px;
+	border-style: none;
+	background-color: White;
+	border-color: gray;
+}
+
+table.Grid TD, table.Grid TH
+{
+	padding: 4px 6px 4px 6px;
+	border: solid 1px #E1E1E1;
+	vertical-align: top;
+}
+
+table.Grid TH
+{
+	background-color: #efefef;
+	background:url(/images/sidebartitle.gif);
+	font-weight: bold;
+	color: #505050;
+	text-align:left;
+}
+a.tooltip {outline:none; }
+a.tooltip strong {line-height:30px;}
+a.tooltip:hover {text-decoration:none;} 
+a.tooltip span {
+    z-index:10;display:none; padding:14px 20px;
+    margin-top:-30px; margin-left:28px;
+    width:300px; line-height:16px;
+}
+a.tooltip:hover span{
+    display:inline; position:absolute; color:#111;
+    border:1px solid #DCA; background:#fffAF0;}
+.callout {z-index:20;position:absolute;top:30px;border:0;left:-12px;}
+    
+/*CSS3 extras*/
+a.tooltip span
+{
+    border-radius:4px;
+    box-shadow: 5px 5px 8px #CCC;
+}

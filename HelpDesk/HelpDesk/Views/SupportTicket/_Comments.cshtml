@@ -1,0 +1,111 @@
+﻿@model HelpDeskEntity.Comment
+@using HelpDeskEntity
+@using HelpDeskBAL
+@using HelpDeskEntity.Classes;
+@{
+    List<vw_Comments> lstComments = ViewBag.lstComments;
+    User oUser = (User)Session[En_UserSession.User.ToString()];
+    vw_SupportTicket oTicket = new SupportTicketBL().GetTicketViewDetailByGuid(Model.TicketId);
+}
+
+<div class="widget-box">
+    <div class="widget-header">
+        <h4 class="widget-title lighter smaller">
+            <i class="ace-icon fa fa-comment blue"></i>
+            @ViewBag.LngCommentsForThisTicket
+        </h4>
+    </div>
+    <div class="widget-body">
+        <div class="widget-main no-padding">
+            <div class="dialogs">
+
+                @{
+                    if (lstComments.Count > 0)
+                    {
+                        foreach (vw_Comments item in lstComments)
+                        {
+                            <div class="itemdiv dialogdiv">
+                                <div class="user">
+                                    <img src=@(item.CreatedOpt_Id != null ? "../../Content/images/Operator.png" : "../../Content/images/CompanyUser.png") />
+                                </div>
+
+                                <div class="body">
+                                    <div class="time">
+                                        <i class="ace-icon fa fa-clock-o"></i>
+                                        <span class="orange">@item.CreatedOn.ToString()</span>
+                                    </div>
+
+                                    <div class="name">
+                                        <span>@(item.CreatedOpt_Id != null ? @item.OperatorName.ToString() + "(" + @ViewBag.LngOperator + ")" : item.CustomerName + "("+@ViewBag.LngCustomer+")")</span>
+                                        @if (item.IsPrivate)
+                                        {
+                                            <span class="label label-info arrowed arrowed-in-right">(<b>@ViewBag.LngPrivateComment</b>: This comment is not visible to Customer)</span>
+                                        }
+
+                                    </div>
+                                    <div class="text">@item.CommentText</div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div>@ViewBag.LngThereAreNoComments_ .</div>
+                    }
+                }
+            </div>
+            @if (oTicket.CompanyUserId == oUser.UserId && ViewBag.IsTicket_Open == true)
+            {
+                <div id="ManageCommentForm">
+                    @using (Html.BeginForm("Save", "SupportTicket", FormMethod.Post, new { Id = "Manage-Comment-Form", @name = "Manage-Category-Form", @class = "form-horizontal" }))
+                    {
+                        @Html.HiddenFor(c => c.CreatedUser_Id)
+                        @Html.HiddenFor(c => c.TicketId)
+                        <div class="form-actions">
+                            <div class="input-group">
+                                @Html.TextBoxFor(c => c.CommentText, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(c => c.CommentText)
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-sm btn-primary" onclick="SaveComment();">
+                                        <i class="ace-icon fa fa-send"></i>
+                                        @ViewBag.LngAddComment
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('<span class="lbl"></span>').insertAfter(":checkbox"); //apply checkbox ace design
+    })
+
+    function SaveComment() {
+        $.validator.unobtrusive.parse($("#Manage-Comment-Form"));
+        if ($('#Manage-Comment-Form').valid()) {
+            $('#ManageCommentForm').block();
+            var formData = $("#Manage-Comment-Form").serialize();
+            $.post("@Url.Content("~/SupportTicket/SaveComment")", formData, function (data) {
+                if (data.success) {//on success refrsh view
+                    SuccessMessage(data.message);
+                    $("#dvLoadData").load("/SupportTicket/Comments?id=" + data.TicketId, function () {
+                        $('#dvRow').unblock();
+                        $("#tabComments").addClass("active");
+                        $("#tabTicketDetail").removeClass("active");
+
+                    });
+                } else {
+                    $('#ManageCompanyContract').unblock();
+                    ErrorMessage(data.message);
+                }
+
+                $.ajaxSetup({ async: true });
+            });
+        }
+    }
+</script>

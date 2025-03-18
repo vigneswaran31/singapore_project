@@ -1,0 +1,64 @@
+body { padding:0;margin:0; font-family: arial,helvetica;}
+h1 {font-size: 16px; margin-bottom: 20px; margin-top: 10px; font-family: verdana,arial,helvetica; color: #0083b3;}
+p,div,span,input,select,td { font: 12px arial, helvetica, sans-serif; }
+form { padding: 0px; margin: 0px; border: 0px; }
+table { border: none; }
+img{border:0;}
+li{ margin:7px 0;}
+td{vertical-align:top;}
+a:link { color: #1a67b8;font: normal 14px arial, helvetica, sans-serif; }
+a:visited { color: #1a67b8;font: normal 14px arial, helvetica, sans-serif; }
+a:hover { color: #0000ff;font: normal 14px arial, helvetica, sans-serif; }
+a:active { color: #1a67b8;font: normal 14px arial, helvetica, sans-serif; }
+
+#header
+{
+	height:86px;
+	background-color:#f7f7f7;
+	border-bottom:solid 1px #e3e3e3;
+	margin-bottom:10px;
+}
+#left-column
+{
+	width: 170px;
+}
+div.infobox
+{
+	border: 1px solid #CFD6E0;
+	margin: 15px 0;
+	background-color: white;
+	padding-bottom: 10px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+}
+div.infobox h2
+{
+	border-bottom: 1px solid #CFD6E0;
+	margin: 0;
+	padding: 0;
+	padding-left: 10px;
+	height: 28px;
+	line-height: 28px;
+	background-color: #F3F5F9;
+	font-size: 13px;
+}
+.padding10
+{
+	padding: 10px;
+}
+#CommonFooter
+{
+	margin-top:60px;
+	border-top:solid 1px #eee;
+	padding: 20px;
+	text-align:center;
+	font-family: "Segoe UI", sans-serif;
+}
+.MessageContainer
+{
+	padding: 10px;
+	vertical-align: middle;
+	font-size: 12px;
+	border: solid 1px #DD3C10;
+	background-color: #FFEBE8;
+}

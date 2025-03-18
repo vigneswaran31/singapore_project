@@ -1,0 +1,127 @@
+﻿@model HelpDeskEntity.OperatorStatistics
+<div class="widget-box">
+    <div class="widget-header">
+        <h4 class="widget-title lighter smaller">
+            <i class="glyphicon glyphicon-stats"></i>
+            Statistics data table
+        </h4>
+    </div>
+    <div class="widget-body">
+        <div class="widget-main">
+            <div class="dialogs">
+                <table class="table table-striped table-bordered table-hover">
+                    <tbody>
+                        <tr class="">
+                            <td nowrap="" width="25%">
+                                &nbsp;
+                            </td>
+                            <td nowrap="" align="center" width="18.75%">
+                                &nbsp;<span id="">Assig. Tickets Closed</span>
+                            </td>
+                            <td nowrap="" align="center" width="18.75%">
+                                <span id="">Closed In SLA</span>
+                            </td>
+                            <td nowrap="" align="center" width="18.75%">
+                                <span id="">Closed Out Of SLA</span>
+                            </td>
+                            <td nowrap="" align="center" width="18.75%">
+                                <span id="">Your SLA Perf.</span>
+                            </td>
+                        </tr>
+                        <tr class="">
+                            <td nowrap="" width="25%">
+                                &nbsp;<span id="">Your Ticket SLA Performance</span>
+                            </td>
+                            <td nowrap="" align="center" width="18.75%">
+                                <span id="">@Model.SLA_Total_Closed</span>
+                            </td>
+                            <td align="center" width="18.75%">
+                                <span id="">@Model.SLA_Closed_In</span>
+                            </td>
+                            <td align="center" width="18.75%">
+                                <span id="">@Model.SLA_Closed_Outof</span>
+                            </td>
+                            <td align="center" width="18.75%">
+                                <span id="">@Model.SLA_Performance_Percentage %</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="c"></div>
+                <table class="table table-striped table-bordered table-hover">
+                    <tbody>
+                        <tr class="">
+                            <td nowrap="" width="25%">
+                                &nbsp;
+                            </td>
+                            <td nowrap="" align="center" width="18.75%">
+                                &nbsp;<span id="">Tickets Tot.</span>
+                            </td>
+                            <td nowrap="" align="center" width="18.75%">
+                                <span id="">Closed</span>
+                            </td>
+                            <td nowrap="" align="center" width="18.75%">
+                                <span id="">Pending</span>
+                            </td>
+                            <td nowrap="" align="center" width="18.75%">
+                                <span id="">Pending %</span>
+                            </td>
+                        </tr>
+                        <tr class="">
+                            <td nowrap="">
+                                &nbsp;<span id="">Overall Total</span>
+                            </td>
+                            <td align="center">
+                                <span id="">@Model.Overall_Total</span>
+                            </td>
+                            <td align="center">
+                                <span id="">@Model.Overall_Closed</span>
+                            </td>
+                            <td align="center">
+                                <span id="">@Model.Overall_Pending</span>
+                            </td>
+                            <td align="center">
+                                <span id="">@Model.Overall_Pending_Percentage %</span>
+                            </td>
+                        </tr>
+                        <tr class="">
+                            <td nowrap="">
+                                &nbsp;<span id="">Assigned to you</span>
+                            </td>
+                            <td align="center">
+                                <span id="">@Model.Assignto_Own_Total</span>
+                            </td>
+                            <td align="center">
+                                <span id="">@Model.Assignto_Own_Closed</span>
+                            </td>
+                            <td align="center">
+                                <span id="">@Model.Assignto_Own_Pending</span>
+                            </td>
+                            <td align="center">
+                                <span id="">@Model.Assignto_Own_Percentage %</span>
+                            </td>
+                        </tr>
+                        <tr class="OldTurtle_BizSuite_Grid_item">
+                            <td nowrap="">
+                                &nbsp;<span id="">Percentage %</span>
+                            </td>
+                            <td align="center">
+                                <span id="">@Model.Percentage_wise_Total %</span>
+                            </td>
+                            <td align="center">
+                                <span id="">@Model.Percentage_wise_Closed %</span>
+                            </td>
+                            <td align="center">
+                                <span id="">@Model.Percentage_wise_Pending %</span>
+                            </td>
+                            <td>
+                                &nbsp;
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="c"></div>
+            </div>
+        </div>
+    </div>
+</div>

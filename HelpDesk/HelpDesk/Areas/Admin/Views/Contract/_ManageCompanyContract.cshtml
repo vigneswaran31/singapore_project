@@ -1,0 +1,179 @@
+﻿@using HelpDeskEntity;
+@using HelpDeskBAL;
+@model HelpDeskEntity.CompanyContract
+@{
+    vw_CompanyContract oCompanyContract = null;
+    if (Model!=null)
+    {
+        if (Model.CompanyContractId > 0)
+        {
+            oCompanyContract = new CompanyContractBL().GetByCompanyContractId(Model.CompanyContractId);
+        }
+    }
+    Layout = null;
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#StartDate").datepicker({
+            autoclose: true
+        });
+
+        $("#EndDate").datepicker({
+            autoclose: true
+        });
+        
+        if ($('#CompanyContractId').val() <= 0) {
+            $('#dv_PopUp').on('shown.bs.modal', function () {
+                $('#CompanyId').chosen({ allow_single_deselect: true });
+            });
+        }
+
+        if ('@ViewBag.CopyCompanyContract' == 'True') {
+            $("#ContractNumber").val("");
+        }
+    });
+
+    function Cancel() {
+        $('#dv_PopUp').modal('hide');
+    }
+
+    function SaveCompanyContract() {
+        $.validator.unobtrusive.parse($("#Manage-CompanyContract-Form"));
+        if ($('#Manage-CompanyContract-Form').valid()) {
+            $('#ManageCompanyContract').block();
+            var formData = $("#Manage-CompanyContract-Form").serialize();
+            $.post("@Url.Content("~/Admin/Contract/SaveCompanyContract")", formData, function (data) {
+                if (data.success) {//on success refrsh view
+                    $('#dv_PopUp').modal('hide');
+                    SuccessMessage(data.message);
+                    $("#CompanyContractDataGrid").trigger('reloadGrid');
+                } else {
+                    $('#ManageCompanyContract').unblock();
+                    ErrorMessage(data.message);
+                }
+            });
+        }
+    }
+</script>
+
+<div id="modal-dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="bigger">Manage Company Contract</h4>
+            </div>
+            <div class="modal-body" id="ManageCompanyContract">
+                <div class="col-xs-12">
+                    <div class="row">
+                        @using (Html.BeginForm("SaveContractTemplate", "Contract", FormMethod.Post, new { Id = "Manage-CompanyContract-Form", @class = "form-horizontal" }))
+                        {
+                            @Html.HiddenFor(c => c.CompanyContractId)
+                            @Html.HiddenFor(c => c.CreatedOn)
+                            @Html.HiddenFor(c => c.CreatedBy)
+                            if (Model != null && Model.CompanyContractId > 0)
+                            {
+                                @Html.HiddenFor(c => c.CompanyId)
+                                @Html.HiddenFor(c => c.ContractId)
+                                @Html.HiddenFor(c => c.ContractNumber)
+                            }
+
+                            if (Model != null && Model.CompanyContractId > 0)
+                            {
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span>Company</label>
+                                    <div class="col-sm-8">
+                                        <label class="control-label ">@oCompanyContract.CompanyName</label>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span>Company</label>
+                                    <div class="col-sm-8">
+                                        @Html.DropDownListFor(p => p.CompanyId, new SelectList(ViewBag.lstCompanies as System.Collections.IEnumerable, "CompanyId", "CompanyName"), "--- Select ---", new { @class = "chosen-select form-control" })
+                                        @Html.ValidationMessageFor(p => p.CompanyId)
+                                    </div>
+                                </div>
+                            }
+                            if (Model != null && Model.CompanyContractId > 0)
+                            {
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span>Contract Template</label>
+                                    <div class="col-sm-8">
+                                        <label class="control-label ">@oCompanyContract.TemplateName</label>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span>Contract Template</label>
+                                    <div class="col-sm-8">
+                                        @Html.DropDownListFor(p => p.ContractId, new SelectList(ViewBag.lstTemplates as System.Collections.IEnumerable, "ContractTemplateId", "TemplateName"), "--- Select ---", new { @class = "col-xs-10 col-sm-5" })
+                                        @Html.ValidationMessageFor(p => p.ContractId)
+                                    </div>
+                                </div>
+                            }
+
+                            if (Model != null && Model.CompanyContractId > 0)
+                            {
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span> Contract Number</label>
+                                    <div class="col-sm-8">
+                                        <label class="control-label ">@oCompanyContract.ContractNumber</label>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span> Contract Number</label>
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(c => c.ContractNumber, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(c => c.ContractNumber)
+                                    </div>
+                                </div>
+                            }
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span> Start Date</label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(c => c.StartDate, "{0:MM/dd/yyyy}", new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(c => c.StartDate)
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span> End Date</label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(c => c.EndDate, "{0:MM/dd/yyyy}", new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(c => c.EndDate)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"> Price (Euro)</label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(c => c.Price, "{0:F2}", new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(c => c.Price)
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div style="text-align:center;">
+                    <button type="button" class="btn btn-sm btn-primary" onclick="SaveCompanyContract();">
+                        <i class="ace-icon fa fa-check bigger-110"></i>Save
+                    </button>
+                    <button type="button" class="btn btn-sm" data-dismiss="modal" onclick="Cancel();">
+                        <i class="ace-icon fa fa-times"></i>
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

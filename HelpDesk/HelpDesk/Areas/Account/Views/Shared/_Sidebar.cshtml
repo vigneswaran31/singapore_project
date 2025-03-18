@@ -1,0 +1,72 @@
+﻿@using HelpDesk.Classes
+@using HelpDeskEntity.Classes
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#sidebar').find('.active').closest('ul').closest('li').addClass("active open");
+    });
+
+    function LoadData() {
+        $('LoadKnowledgeData').html('');
+   
+        $("#LoadKnowledgeData").load("/Knowledgebase/Index", function () {
+            $(".classli").removeClass("active");
+            $("#Knowledgebase").addClass("active");
+        });
+    }
+</script>
+<div id="sidebar" class="sidebar sidebar-fixed responsive">
+    <ul class="nav nav-list">
+       
+        <li class="@(Request.Url.ToString().Contains("/Dashboard/Index") ? "active" : "") classli">
+            <a href="~/Account/Dashboard/Index">
+                <i class="menu-icon fa fa-tachometer"></i>
+                <span class="menu-text"> Dashboard </span>
+            </a>
+            <b class="arrow"></b>
+        </li>
+        <li class="@(Request.Url.ToString().Contains("/SupportTicket/Index") ? "active" : "") classli" >
+            <a href="~/Account/SupportTicket/Index">
+                <i class="menu-icon glyphicon glyphicon-tags"></i>
+                <span class="menu-text"> Support Tickets </span>
+            </a>
+            <b class="arrow"></b>
+        </li>
+
+        <li id="Knowledgebase">
+            <a href="~/Knowledgebase/Index" target="_blank">
+                <i class="menu-icon glyphicon glyphicon-inbox"></i>
+                <span class="menu-text">Knowledge Base</span>
+            </a>
+            <b class="arrow"></b>
+        </li>
+        <li class="@(Request.Url.ToString().Contains("/Statistics/Index") ? "active" : "") classli">
+            <a href="~/Account/Statistics/Index">
+                <i class="menu-icon glyphicon glyphicon-stats"></i>
+                <span class="menu-text"> Statistics </span>
+            </a>
+            <b class="arrow"></b>
+        </li>
+
+ @if (SiteUtility.IsAllow((int)En_Permission.CreateArticle) || SiteUtility.IsAllow((int)En_Permission.EditOtherArticle))
+{
+    <li class="@(Request.Url.ToString().Contains("/KBArticles/Index") ? "active" : "") classli">
+        <a href="~/Account/KBArticles/Index">
+            <i class="menu-icon glyphicon glyphicon-book"></i>
+            <span class="menu-text"> KB Articles </span>
+        </a>
+        <b class="arrow"></b>
+    </li>
+}
+     
+      
+    </ul>
+    <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+        <i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+    </div>
+    <script type="text/javascript">
+        try { ace.settings.check('sidebar', 'collapsed') } catch (e) { }
+    </script>
+</div>
+
+
+

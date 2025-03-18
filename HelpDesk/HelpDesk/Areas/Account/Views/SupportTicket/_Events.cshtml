@@ -1,0 +1,59 @@
+﻿@model Guid
+<div class="row" id="dv_row">
+    <div class="col-xs-12">
+        <table id="EventDataGrid"></table>
+        <div id="EventDataPager"></div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    var grid_selector = "#EventDataGrid";
+    var pager_selector = "#EventDataPager";
+
+    jQuery(function ($) {
+        jQuery(grid_selector).jqGrid({
+            url: '/Account/SupportTicket/GetEventGridData?id=@Model',
+            viewrecords: true, sortname: 'CreatedOn', sortorder: "desc",
+            colNames: ['EventId', 'TicketId', 'Created On', 'Event Description'],
+            colModel: [
+                        { name: 'EventId', width: 1, hidden: true, key: true, align: 'center' },
+                        { name: 'TicketViewId', index: 'TicketViewId', width: 10, align: 'center', search: true, searchoptions: JQ_sopt_int },
+                        {
+                            name: 'CreatedOn', index: 'CreatedOn', width: 15, align: "center", formatter: "date", search: true, searchoptions: {
+                                sopt: ['ge'], dataInit: function (el) {
+                                    $(el).datepicker({
+                                        autoclose: true
+                                    }).on("changeDate", function (e) { $('#EventDataGrid')[0].triggerToolbar(); });
+                                }
+                            }
+                        },
+                        { name: 'EventDescription', index: 'EventDescription', width: 120, align: 'left', search: true, searchoptions: JQ_sopt_string },
+
+            ],
+            pager: pager_selector,
+            rowNum: JQ_pagination,
+            rowList: JQ_rowList,
+            autowidth: true,
+            height: '100%',
+            datatype: 'json',
+            cmTemplate: { title: false },
+            viewrecords: true,
+            mtype: 'GET',
+            loadComplete: function () { ResizeJqgrid(); },
+            jsonReader: {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: false,
+                userdata: "userdata"
+            },
+        }).navGrid('#EventDataPager', { view: false, del: false, add: false, edit: false, search: false, referesh: true },
+           {}, // default settings for edit
+           {}, // default settings for add
+           {}, // delete instead that del:false we need this
+           { closeOnEscape: true, multipleSearch: true, closeAfterSearch: true }, // search options
+           {} /* view parameters*/
+         ).jqGrid('filterToolbar', { stringResult: true, searchOnEnter: false, defaultSearch: 'cn' });
+    });
+</script>

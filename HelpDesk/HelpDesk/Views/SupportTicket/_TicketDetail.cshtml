@@ -1,0 +1,112 @@
+﻿@using HelpDeskEntity;
+@using HelpDeskEntity.Classes;
+@using HelpDeskBAL;
+@using Utility;
+@model HelpDeskEntity.Ticket
+@{
+    ViewBag.Title = "Manage Company";
+    User oUser = (User)Session[En_UserSession.User.ToString()];
+    vw_SupportTicket ovw_SupportTicket = new SupportTicketBL().GetTicketViewDetailById(Model.TicketId);
+    List<Attachment> lstAttachment = ViewBag.lstAttachment;
+}
+@Html.Partial("_ResultMessage")
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.validator.unobtrusive.parse($("#Manage-SupportTicket-Form"));
+    })
+
+    function Cancel() {
+        window.location.href = "/SupportTicket/Index";
+    }
+    function DeleteFile(id) {
+        if (!confirm("Are you sure you want to delete this attachment ?"))
+            return;
+
+        $("#divAttachments").block();
+        $.post('@Url.Content("~/Account/SupportTicket/DeleteFile")', { id: id }, function (data) {
+            if (data.success) {
+                SuccessMessage(data.message);
+                LoadAttachments();
+            } else {
+                $('#divAttachments').unblock();
+                ErrorMessage(data.message);
+            }
+        });
+    }
+
+    function DownloadFile(id) {
+        window.open("@Url.Content("~/Account/SupportTicket/DownloadFile/")" + id, "_self");
+    }
+
+    function UpdateTicket() {
+        if ($('#Manage-SupportTicket-Form').valid()) {
+            $('#Manage-SupportTicket-Form').block();
+        }
+    }
+</script>
+<div class="col-xs-12">
+    @using (Html.BeginForm("Save", "SupportTicket", FormMethod.Post, new { Id = "Manage-SupportTicket-Form", @name = "Manage-Category-Form", @class = "form-horizontal" }))
+    {
+        @Html.HiddenFor(c => c.TicketId)
+        @Html.HiddenFor(c => c.TicketGuid)
+        @Html.HiddenFor(c => c.Title)
+        @Html.HiddenFor(c => c.ProblemDescription)
+        @Html.HiddenFor(c => c.CategoryId)
+        @Html.HiddenFor(c => c.CurrentStatus)
+        @Html.HiddenFor(c => c.OperatorPriority)
+        @Html.HiddenFor(c => c.AssignToOperator)
+        @Html.HiddenFor(c => c.AssignToSupportTeam)
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> @ViewBag.LngTitle :</label>
+            <div class="col-sm-9">
+                <label class="control-label ">@Model.Title</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-1">  @ViewBag.LngProblemDescription :</label>
+            <div class="col-sm-9">
+                <label class="control-label ">@Model.ProblemDescription</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> @ViewBag.LngContactInfo :</label>
+            <div class="col-sm-4">
+                <label class="control-label ">@ovw_SupportTicket.CompanyUserName - (@ovw_SupportTicket.CompanyName)</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> @ViewBag.LngCategory :</label>
+            <div class="col-sm-4">
+                <label class="control-label ">@ovw_SupportTicket.CategoryName</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span> @ViewBag.LngCustomerPriority</label>
+            <div class="col-sm-4">
+                @Html.DropDownListFor(p => p.CustomerPriority, new SelectList(ViewBag.CustomerPriorities as System.Collections.IEnumerable, "TicketPriorityId", "Description"), "--- Select ---", new { @class = "form-control" })
+                @Html.ValidationMessageFor(p => p.CustomerPriority)
+            </div>
+        </div>
+
+        <div class="clearfix form-group form-actions">
+            <div class="col-md-offset-3 col-md-9">
+                @{
+                    if (Model.CompanyUserId == oUser.UserId)
+                    {
+                        <button id="btnSaveTickets" class="btn btn-sm btn-primary" onclick="UpdateTicket();">
+                            <i class="ace-icon fa fa-check bigger-110"></i>
+                            @ViewBag.LngSave
+                        </button>
+                    }
+                }
+
+                &nbsp;
+                <button type="button" class="btn btn-sm btncancel btnreopen ReAssign" onclick="Cancel();">
+                    <i class="ace-icon fa fa-times"></i>
+                    @ViewBag.LngCancel
+                </button>
+            </div>
+        </div>
+    }
+</div>

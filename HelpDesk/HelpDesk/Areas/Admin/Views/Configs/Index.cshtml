@@ -1,0 +1,141 @@
+﻿@using HelpDeskEntity.Classes
+@{
+    var lst = ViewBag.lstConfigs;
+    ViewBag.Title = "Site Configs";
+}
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $.validator.unobtrusive.parse($("#Manage-Config-Form"));
+    });
+
+</script>
+@Html.Partial("_ResultMessage")
+
+<div class="breadcrumbs breadcrumbs-fixed" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="@Url.Action("Index","Dashboard")">Home</a>
+        </li>
+        <li class="active">Site Configs</li>
+    </ul>
+</div>
+@model List<HelpDeskEntity.Config>
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+            Manage Site Config
+        </h1>
+    </div>
+    <div class="row" id="ManageData">
+        <div class="col-xs-12">
+            <!-- PAGE CONTENT BEGINS -->
+            @using (Html.BeginForm("Save", "Configs", FormMethod.Post, new { @class = "form-horizontal", Id = "Manage-Config-Form" }))
+            {
+                <!-- #section:elements.form -->
+
+                for (int i = 0; i < Model.Count; i++)
+                {
+                    @Html.HiddenFor(p => Model[i].Type);
+                    @Html.HiddenFor(p => Model[i].Name);
+
+
+                    if (Model[i].Name == En_Config.MetaTitle.ToString())
+                    {
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span> Meta Title</label>
+                        <div class="col-sm-9">
+                            @Html.HiddenFor(p => Model[i].Id)
+                            @Html.TextBoxFor(p => Model[i].Value, new { @class = "col-xs-10 col-sm-5" })
+                            @Html.ValidationMessageFor(p => Model[i].Value)
+                        </div>
+                    </div>
+                    }
+
+                    if (Model[i].Name == En_Config.MetaKeyword.ToString())
+                    {
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span> Meta Keyword</label>
+                        <div class="col-sm-9">
+                            @Html.HiddenFor(p => Model[i].Id)
+                            @Html.TextAreaFor(p => Model[i].Value, new { @class = "col-xs-10 col-sm-5" })
+                            @Html.ValidationMessageFor(p => Model[i].Value)
+                        </div>
+                    </div>
+                    }
+                    if (Model[i].Name == En_Config.MetaDescription.ToString())
+                    {
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span> Meta Description</label>
+                        <div class="col-sm-9">
+                            @Html.HiddenFor(p => Model[i].Id)
+                            @Html.TextAreaFor(p => Model[i].Value, new { @class = "col-xs-10 col-sm-5" })
+                            @Html.ValidationMessageFor(p => Model[i].Value)
+                        </div>
+                    </div>
+                    }
+                    if (Model[i].Name == En_Config.Copyright.ToString())
+                    {
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span> Copyright</label>
+                        <div class="col-sm-9">
+                            @Html.HiddenFor(p => Model[i].Id)
+                            @Html.TextBoxFor(p => Model[i].Value, new { @class = "col-xs-10 col-sm-5" })
+                            @Html.ValidationMessageFor(p => Model[i].Value)
+                        </div>
+                    </div>
+                    }
+                    if (Model[i].Name == En_Config.AdminEmail.ToString())
+                    {
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span> Admin Email</label>
+                        <div class="col-sm-9">
+                            @Html.HiddenFor(p => Model[i].Id)
+                            @Html.TextBoxFor(p => Model[i].Value, new { @class = "col-xs-10 col-sm-5" })
+                            @Html.ValidationMessageFor(p => Model[i].Value)
+                        </div>
+                    </div>
+                    }
+                    if (Model[i].Name == En_Config.AttachmentType.ToString())
+                    {
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span> Attachment Type</label>
+                        <div class="col-sm-9">
+                            @Html.HiddenFor(p => Model[i].Id)
+                            @Html.TextBoxFor(p => Model[i].Value, new { @class = "col-xs-10 col-sm-5" })
+                            @Html.ValidationMessageFor(p => Model[i].Value)
+                        </div>
+                    </div>
+                    }
+                    if (Model[i].Name == En_Config.TicketViewNumber.ToString())
+                    {
+                    @Html.HiddenFor(p => Model[i].Id)
+                    @Html.HiddenFor(p => Model[i].Value)
+                    }
+                    if (Model[i].Name == En_Config.PortalTitle.ToString())
+                    {
+                    @Html.HiddenFor(p => Model[i].Id)
+                    @Html.HiddenFor(p => Model[i].Value)
+                    }
+                }
+                <div class="clearfix form-group form-actions">
+                    <div class="col-md-offset-3 col-md-9">
+                        <button class="btn btn-sm btn-primary" type="submit">
+                            <i class="ace-icon fa fa-check bigger-110"></i>
+                            Save
+                        </button>
+                        &nbsp;
+                        <button class="btn btn-sm" type="button" onclick="window.location = '/Admin/Dashboard'">
+                            <i class="ace-icon fa fa-times"></i>
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+
+            }
+
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</div>

@@ -1,0 +1,2071 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{13111C78-6B89-41AA-AA6A-C89AFD5CC1A9}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HelpDesk</RootNamespace>
+    <AssemblyName>HelpDesk</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <TargetFrameworkProfile />
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CuteChat">
+      <HintPath>externaldll\CuteChat.dll</HintPath>
+    </Reference>
+    <Reference Include="CuteChat.AppCode">
+      <HintPath>externaldll\CuteChat.AppCode.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.0.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.1\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.0.0\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <Private>True</Private>
+      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.1.0.0\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.1.0.0\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.2.0.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.2.0.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.0.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.2.0.0\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.2.0.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.2.0.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.2.0.0\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.2.0.0\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.2.0.0\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Code\JSHelper.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\Account\AccountAreaRegistration.cs" />
+    <Compile Include="Areas\Account\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\Account\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Account\Controllers\KBArticlesController.cs" />
+    <Compile Include="Areas\Account\Controllers\KnowledgebaseController.cs" />
+    <Compile Include="Areas\Account\Controllers\StatisticsController.cs" />
+    <Compile Include="Areas\Account\Controllers\SupportTicketController.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AutoAssignController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CompaniesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CompanyCategoriesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CompanyUsersController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ConfigsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ContractController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\Admin\Controllers\EmailTemplateController.cs" />
+    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\KBArticlesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\KBCategoriesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\LanguagesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\MailController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SettingsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\StatisticsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SupportTeamsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SupportTicketController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TicketSourceController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
+    <Compile Include="Classes\AdminBaseController.cs" />
+    <Compile Include="Classes\BaseController.cs" />
+    <Compile Include="Classes\Utility.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\KnowledgebaseController.cs" />
+    <Compile Include="Controllers\SupportTicketController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Account\Views\Home\ChangePassword.cshtml" />
+    <Content Include="Areas\Account\Views\Home\ForgotPassword.cshtml" />
+    <Content Include="Areas\Account\Views\Home\Login.cshtml" />
+    <Content Include="Areas\Account\Views\Home\ResetPassword.cshtml" />
+    <Content Include="Areas\Account\Views\KBArticles\Index.cshtml" />
+    <Content Include="Areas\Account\Views\KBArticles\Manage.cshtml" />
+    <Content Include="Areas\Account\Views\KBArticles\_Attachments.cshtml" />
+    <Content Include="Areas\Account\Views\KBArticles\_ManageArticle.cshtml" />
+    <Content Include="Areas\Admin\Views\KBArticles\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\KBArticles\Manage.cshtml" />
+    <Content Include="Areas\Admin\Views\KBArticles\_Attachments.cshtml" />
+    <Content Include="Areas\Admin\Views\KBArticles\_ManageArticle.cshtml" />
+    <Content Include="Content\ace-fonts.css" />
+    <Content Include="Content\ace-rtl.css" />
+    <Content Include="Content\ace.css" />
+    <Content Include="Content\ace.min.css" />
+    <Content Include="Content\ace.onpage-help.css" />
+    <Content Include="Content\bootstrap-datetimepicker.css" />
+    <Content Include="Content\bootstrap-duallistbox.css" />
+    <Content Include="Content\bootstrap-multiselect.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\chosen.css" />
+    <Content Include="Content\colorpicker.css" />
+    <Content Include="Content\common.css" />
+    <Content Include="Content\datepicker.css" />
+    <Content Include="Content\dropzone.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\images\ajax-loader.gif" />
+    <Content Include="Content\images\alpha.png" />
+    <Content Include="Content\images\chosen-sprite.png" />
+    <Content Include="Content\images\CompanyUser.png" />
+    <Content Include="Content\images\file-icon.png" />
+    <Content Include="Content\images\hue.png" />
+    <Content Include="Content\images\Operator.png" />
+    <Content Include="Content\images\r-icon.png" />
+    <Content Include="Content\images\r1-icon.png" />
+    <Content Include="Content\images\r2-icon.gif" />
+    <Content Include="Content\images\s-icon.png" />
+    <Content Include="Content\images\s1-icon.png" />
+    <Content Include="Content\images\s2-icon.gif" />
+    <Content Include="Content\images\saturation.png" />
+    <Content Include="Content\images\SLA Icon.png" />
+    <Content Include="Content\images\spritemap.png" />
+    <Content Include="Content\images\ui-icon-calendar.png" />
+    <Content Include="Content\images\user.png" />
+    <Content Include="Content\jquery-ui.custom.min.css" />
+    <Content Include="Content\jquery-ui.min.css" />
+    <Content Include="Content\jstree\32px.png" />
+    <Content Include="Content\jstree\40px.png" />
+    <Content Include="Content\jstree\style.css" />
+    <Content Include="Content\jstree\style.min.css" />
+    <Content Include="Content\jstree\throbber.gif" />
+    <Content Include="Content\select2.css" />
+    <Content Include="Content\showMessage.css" />
+    <Content Include="Content\sunburst.css" />
+    <Content Include="Content\ui.jqgrid.css" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\141x44-offline.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\141x44-online.png" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="LiveChat\banner.ascx" />
+    <Content Include="LiveChat\ChangePassword.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\2d.css" />
+    <Content Include="CuteSoft_Client\CuteChat\Advertising\BottomAds.ascx" />
+    <Content Include="CuteSoft_Client\CuteChat\Advertising\MessengerAds.ascx" />
+    <Content Include="CuteSoft_Client\CuteChat\Advertising\TopAds.ascx" />
+    <Content Include="CuteSoft_Client\CuteChat\AvatarChat\a1.png" />
+    <Content Include="CuteSoft_Client\CuteChat\AvatarChat\a10.png" />
+    <Content Include="CuteSoft_Client\CuteChat\AvatarChat\a11.png" />
+    <Content Include="CuteSoft_Client\CuteChat\AvatarChat\a12.png" />
+    <Content Include="CuteSoft_Client\CuteChat\AvatarChat\a13.png" />
+    <Content Include="CuteSoft_Client\CuteChat\AvatarChat\a14.png" />
+    <Content Include="CuteSoft_Client\CuteChat\AvatarChat\a15.png" />
+    <Content Include="CuteSoft_Client\CuteChat\AvatarChat\a16.png" />
+    <Content Include="CuteSoft_Client\CuteChat\AvatarChat\a17.png" />
+    <Content Include="CuteSoft_Client\CuteChat\AvatarChat\a18.png" />
+    <Content Include="CuteSoft_Client\CuteChat\AvatarChat\a19.png" />
+    <Content Include="CuteSoft_Client\CuteChat\AvatarChat\a2.png" />
+    <Content Include="CuteSoft_Client\CuteChat\AvatarChat\a20.png" />
+    <Content Include="CuteSoft_Client\CuteChat\AvatarChat\a21.png" />
+    <Content Include="CuteSoft_Client\CuteChat\AvatarChat\a22.png" />
+    <Content Include="CuteSoft_Client\CuteChat\AvatarChat\a23.png" />
+    <Content Include="CuteSoft_Client\CuteChat\AvatarChat\a24.png" />
+    <Content Include="CuteSoft_Client\CuteChat\AvatarChat\a25.png" />
+    <Content Include="CuteSoft_Client\CuteChat\AvatarChat\a26.png" />
+    <Content Include="CuteSoft_Client\CuteChat\AvatarChat\a27.png" />
+    <Content Include="CuteSoft_Client\CuteChat\AvatarChat\a28.png" />
+    <Content Include="CuteSoft_Client\CuteChat\AvatarChat\a29.png" />
+    <Content Include="CuteSoft_Client\CuteChat\AvatarChat\a3.png" />
+    <Content Include="CuteSoft_Client\CuteChat\AvatarChat\a30.png" />
+    <Content Include="CuteSoft_Client\CuteChat\AvatarChat\a31.png" />
+    <Content Include="CuteSoft_Client\CuteChat\AvatarChat\a32.png" />
+    <Content Include="CuteSoft_Client\CuteChat\AvatarChat\a33.png" />
+    <Content Include="CuteSoft_Client\CuteChat\AvatarChat\a4.png" />
+    <Content Include="CuteSoft_Client\CuteChat\AvatarChat\a5.png" />
+    <Content Include="CuteSoft_Client\CuteChat\AvatarChat\a6.png" />
+    <Content Include="CuteSoft_Client\CuteChat\AvatarChat\a7.png" />
+    <Content Include="CuteSoft_Client\CuteChat\AvatarChat\a8.png" />
+    <Content Include="CuteSoft_Client\CuteChat\AvatarChat\a9.png" />
+    <Content Include="CuteSoft_Client\CuteChat\AvatarChat\bg-2.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\AvatarChat\bg-3.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\AvatarChat\bg-4.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\AvatarChat\cutechat4.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Anonymous\default.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\0.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\05.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\06.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\07.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\08.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\09.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\10.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\administrator1_16x16.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\administrator2_16x16.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\administrator3_16x16.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\anonymous_16x16.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\car.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\cup.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\drink.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\emoticon_evilgrin.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\emoticon_grin.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\emoticon_happy.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\emoticon_smile.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\emoticon_surprised.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\emoticon_tongue.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\emoticon_unhappy.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\emoticon_waii.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\emoticon_wink.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\heart.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\lightbulb_off.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\music.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\phone.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\sport_8ball.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\sport_basketball.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\sport_football.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\sport_golf.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\sport_raquet.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\sport_shuttlecock.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\sport_soccer.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\sport_tennis.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\status_online.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\television.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\tux.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\user.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\user1_16x16.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\user2_16x16.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\user3.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\user3_16x16.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\user4_16x16.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\user5_16x16.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\user6_16x16.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\user7_16x16.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\user8_16x16.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\user9_16x16.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\user_gray.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\user_green.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\user_orange.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\user_red.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Everyone\user_suit.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Members\default.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Messenger\boy1.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Messenger\boy2.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Messenger\boy2.jpg" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Messenger\boy3.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Messenger\boy4.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Messenger\boy5.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Messenger\boy6.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Messenger\boy7.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Messenger\boy8.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Messenger\boy9.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Messenger\boy91.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Messenger\boy92.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Messenger\boy93.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Messenger\boy94.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Messenger\boy96.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Messenger\default.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Messenger\girl1.jpg" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Messenger\girl10.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Messenger\girl11.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Messenger\girl12.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Messenger\girl13.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Messenger\girl14.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Messenger\girl15.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Messenger\girl16.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Messenger\girl2.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Messenger\girl3.jpg" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Messenger\girl4.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Messenger\girl5.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Messenger\girl6.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Messenger\girl7.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Messenger\girl8.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Messenger\girl9.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Moderators\default.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Avatars\Moderators\default.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Channel.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\Channel_Avatar.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\Channel_Flash.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\Channel_FS.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\Channel_FS_Input.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\Channel_FS_Message.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\Channel_FS_Online.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\Channel_FS_Quit.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\Channel_FS_Top.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\Channel_New.css" />
+    <Content Include="CuteSoft_Client\CuteChat\Channel_Private.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\Channel_v4.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Admin-Interface.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Auto-focus.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Auto-Scroll.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Banner.ascx" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Change-Avatar.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Change-skin.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Chat-Acronyms.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Clear-scree.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Clear-screen.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\CuteChat-Commands.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\default.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\47_47.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\48_48.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\49_49.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\50_50.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\51_51.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\52_52.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\53_53.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\55_55.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\56_56.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\57_57.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\58_58.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\59_59.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\60_60.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\61_61.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\62_62.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\63_63.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\64_64.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\66_66.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\69_69.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\70_70.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\71_71.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\72_72.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\73_73.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\74_74.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\75_75.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\77_77.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\angel_smile.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\angry_smile.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\bat.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\beer_mug.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\broken_heart.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\c.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\cake.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\camera.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\cat.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\clock.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\coffee.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\confused_smile.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\cry_smile.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\devil_smile.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\dog.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\envelope.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\film.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\girl.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\girl_hug.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\guy.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\guy_hug.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\heart.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\kiss.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\lightbulb.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\martini.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\messenger.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\moon.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\newToIM.png" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\note.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\omg_smile.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\phone.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\present.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\red_smile.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\regular_smile.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\rose.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\sad_smile.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\shades_smile.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\star.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\teeth_smile.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\thumbs_down.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\thumbs_up.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\tongue_smile.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\what_smile.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\wilted_rose.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Emoticons\wink_smile.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Ignoring-Users.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\admin-interface.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\Auto-focus.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\Auto-scroll.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\avatar-chat.jpg" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\bold.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\Changing-Avatar.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\Changing-Avatar2.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\chat-software.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\chat-software2.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\chatlogo.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\check.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\Clear-screen.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\click-username.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\colourpick.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\cutechat_mainbanner2.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\enlarge.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\Entering-Chat-Room.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\flooding-control.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\fontdropdown.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\ignore-users.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\Interface.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\invite-user.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\italic.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\Moderated-Chat.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\Moderated-Live-Chat.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\nudge.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\Play-Sounds.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\private-Accept.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\private-chat-window-firefox.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\private-chat-window-mac.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\private-chat-window.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\private-chat-window.jpg" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\private-chat.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\private-message.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\read2.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\Save-conversation.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\Save-conversation2.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\select-skin.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\select-username.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\Sending-messages.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\sizedropdown.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\skin-selector.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\still-public.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\underline.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\view-profile.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\images\whisper-check.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Interface-overview.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Interval-between-utterances.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Invite-users.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\leftmenu.inc" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Loginout.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Moderated-Chat.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\participatechat.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Poor-Connections.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\PrivateChat.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Register.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Save-conversation.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Sendingmessages.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\SendingMessagestouser.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\sounds-alerts.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\style.css" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Text-Formatting.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Using-Smilies.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\View-profile.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\chat-user-guide\Whisperchat.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\ChatAdmin\BadWords.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\ChatAdmin\Banner.ascx" />
+    <Content Include="CuteSoft_Client\CuteChat\ChatAdmin\Config.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\ChatAdmin\Create_Lobbies.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\ChatAdmin\Customize-Color-Picker.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\ChatAdmin\Customize-Emotion.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\ChatAdmin\Customize-language.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\ChatAdmin\Customize-UI.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\ChatAdmin\Default.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\ChatAdmin\Delete_Lobbies.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\ChatAdmin\EditLobbyManagerList.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\ChatAdmin\Edit_Lobbies.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\ChatAdmin\FileUpload.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\ChatAdmin\IPRules.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\ChatAdmin\Lobbies.ascx" />
+    <Content Include="CuteSoft_Client\CuteChat\ChatAdmin\LobbyItem.ascx" />
+    <Content Include="CuteSoft_Client\CuteChat\ChatAdmin\Log.Aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\ChatAdmin\Menu.ascx" />
+    <Content Include="CuteSoft_Client\CuteChat\ChatAdmin\style.css" />
+    <Content Include="CuteSoft_Client\CuteChat\ChatAdmin\URLs.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\Default.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\DialogAvatars.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\DialogCharacters.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\DialogSendFile.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\EmbedChannel.ascx" />
+    <Content Include="CuteSoft_Client\CuteChat\EmbedChannel.css" />
+    <Content Include="CuteSoft_Client\CuteChat\EmbedChannel.js" />
+    <Content Include="CuteSoft_Client\CuteChat\EmbedMessenger.ascx" />
+    <Content Include="CuteSoft_Client\CuteChat\EmbedMessenger.css" />
+    <Content Include="CuteSoft_Client\CuteChat\EmbedMessenger.js" />
+    <Content Include="CuteSoft_Client\CuteChat\FlashClient.html" />
+    <Content Include="CuteSoft_Client\CuteChat\FlashClient.swf" />
+    <Content Include="CuteSoft_Client\CuteChat\flash_style.css" />
+    <Content Include="CuteSoft_Client\CuteChat\Global.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\Icons\chat.ico" />
+    <Content Include="CuteSoft_Client\CuteChat\Icons\file.ico" />
+    <Content Include="CuteSoft_Client\CuteChat\Icons\Messenger.ico" />
+    <Content Include="CuteSoft_Client\CuteChat\Icons\support.ICO" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\141x44-offline.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\141x44-online.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\1x1.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\468x60-net-chat.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\50-home.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\add_group.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\admin.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\Anonymous.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\archive.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\arrow.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\arrow_left.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\arrow_right.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\b1.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\banip.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\bg.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\bg_down.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\bg_up.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\bold.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\boxbottom.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\boxbottomleft.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\boxbottomright.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\boxleft.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\boxright.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\boxtop.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\boxtopleftcorner.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\boxtoprightcorner.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\btm_center.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\btm_left.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\btm_right.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\btn_plus.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\btn_signin.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\btn_sub.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\bubble1.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\button.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\button2.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\callout.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\camera.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\channels.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\chat-layout-760.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\chat-layout-full.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\chat.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\chat.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\Chat_Customize_Color.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\Chat_Customize_Emotion.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\cleanup.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\Close.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\Close2.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\closechat.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\color.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\colourpick.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\config.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\control_panel.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\cup.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\Cute Live Support logo.jpg" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\cutechat_banner.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\cutechat_banner.jpg" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\cutechat_logo.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\cutechat_picture.jpg" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\default.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\defaultavatar.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\delete.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\delete_group.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\disk.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\edit.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotion.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\emangel.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\emangry.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\embeer.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\emcake.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\emcat.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\emclock.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\emcocktl.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\emcrook.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\emcry.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\emdgust.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\emdog.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\ememail.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\emembarrassed.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\emfemale.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\emfilm.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\emfist.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\emgift.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\emhot.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\emhug.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\emhug2.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\emidea.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\emkulou.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\emlips.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\emlove.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\emmale.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\emmessag.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\emmoon.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\emnote.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\emphone.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\emphoto.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\emquestion.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\emrainbow.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\emrose.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\emrosesad.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\emsad.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\emsmile.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\emsmiled.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\emsmileo.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\emsmilep.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\emstar.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\emtea.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\emteeth.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\emthdown.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\emthup.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\emunlove.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\emvamp.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\emwink.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\face1.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\face10.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\face11.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\face12.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\face13.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\face14.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\face15.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\face16.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\face17.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\face18.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\face19.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\face2.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\face20.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\face21.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\face22.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\face23.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\face24.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\face3.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\face4.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\face5.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\face6.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\face7.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\face8.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\face9.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\_admin.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\_default.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emotions\_guest.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\emrainbow.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\exit.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\file.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\find.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\focus-off.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\focus-on.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\forum_chat.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\group.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\help.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\home.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\home.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\home_arrow.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\HtmlButton.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\icon-blocked.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\icon_add.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\icon_add.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\icon_ban_allow.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\icon_delete.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\icon_enlarge.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\icon_eye.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\icon_file.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\icon_invite.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\icon_kick.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\icon_operator.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\icon_target.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\icon_unblocked.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\imbody.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\imbody_invite.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\imsignin.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\IM_Arrow1.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\IM_Arrow1Hover.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\IM_Arrow2.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\IM_Arrow2Hover.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\IM_Arrow3.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\im_away.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\im_blocked.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\im_blocked_busy.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\im_blocked_offline.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\IM_BtnHover.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\IM_BtnSendMsg.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\im_busy.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\IM_ConvBtnHover.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\IM_Emotion.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\IM_InpBtnHover.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\IM_InputBox.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\im_invisible.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\IM_Main.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\IM_Nudge.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\im_offline.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\im_online.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\IM_PicSize.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\IM_Side1.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\IM_Side2.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\IM_ToolBtnHover.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\invite.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\italic.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\keyboard.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\l1.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\l2.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\live-help-window.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\live-support-woman.jpg" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\live-support.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\live-support.jpg" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\LiveHelp.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\lock.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\lock_open.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\log.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\logo.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\logoff.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\mail.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\max.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\max2.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\mdl_left.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\mdl_right.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\menuleft.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\menu_gif.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\messengerlogo.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\minus.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\moderator.jpg" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\moderator.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\ModeratorMode.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msgbg.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\0.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\1.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\10.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\11.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\12.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\13.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\14.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\15.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\16.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\17.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\18.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\19.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\2.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\20.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\21.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\22.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\23.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\24.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\25.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\26.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\27.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\28.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\29.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\3.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\30.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\31.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\32.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\33.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\34.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\35.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\36.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\37.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\38.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\39.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\4.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\40.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\41.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\42.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\43.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\44.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\45.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\46.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\47.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\48.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\49.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\5.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\50.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\51.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\52.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\53.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\54.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\55.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\56.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\57.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\58.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\59.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\6.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\60.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\61.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\62.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\63.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\64.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\65.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\66.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\67.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\68.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\69.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\7.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\8.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\msn\9.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\notebook.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\nudge.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\ok.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\operator.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\Organize.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\password.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\print.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\printer.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\privatechat.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\profile.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\r1.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\r2.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\refresh.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\remove.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\rename_group.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\rightarrow.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\role.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\room.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\save.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\send.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\sendmenu.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\setting.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\showicon.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\silence.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\skin.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\sound_off.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\sound_off.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\sound_on.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\sound_on.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\speaker.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\speaker0.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\speaker2.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\stop.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\stop2.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\Support-Call.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\t1.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\t2.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\t3.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\top_center.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\top_left.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\top_right.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\Transcripts.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\underline.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\up.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\upload.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\upload48.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\user.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\users_icon.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\vip.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\vip2.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\vr2.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\web-messenger-banner.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\webcam.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\WindowHeader.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\xp1.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\xp2.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\xp3.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\xp4.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\xp5.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\xp6.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\xp7.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\xp8.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\xp9.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\yoursite.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\yoursite.png" />
+    <Content Include="CuteSoft_Client\CuteChat\Images\yoursite2.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\IM_style.css" />
+    <Content Include="CuteSoft_Client\CuteChat\IntegrationUtility.js.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\Languages\da.xml" />
+    <Content Include="CuteSoft_Client\CuteChat\Languages\de-DE.xml" />
+    <Content Include="CuteSoft_Client\CuteChat\Languages\en-us.xml" />
+    <Content Include="CuteSoft_Client\CuteChat\Languages\es-co.xml" />
+    <Content Include="CuteSoft_Client\CuteChat\Languages\es-mx.xml" />
+    <Content Include="CuteSoft_Client\CuteChat\Languages\es-us.xml" />
+    <Content Include="CuteSoft_Client\CuteChat\Languages\es.xml" />
+    <Content Include="CuteSoft_Client\CuteChat\Languages\fr-be.xml" />
+    <Content Include="CuteSoft_Client\CuteChat\Languages\fr-ca.xml" />
+    <Content Include="CuteSoft_Client\CuteChat\Languages\fr.xml" />
+    <Content Include="CuteSoft_Client\CuteChat\Languages\he.xml" />
+    <Content Include="CuteSoft_Client\CuteChat\Languages\nb-NO.xml" />
+    <Content Include="CuteSoft_Client\CuteChat\Languages\no.xml" />
+    <Content Include="CuteSoft_Client\CuteChat\Languages\pt-BR.xml" />
+    <Content Include="CuteSoft_Client\CuteChat\Languages\pt-PT.xml" />
+    <Content Include="CuteSoft_Client\CuteChat\Languages\pt.xml" />
+    <Content Include="CuteSoft_Client\CuteChat\Languages\tr.xml" />
+    <Content Include="CuteSoft_Client\CuteChat\Languages\zh-chs.xml" />
+    <Content Include="CuteSoft_Client\CuteChat\Languages\zh-cn.xml" />
+    <Content Include="CuteSoft_Client\CuteChat\LoadScripts.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\LoadSettings.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\MessageHistory.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\Add-contact.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\Auto-focus.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\Auto-Scroll.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\Banner.ascx" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\Block-contact.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\Change-Avatar.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\Change-skin.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\Change-status.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\Chat-Acronyms.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\Clear-screen.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\contacts-list.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\CuteChat-Commands.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\default.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\Ignoring-Users.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\About-contact-list.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\Add-contact1.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\add-group.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\Auto-focus.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\Auto-scroll.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\block-user1.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\block-user2.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\bold.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\Changing-Avatar.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\Changing-Avatar2.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\Changing-status.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\Clear-screen.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\click-username.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\colourpick.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\flooding-control.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\fontdropdown.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\group.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\ignore-users.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\invite-user.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\italic.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\messenger-login.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\messenger-logout.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\Play-Sounds.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\private-Accept.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\private-chat-window-mac.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\private-chat-window-mac.jpg" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\private-chat-window.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\private-chat-window.jpg" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\private-chat.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\private-message.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\read2.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\Save-conversation.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\Save-conversation2.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\select-skin.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\select-username.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\send-message.jpg" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\send-message2.jpg" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\Sending-message2.jpg" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\Sending-messages.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\sizedropdown.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\skin-selector.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\still-public.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\underline.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\video-chat.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\video-chat2.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\video-chat2.jpg" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\view-profile.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\web-messenger.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\images\whisper-check.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\Interface.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\Interval-between-utterances.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\Invite-users.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\leftmenu.inc" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\loginout.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\Messenger-Commands.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\participatechat.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\Poor-Connections.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\PrivateChat.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\Register.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\Requirements.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\Save-conversation.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\Sending-Messages.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\Sendingmessages.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\SendingMessagestouser.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\SendingPrivateMessages.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\sounds-alerts.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\style.css" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\Text-Formatting.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\Using-Smilies.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\messenger-user-guide\View-profile.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\Messenger.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\Messenger4.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\NewMessenger.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\NewMessenger.css" />
+    <Content Include="CuteSoft_Client\CuteChat\NewMessengerConv.htm" />
+    <Content Include="CuteSoft_Client\CuteChat\NewMessengerMain.htm" />
+    <Content Include="CuteSoft_Client\CuteChat\NewMessengerSign.htm" />
+    <Content Include="CuteSoft_Client\CuteChat\QuitRedirect.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\SaveTemplate.Aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\Script\Channel_New.js" />
+    <Content Include="CuteSoft_Client\CuteChat\Script\chatclient.js" />
+    <Content Include="CuteSoft_Client\CuteChat\Script\ChatUI.js" />
+    <Content Include="CuteSoft_Client\CuteChat\Script\core.js" />
+    <Content Include="CuteSoft_Client\CuteChat\Script\CuteWebUI.js" />
+    <Content Include="CuteSoft_Client\CuteChat\Script\html.js" />
+    <Content Include="CuteSoft_Client\CuteChat\Script\htmlmenu.js" />
+    <Content Include="CuteSoft_Client\CuteChat\Script\MMG.js" />
+    <Content Include="CuteSoft_Client\CuteChat\Script\moderatemode.js" />
+    <Content Include="CuteSoft_Client\CuteChat\Script\NewMessenger.js" />
+    <Content Include="CuteSoft_Client\CuteChat\Script\NEWMETA.txt" />
+    <Content Include="CuteSoft_Client\CuteChat\Script\oldmenutreeimpl.js" />
+    <Content Include="CuteSoft_Client\CuteChat\Script\oldmenutreeimpl2.js" />
+    <Content Include="CuteSoft_Client\CuteChat\Script\protoutil.js" />
+    <Content Include="CuteSoft_Client\CuteChat\Script\testsl.html" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\Classic.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\Indigo.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\Indigo\ChatUI.xml" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\Indigo\ChatUI.xml.Aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\Indigo\Images\button.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\Indigo\Images\button2.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\Indigo\Images\HtmlButton.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\Indigo\Images\send.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\Indigo\Images\whitebutton.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\Indigo\Images\WindowHeader.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\Indigo\style.css" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\MacBlue.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\MacWhite.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\MacWhite\ChatUI.xml" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\MacWhite\ChatUI.xml.Aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\MacWhite\Images\btm_center.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\MacWhite\Images\btm_left.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\MacWhite\Images\btm_right.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\MacWhite\Images\button.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\MacWhite\Images\button2.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\MacWhite\Images\HtmlButton.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\MacWhite\Images\send.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\MacWhite\Images\top_center.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\MacWhite\Images\top_left.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\MacWhite\Images\top_right.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\MacWhite\Images\windowbar_plain_left.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\MacWhite\Images\windowbar_plain_right.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\MacWhite\Images\WindowHeader.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\MacWhite\style.css" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\Normal.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\Normal\ChatUI.xml" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\Normal\ChatUI.xml.Aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\Normal\Images\button.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\Normal\Images\button2.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\Normal\Images\HtmlButton.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\Normal\Images\send.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\Normal\Images\WindowHeader.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\Normal\style.css" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\Royale.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\Royale\ChatUI.xml" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\Royale\ChatUI.xml.Aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\Royale\Images\btm_center.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\Royale\Images\btm_left.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\Royale\Images\btm_right.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\Royale\Images\HtmlButton.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\Royale\Images\mdl_left.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\Royale\Images\mdl_right.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\Royale\Images\send.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\Royale\Images\top_center.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\Royale\Images\top_left.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\Royale\Images\top_right.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\Royale\Images\WindowHeader.gif" />
+    <Content Include="CuteSoft_Client\CuteChat\Skins\Royale\style.css" />
+    <Content Include="CuteSoft_Client\CuteChat\sound-config.xml" />
+    <Content Include="CuteSoft_Client\CuteChat\soundcontroller.swf" />
+    <Content Include="CuteSoft_Client\CuteChat\SoundPlayer.swf" />
+    <Content Include="CuteSoft_Client\CuteChat\Sound\alert.mp3" />
+    <Content Include="CuteSoft_Client\CuteChat\Sound\ChatInvt.mp3" />
+    <Content Include="CuteSoft_Client\CuteChat\Sound\ChatJoin.mp3" />
+    <Content Include="CuteSoft_Client\CuteChat\Sound\ChatKick.mp3" />
+    <Content Include="CuteSoft_Client\CuteChat\Sound\ChatTag.mp3" />
+    <Content Include="CuteSoft_Client\CuteChat\Sound\ChatWhsp.mp3" />
+    <Content Include="CuteSoft_Client\CuteChat\Sound\newalert.mp3" />
+    <Content Include="CuteSoft_Client\CuteChat\Sound\newemail.mp3" />
+    <Content Include="CuteSoft_Client\CuteChat\Sound\nudge.mp3" />
+    <Content Include="CuteSoft_Client\CuteChat\Sound\online.mp3" />
+    <Content Include="CuteSoft_Client\CuteChat\Sound\ring.mp3" />
+    <Content Include="CuteSoft_Client\CuteChat\Sound\select.mp3" />
+    <Content Include="CuteSoft_Client\CuteChat\Sound\type.mp3" />
+    <Content Include="CuteSoft_Client\CuteChat\Style.css" />
+    <Content Include="CuteSoft_Client\CuteChat\Support-Image-Button.js.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\Support-Visitor-monitor-crossdomain.js.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\Support-Visitor-monitor.js.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\SupportAdmin\BadWords.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\SupportAdmin\Banner.ascx" />
+    <Content Include="CuteSoft_Client\CuteChat\SupportAdmin\Customize-Emotion.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\SupportAdmin\Customize-language.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\SupportAdmin\Customize-UI.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\SupportAdmin\Default.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\SupportAdmin\IPRules.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\SupportAdmin\Live-Support-Config.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\SupportAdmin\Log.Aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\SupportAdmin\Menu.ascx" />
+    <Content Include="CuteSoft_Client\CuteChat\SupportAdmin\style.css" />
+    <Content Include="CuteSoft_Client\CuteChat\SupportClient.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\SupportClient.css" />
+    <Content Include="CuteSoft_Client\CuteChat\SupportClient.js" />
+    <Content Include="CuteSoft_Client\CuteChat\SupportCustomer.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\SupportCustomer2.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\SupportFeedback.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\SupportRedirect.Aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\SupportService.asmx" />
+    <Content Include="CuteSoft_Client\CuteChat\vc_publish.html" />
+    <Content Include="CuteSoft_Client\CuteChat\vc_publish.swf" />
+    <Content Include="CuteSoft_Client\CuteChat\vc_recieve.swf" />
+    <Content Include="CuteSoft_Client\CuteChat\ViewProfile.Aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\Xml\ChatUI.xml" />
+    <Content Include="CuteSoft_Client\CuteChat\Xml\ChatUI.xml.Aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\Xml\ChatUI_IM.xml" />
+    <Content Include="CuteSoft_Client\CuteChat\_safe_server_info_\default.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\_safe_server_info_\errors.aspx" />
+    <Content Include="CuteSoft_Client\CuteChat\_safe_server_info_\pinfo.aspx" />
+    <Content Include="LiveChat\Default.aspx" />
+    <Content Include="LiveChat\Footer.ascx" />
+    <Content Include="LiveChat\Login.aspx" />
+    <Content Include="LiveChat\ManageAdministrators.aspx" />
+    <Content Include="LiveChat\ManageDepartments.aspx" />
+    <Content Include="LiveChat\Manager.aspx" />
+    <Content Include="LiveChat\ManageUsers.aspx" />
+    <Content Include="LiveChat\Register.aspx" />
+    <Content Include="LiveChat\style.css" />
+    <Content Include="Scripts\ace-elements.min.js" />
+    <Content Include="Scripts\ace-extra.js" />
+    <Content Include="Scripts\ace-extra.min.js" />
+    <Content Include="Scripts\ace.min.js" />
+    <Content Include="Scripts\ace\ace.ajax-content.js" />
+    <Content Include="Scripts\ace\ace.js" />
+    <Content Include="Scripts\ace\ace.onpage-help.js" />
+    <Content Include="Scripts\ace\ace.searchbox-autocomplete.js" />
+    <Content Include="Scripts\ace\ace.settings-rtl.js" />
+    <Content Include="Scripts\ace\ace.settings-skin.js" />
+    <Content Include="Scripts\ace\ace.settings.js" />
+    <Content Include="Scripts\ace\ace.sidebar-scroll-1.js" />
+    <Content Include="Scripts\ace\ace.sidebar.js" />
+    <Content Include="Scripts\ace\ace.submenu-hover.js" />
+    <Content Include="Scripts\ace\ace.touch-drag.js" />
+    <Content Include="Scripts\ace\ace.widget-box.js" />
+    <Content Include="Scripts\ace\ace.widget-on-reload.js" />
+    <Content Include="Scripts\ace\elements.aside.js" />
+    <Content Include="Scripts\ace\elements.colorpicker.js" />
+    <Content Include="Scripts\ace\elements.fileinput.js" />
+    <Content Include="Scripts\ace\elements.onpage-help.js" />
+    <Content Include="Scripts\ace\elements.scroller.js" />
+    <Content Include="Scripts\ace\elements.spinner.js" />
+    <Content Include="Scripts\ace\elements.treeview.js" />
+    <Content Include="Scripts\ace\elements.typeahead.js" />
+    <Content Include="Scripts\ace\elements.wizard.js" />
+    <Content Include="Scripts\ace\elements.wysiwyg.js" />
+    <Content Include="Scripts\bootstrap-colorpicker.js" />
+    <Content Include="Scripts\bootstrap-datepicker.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker.js" />
+    <Content Include="Scripts\bootstrap-markdown.min.js" />
+    <Content Include="Scripts\bootstrap-multiselect.js" />
+    <Content Include="Scripts\bootstrap-multiselect.min.js" />
+    <Content Include="Scripts\bootstrap-timepicker.js" />
+    <Content Include="Scripts\bootstrap-wysiwyg.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\Home\Login.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_LoginLayout.cshtml" />
+    <Content Include="fonts\fontawesome-webfont.eot">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="fonts\fontawesome-webfont.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="fonts\fontawesome-webfont.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="fonts\fontawesome-webfont.woff">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="fonts\FontAwesome.otf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="fonts\OpenSans-300.woff">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="fonts\OpenSans-400.woff">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="fonts\readme" />
+    <Content Include="Areas\Admin\Views\Shared\_Header.cshtml" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Sidebar.cshtml" />
+    <Content Include="Areas\Admin\Views\Dashboard\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Companies\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Companies\ManageCompany.cshtml" />
+    <Content Include="Areas\Admin\Views\KBCategories\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\KBCategories\Manage.cshtml" />
+    <Content Include="Areas\Admin\Views\Settings\OptPriorities.cshtml" />
+    <Content Include="Areas\Admin\Views\Settings\_ManageOptPriority.cshtml" />
+    <Content Include="Areas\Admin\Views\Settings\_ManageCusPriority.cshtml" />
+    <Content Include="Areas\Admin\Views\Settings\CustPriorities.cshtml" />
+    <Content Include="Areas\Admin\Views\Settings\TicketStatus.cshtml" />
+    <Content Include="Areas\Admin\Views\Settings\_ManageTicketStatus.cshtml" />
+    <Content Include="Areas\Admin\Views\Contract\ContractTemplate.cshtml" />
+    <Content Include="Areas\Admin\Views\Contract\_ManageContractTemplate.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Contract\CompanyContract.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\Manage.cshtml" />
+    <Content Include="Areas\Admin\Views\Contract\_ManageCompanyContract.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\ForgotPassword.cshtml" />
+    <Content Include="Areas\Admin\Views\Settings\SupportCategories.cshtml" />
+    <Content Include="Areas\Admin\Views\Settings\_ManageSupportCategories.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_ResultMessage.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\ResetPassword.cshtml" />
+    <Content Include="Areas\Admin\Views\SupportTeams\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\SupportTeams\Manage.cshtml" />
+    <Content Include="Areas\Admin\Views\SupportTeams\_ManageDetails.cshtml" />
+    <Content Include="Areas\Admin\Views\SupportTeams\_ManageMembers.cshtml" />
+    <Content Include="Areas\Admin\Views\Companies\_CompanyDetail.cshtml" />
+    <Content Include="Areas\Admin\Views\Companies\_ManageCompanyException.cshtml" />
+    <Content Include="Areas\Admin\Views\SupportTeams\_ManagePermission.cshtml" />
+    <Content Include="Areas\Admin\Views\SupportTicket\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\_ManageDetails.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\_ManagePermission.cshtml" />
+    <Content Include="Areas\Admin\Views\CompanyUsers\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\CompanyUsers\Manage.cshtml" />
+    <Content Include="Areas\Admin\Views\Companies\_Users.cshtml" />
+    <Content Include="Areas\Admin\Views\Companies\_Attachments.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\ChangePassword.cshtml" />
+    <Content Include="Areas\Account\Views\web.config" />
+    <Content Include="Areas\Account\Views\Shared\_LoginLayout.cshtml" />
+    <Content Include="Areas\Account\Views\Shared\_ResultMessage.cshtml" />
+    <Content Include="Areas\Account\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Account\Views\Shared\_Header.cshtml" />
+    <Content Include="Areas\Account\Views\Shared\_Sidebar.cshtml" />
+    <Content Include="Areas\Account\Views\Dashboard\Index.cshtml" />
+    <Content Include="Areas\Account\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\AutoAssign\_ManageCompany.cshtml" />
+    <Content Include="Areas\Admin\Views\AutoAssign\_ManageCategory.cshtml" />
+    <Content Include="Areas\Admin\Views\AutoAssign\Index.cshtml" />
+    <Content Include="Areas\Account\Views\SupportTicket\Index.cshtml" />
+    <Content Include="Areas\Account\Views\SupportTicket\View_Detail.cshtml" />
+    <Content Include="Areas\Account\Views\SupportTicket\Create.cshtml" />
+    <Content Include="Areas\Account\Views\Knowledgebase\Index.cshtml" />
+    <Content Include="Areas\Account\Views\Knowledgebase\_KBArticles.cshtml" />
+    <Content Include="Areas\Account\Views\Knowledgebase\_ViewKBArticle.cshtml" />
+    <Content Include="Areas\Account\Views\SupportTicket\_TicketDetail.cshtml" />
+    <Content Include="Areas\Admin\Views\AutoAssign\_Company.cshtml" />
+    <Content Include="Areas\Admin\Views\AutoAssign\_Category.cshtml" />
+    <Content Include="Areas\Account\Views\SupportTicket\_AdvancedSearch.cshtml" />
+    <Content Include="Areas\Admin\Views\EmailTemplate\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\EmailTemplate\Manage.cshtml" />
+    <Content Include="Areas\Account\Views\SupportTicket\_SLAContracts.cshtml" />
+    <Content Include="Areas\Account\Views\SupportTicket\_Contacts.cshtml" />
+    <Content Include="Areas\Admin\Views\Configs\Index.cshtml" />
+    <Content Include="Areas\Account\Views\SupportTicket\_Attachments.cshtml" />
+    <Content Include="Areas\Account\Views\SupportTicket\_Comments.cshtml" />
+    <Content Include="Areas\Admin\Views\SupportTicket\_AdvancedSearch.cshtml" />
+    <Content Include="Areas\Admin\Views\SupportTicket\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\SupportTicket\View_Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\SupportTicket\_Attachments.cshtml" />
+    <Content Include="Areas\Admin\Views\SupportTicket\_Comments.cshtml" />
+    <Content Include="Areas\Admin\Views\SupportTicket\_Contacts.cshtml" />
+    <Content Include="Areas\Admin\Views\SupportTicket\_SLAContracts.cshtml" />
+    <Content Include="Areas\Admin\Views\SupportTicket\_TicketDetail.cshtml" />
+    <Content Include="CuteChatMail.config" />
+    <Content Include="CuteSoft_Client\CuteChat\ChatAjax.ashx" />
+    <Content Include="CuteSoft_Client\CuteChat\DownloadFile.Ashx" />
+    <Content Include="CuteSoft_Client\CuteChat\DrawAvatar.Ashx" />
+    <Content Include="CuteSoft_Client\CuteChat\DrawIMAvatar.Ashx" />
+    <Content Include="CuteSoft_Client\CuteChat\EasyHttpZipModule.config" />
+    <Content Include="CuteSoft_Client\CuteChat\NLBService.ashx" />
+    <Content Include="CuteSoft_Client\CuteChat\SupportCustomerHandler.ashx" />
+    <Content Include="CuteSoft_Client\CuteChat\vc_publish.fla" />
+    <Content Include="CuteSoft_Client\CuteChat\vc_recieve.fla" />
+    <Content Include="Areas\Account\Views\SupportTicket\_Events.cshtml" />
+    <Content Include="Areas\Admin\Views\SupportTicket\_Events.cshtml" />
+    <Content Include="Areas\Account\Views\Statistics\Index.cshtml" />
+    <Content Include="Areas\Account\Views\Statistics\_StatisticsData.cshtml" />
+    <Content Include="Areas\Account\Views\Statistics\_StatisticsChart.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\MyProfile.cshtml" />
+    <Content Include="Areas\Account\Views\Dashboard\MyProfile.cshtml" />
+    <Content Include="Areas\Admin\Views\Statistics\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Statistics\_TicketByCategories.cshtml" />
+    <Content Include="Areas\Admin\Views\Statistics\_TicketByOperators.cshtml" />
+    <Content Include="Areas\Admin\Views\Statistics\_TicketByOptPriority.cshtml" />
+    <Content Include="Areas\Admin\Views\Statistics\_TicketByCusPriority.cshtml" />
+    <Content Include="Areas\Admin\Views\Statistics\_TicketByStatus.cshtml" />
+    <Content Include="Areas\Admin\Views\Statistics\_TicketByTeams.cshtml" />
+    <Content Include="Areas\Admin\Views\Statistics\_TicketByCompanies.cshtml" />
+    <Content Include="Areas\Admin\Views\Statistics\_TicketByCompaniesHistoric.cshtml" />
+    <Content Include="Areas\Admin\Views\Companies\_ContractHistory.cshtml" />
+    <Content Include="Areas\Admin\Views\SupportTicket\_PhoneCalls.cshtml" />
+    <Content Include="Areas\Admin\Views\SupportTicket\_Activity.cshtml" />
+    <Content Include="Areas\Admin\Views\SupportTicket\_ManageActivity.cshtml" />
+    <Content Include="Areas\Admin\Views\TicketSource\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\TicketSource\Manage.cshtml" />
+    <Content Include="Areas\Admin\Views\SupportTicket\_Mails.cshtml" />
+    <Content Include="Areas\Admin\Views\Mail\BlackList.cshtml" />
+    <Content Include="Areas\Admin\Views\Mail\_ManageBlackList.cshtml" />
+    <Content Include="Areas\Admin\Views\Mail\Incoming.cshtml" />
+    <Content Include="Areas\Admin\Views\Statistics\Value.cshtml" />
+    <Content Include="Areas\Admin\Views\Mail\_AssignToUser.cshtml" />
+    <Content Include="Areas\Admin\Views\Languages\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Languages\_Manage.cshtml" />
+    <Content Include="Areas\Admin\Views\CompanyCategories\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\CompanyCategories\_Manage.cshtml" />
+    <Content Include="Areas\Account\Views\SupportTicket\_Mails.cshtml" />
+    <Content Include="Areas\Account\Views\SupportTicket\_PhoneCalls.cshtml" />
+    <Content Include="Areas\Admin\Views\Statistics\_ValuesByYear.cshtml" />
+    <Content Include="Areas\Admin\Views\Mail\UnProcessedEmailInbox.cshtml" />
+    <Content Include="Areas\Admin\Views\Mail\_AssignToTicket.cshtml" />
+    <Content Include="Areas\Account\Views\SupportTicket\_ManageActivity.cshtml" />
+    <Content Include="Areas\Account\Views\SupportTicket\_Activity.cshtml" />
+    <Content Include="Scripts\ckeditor\CHANGES.md" />
+    <Content Include="Scripts\ckeditor\LICENSE.md" />
+    <Content Include="Scripts\ckeditor\plugins\scayt\LICENSE.md" />
+    <Content Include="Scripts\ckeditor\plugins\scayt\README.md" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\LICENSE.md" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\README.md" />
+    <Content Include="Scripts\ckeditor\README.md" />
+    <Content Include="Scripts\ckeditor\samples\assets\posteddata.php" />
+    <Content Include="Scripts\ckeditor\samples\plugins\htmlwriter\assets\outputforflash\outputforflash.fla" />
+    <Content Include="Scripts\ckeditor\samples\sample_posteddata.php" />
+    <Content Include="Scripts\ckeditor\skins\moono\readme.md" />
+    <None Include="Properties\PublishProfiles\sghelp - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\sghelp - Web Deploy.pubxml" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\chosen.jquery.js" />
+    <Content Include="Scripts\ckeditor\adapters\jquery.js" />
+    <Content Include="Scripts\ckeditor\build-config.js" />
+    <Content Include="Scripts\ckeditor\ckeditor.js" />
+    <Content Include="Scripts\ckeditor\config.js" />
+    <Content Include="Scripts\ckeditor\contents.css" />
+    <Content Include="Scripts\ckeditor\lang\af.js" />
+    <Content Include="Scripts\ckeditor\lang\ar.js" />
+    <Content Include="Scripts\ckeditor\lang\bg.js" />
+    <Content Include="Scripts\ckeditor\lang\bn.js" />
+    <Content Include="Scripts\ckeditor\lang\bs.js" />
+    <Content Include="Scripts\ckeditor\lang\ca.js" />
+    <Content Include="Scripts\ckeditor\lang\cs.js" />
+    <Content Include="Scripts\ckeditor\lang\cy.js" />
+    <Content Include="Scripts\ckeditor\lang\da.js" />
+    <Content Include="Scripts\ckeditor\lang\de.js" />
+    <Content Include="Scripts\ckeditor\lang\el.js" />
+    <Content Include="Scripts\ckeditor\lang\en-au.js" />
+    <Content Include="Scripts\ckeditor\lang\en-ca.js" />
+    <Content Include="Scripts\ckeditor\lang\en-gb.js" />
+    <Content Include="Scripts\ckeditor\lang\en.js" />
+    <Content Include="Scripts\ckeditor\lang\eo.js" />
+    <Content Include="Scripts\ckeditor\lang\es.js" />
+    <Content Include="Scripts\ckeditor\lang\et.js" />
+    <Content Include="Scripts\ckeditor\lang\eu.js" />
+    <Content Include="Scripts\ckeditor\lang\fa.js" />
+    <Content Include="Scripts\ckeditor\lang\fi.js" />
+    <Content Include="Scripts\ckeditor\lang\fo.js" />
+    <Content Include="Scripts\ckeditor\lang\fr-ca.js" />
+    <Content Include="Scripts\ckeditor\lang\fr.js" />
+    <Content Include="Scripts\ckeditor\lang\gl.js" />
+    <Content Include="Scripts\ckeditor\lang\gu.js" />
+    <Content Include="Scripts\ckeditor\lang\he.js" />
+    <Content Include="Scripts\ckeditor\lang\hi.js" />
+    <Content Include="Scripts\ckeditor\lang\hr.js" />
+    <Content Include="Scripts\ckeditor\lang\hu.js" />
+    <Content Include="Scripts\ckeditor\lang\id.js" />
+    <Content Include="Scripts\ckeditor\lang\is.js" />
+    <Content Include="Scripts\ckeditor\lang\it.js" />
+    <Content Include="Scripts\ckeditor\lang\ja.js" />
+    <Content Include="Scripts\ckeditor\lang\ka.js" />
+    <Content Include="Scripts\ckeditor\lang\km.js" />
+    <Content Include="Scripts\ckeditor\lang\ko.js" />
+    <Content Include="Scripts\ckeditor\lang\ku.js" />
+    <Content Include="Scripts\ckeditor\lang\lt.js" />
+    <Content Include="Scripts\ckeditor\lang\lv.js" />
+    <Content Include="Scripts\ckeditor\lang\mk.js" />
+    <Content Include="Scripts\ckeditor\lang\mn.js" />
+    <Content Include="Scripts\ckeditor\lang\ms.js" />
+    <Content Include="Scripts\ckeditor\lang\nb.js" />
+    <Content Include="Scripts\ckeditor\lang\nl.js" />
+    <Content Include="Scripts\ckeditor\lang\no.js" />
+    <Content Include="Scripts\ckeditor\lang\pl.js" />
+    <Content Include="Scripts\ckeditor\lang\pt-br.js" />
+    <Content Include="Scripts\ckeditor\lang\pt.js" />
+    <Content Include="Scripts\ckeditor\lang\ro.js" />
+    <Content Include="Scripts\ckeditor\lang\ru.js" />
+    <Content Include="Scripts\ckeditor\lang\si.js" />
+    <Content Include="Scripts\ckeditor\lang\sk.js" />
+    <Content Include="Scripts\ckeditor\lang\sl.js" />
+    <Content Include="Scripts\ckeditor\lang\sq.js" />
+    <Content Include="Scripts\ckeditor\lang\sr-latn.js" />
+    <Content Include="Scripts\ckeditor\lang\sr.js" />
+    <Content Include="Scripts\ckeditor\lang\sv.js" />
+    <Content Include="Scripts\ckeditor\lang\th.js" />
+    <Content Include="Scripts\ckeditor\lang\tr.js" />
+    <Content Include="Scripts\ckeditor\lang\ug.js" />
+    <Content Include="Scripts\ckeditor\lang\uk.js" />
+    <Content Include="Scripts\ckeditor\lang\vi.js" />
+    <Content Include="Scripts\ckeditor\lang\zh-cn.js" />
+    <Content Include="Scripts\ckeditor\lang\zh.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\a11yhelp.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ar.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\bg.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ca.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\cs.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\cy.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\da.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\de.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\el.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\en.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\eo.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\es.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\et.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\fa.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\fi.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\fr-ca.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\fr.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\gl.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\gu.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\he.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\hi.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\hr.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\hu.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\id.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\it.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ja.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\km.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ko.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ku.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\lt.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\lv.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\mk.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\mn.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\nb.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\nl.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\no.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\pl.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\pt-br.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\pt.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ro.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ru.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\si.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\sk.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\sl.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\sq.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\sr-latn.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\sr.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\sv.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\th.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\tr.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ug.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\uk.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\vi.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\zh-cn.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\zh.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\_translationstatus.txt" />
+    <Content Include="Scripts\ckeditor\plugins\about\dialogs\about.js" />
+    <Content Include="Scripts\ckeditor\plugins\about\dialogs\hidpi\logo_ckeditor.png" />
+    <Content Include="Scripts\ckeditor\plugins\about\dialogs\logo_ckeditor.png" />
+    <Content Include="Scripts\ckeditor\plugins\clipboard\dialogs\paste.js" />
+    <Content Include="Scripts\ckeditor\plugins\colordialog\dialogs\colordialog.js" />
+    <Content Include="Scripts\ckeditor\plugins\dialog\dialogDefinition.js" />
+    <Content Include="Scripts\ckeditor\plugins\div\dialogs\div.js" />
+    <Content Include="Scripts\ckeditor\plugins\fakeobjects\images\spacer.gif" />
+    <Content Include="Scripts\ckeditor\plugins\find\dialogs\find.js" />
+    <Content Include="Scripts\ckeditor\plugins\flash\dialogs\flash.js" />
+    <Content Include="Scripts\ckeditor\plugins\flash\images\placeholder.png" />
+    <Content Include="Scripts\ckeditor\plugins\forms\dialogs\button.js" />
+    <Content Include="Scripts\ckeditor\plugins\forms\dialogs\checkbox.js" />
+    <Content Include="Scripts\ckeditor\plugins\forms\dialogs\form.js" />
+    <Content Include="Scripts\ckeditor\plugins\forms\dialogs\hiddenfield.js" />
+    <Content Include="Scripts\ckeditor\plugins\forms\dialogs\radio.js" />
+    <Content Include="Scripts\ckeditor\plugins\forms\dialogs\select.js" />
+    <Content Include="Scripts\ckeditor\plugins\forms\dialogs\textarea.js" />
+    <Content Include="Scripts\ckeditor\plugins\forms\dialogs\textfield.js" />
+    <Content Include="Scripts\ckeditor\plugins\forms\images\hiddenfield.gif" />
+    <Content Include="Scripts\ckeditor\plugins\icons.png" />
+    <Content Include="Scripts\ckeditor\plugins\icons_hidpi.png" />
+    <Content Include="Scripts\ckeditor\plugins\iframe\dialogs\iframe.js" />
+    <Content Include="Scripts\ckeditor\plugins\iframe\images\placeholder.png" />
+    <Content Include="Scripts\ckeditor\plugins\imagepaste\docs\install.html" />
+    <Content Include="Scripts\ckeditor\plugins\imagepaste\docs\styles.css" />
+    <Content Include="Scripts\ckeditor\plugins\imagepaste\plugin.js" />
+    <Content Include="Scripts\ckeditor\plugins\image\dialogs\image.js" />
+    <Content Include="Scripts\ckeditor\plugins\image\images\noimage.png" />
+    <Content Include="Scripts\ckeditor\plugins\link\dialogs\anchor.js" />
+    <Content Include="Scripts\ckeditor\plugins\link\dialogs\link.js" />
+    <Content Include="Scripts\ckeditor\plugins\link\images\anchor.png" />
+    <Content Include="Scripts\ckeditor\plugins\link\images\hidpi\anchor.png" />
+    <Content Include="Scripts\ckeditor\plugins\liststyle\dialogs\liststyle.js" />
+    <Content Include="Scripts\ckeditor\plugins\magicline\images\hidpi\icon.png" />
+    <Content Include="Scripts\ckeditor\plugins\magicline\images\icon.png" />
+    <Content Include="Scripts\ckeditor\plugins\pagebreak\images\pagebreak.gif" />
+    <Content Include="Scripts\ckeditor\plugins\pastefromword\filter\default.js" />
+    <Content Include="Scripts\ckeditor\plugins\preview\preview.html" />
+    <Content Include="Scripts\ckeditor\plugins\scayt\dialogs\options.js" />
+    <Content Include="Scripts\ckeditor\plugins\scayt\dialogs\toolbar.css" />
+    <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_address.png" />
+    <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_blockquote.png" />
+    <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_div.png" />
+    <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_h1.png" />
+    <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_h2.png" />
+    <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_h3.png" />
+    <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_h4.png" />
+    <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_h5.png" />
+    <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_h6.png" />
+    <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_p.png" />
+    <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_pre.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\dialogs\smiley.js" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\angel_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\angel_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\angry_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\angry_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\broken_heart.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\broken_heart.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\confused_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\confused_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\cry_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\cry_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\devil_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\devil_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\embaressed_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\embarrassed_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\embarrassed_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\envelope.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\envelope.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\heart.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\heart.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\kiss.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\kiss.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\lightbulb.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\lightbulb.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\omg_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\omg_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\regular_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\regular_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\sad_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\sad_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\shades_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\shades_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\teeth_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\teeth_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\thumbs_down.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\thumbs_down.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\thumbs_up.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\thumbs_up.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\tongue_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\tongue_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\tounge_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\whatchutalkingabout_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\whatchutalkingabout_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\wink_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\wink_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\ar.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\bg.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\ca.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\cs.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\cy.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\de.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\el.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\en.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\eo.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\es.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\et.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\fa.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\fi.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\fr-ca.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\fr.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\gl.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\he.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\hr.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\hu.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\id.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\it.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\ja.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\km.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\ku.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\lv.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\nb.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\nl.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\no.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\pl.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\pt-br.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\pt.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\ru.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\si.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\sk.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\sl.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\sq.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\sv.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\th.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\tr.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\ug.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\uk.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\vi.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\zh-cn.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\zh.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\_translationstatus.txt" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\specialchar.js" />
+    <Content Include="Scripts\ckeditor\plugins\tabletools\dialogs\tableCell.js" />
+    <Content Include="Scripts\ckeditor\plugins\table\dialogs\table.js" />
+    <Content Include="Scripts\ckeditor\plugins\templates\dialogs\templates.css" />
+    <Content Include="Scripts\ckeditor\plugins\templates\dialogs\templates.js" />
+    <Content Include="Scripts\ckeditor\plugins\templates\templates\default.js" />
+    <Content Include="Scripts\ckeditor\plugins\templates\templates\images\template1.gif" />
+    <Content Include="Scripts\ckeditor\plugins\templates\templates\images\template2.gif" />
+    <Content Include="Scripts\ckeditor\plugins\templates\templates\images\template3.gif" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\ciframe.html" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\tmp.html" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\tmpFrameset.html" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\wsc.css" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\wsc.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\wsc_ie.js" />
+    <Content Include="Scripts\ckeditor\samples\ajax.html" />
+    <Content Include="Scripts\ckeditor\samples\api.html" />
+    <Content Include="Scripts\ckeditor\samples\appendto.html" />
+    <Content Include="Scripts\ckeditor\samples\assets\inlineall\logo.png" />
+    <Content Include="Scripts\ckeditor\samples\assets\outputxhtml\outputxhtml.css" />
+    <Content Include="Scripts\ckeditor\samples\assets\sample.css" />
+    <Content Include="Scripts\ckeditor\samples\assets\sample.jpg" />
+    <Content Include="Scripts\ckeditor\samples\assets\uilanguages\languages.js" />
+    <Content Include="Scripts\ckeditor\samples\datafiltering.html" />
+    <Content Include="Scripts\ckeditor\samples\divreplace.html" />
+    <Content Include="Scripts\ckeditor\samples\index.html" />
+    <Content Include="Scripts\ckeditor\samples\inlineall.html" />
+    <Content Include="Scripts\ckeditor\samples\inlinebycode.html" />
+    <Content Include="Scripts\ckeditor\samples\inlinetextarea.html" />
+    <Content Include="Scripts\ckeditor\samples\jquery.html" />
+    <Content Include="Scripts\ckeditor\samples\plugins\dialog\assets\my_dialog.js" />
+    <Content Include="Scripts\ckeditor\samples\plugins\dialog\dialog.html" />
+    <Content Include="Scripts\ckeditor\samples\plugins\enterkey\enterkey.html" />
+    <Content Include="Scripts\ckeditor\samples\plugins\htmlwriter\assets\outputforflash\outputforflash.swf" />
+    <Content Include="Scripts\ckeditor\samples\plugins\htmlwriter\assets\outputforflash\swfobject.js" />
+    <Content Include="Scripts\ckeditor\samples\plugins\htmlwriter\outputforflash.html" />
+    <Content Include="Scripts\ckeditor\samples\plugins\htmlwriter\outputhtml.html" />
+    <Content Include="Scripts\ckeditor\samples\plugins\magicline\magicline.html" />
+    <Content Include="Scripts\ckeditor\samples\plugins\toolbar\toolbar.html" />
+    <Content Include="Scripts\ckeditor\samples\plugins\wysiwygarea\fullpage.html" />
+    <Content Include="Scripts\ckeditor\samples\readonly.html" />
+    <Content Include="Scripts\ckeditor\samples\replacebyclass.html" />
+    <Content Include="Scripts\ckeditor\samples\replacebycode.html" />
+    <Content Include="Scripts\ckeditor\samples\sample.css" />
+    <Content Include="Scripts\ckeditor\samples\sample.js" />
+    <Content Include="Scripts\ckeditor\samples\tabindex.html" />
+    <Content Include="Scripts\ckeditor\samples\uicolor.html" />
+    <Content Include="Scripts\ckeditor\samples\uilanguages.html" />
+    <Content Include="Scripts\ckeditor\samples\xhtmlstyle.html" />
+    <Content Include="Scripts\ckeditor\skins\moono\dialog.css" />
+    <Content Include="Scripts\ckeditor\skins\moono\dialog_ie.css" />
+    <Content Include="Scripts\ckeditor\skins\moono\dialog_ie7.css" />
+    <Content Include="Scripts\ckeditor\skins\moono\dialog_ie8.css" />
+    <Content Include="Scripts\ckeditor\skins\moono\dialog_iequirks.css" />
+    <Content Include="Scripts\ckeditor\skins\moono\dialog_opera.css" />
+    <Content Include="Scripts\ckeditor\skins\moono\editor.css" />
+    <Content Include="Scripts\ckeditor\skins\moono\editor_gecko.css" />
+    <Content Include="Scripts\ckeditor\skins\moono\editor_ie.css" />
+    <Content Include="Scripts\ckeditor\skins\moono\editor_ie7.css" />
+    <Content Include="Scripts\ckeditor\skins\moono\editor_ie8.css" />
+    <Content Include="Scripts\ckeditor\skins\moono\editor_iequirks.css" />
+    <Content Include="Scripts\ckeditor\skins\moono\icons.png" />
+    <Content Include="Scripts\ckeditor\skins\moono\icons_hidpi.png" />
+    <Content Include="Scripts\ckeditor\skins\moono\images\arrow.png" />
+    <Content Include="Scripts\ckeditor\skins\moono\images\close.png" />
+    <Content Include="Scripts\ckeditor\skins\moono\images\hidpi\close.png" />
+    <Content Include="Scripts\ckeditor\skins\moono\images\hidpi\lock-open.png" />
+    <Content Include="Scripts\ckeditor\skins\moono\images\hidpi\lock.png" />
+    <Content Include="Scripts\ckeditor\skins\moono\images\hidpi\refresh.png" />
+    <Content Include="Scripts\ckeditor\skins\moono\images\lock-open.png" />
+    <Content Include="Scripts\ckeditor\skins\moono\images\lock.png" />
+    <Content Include="Scripts\ckeditor\skins\moono\images\refresh.png" />
+    <Content Include="Scripts\ckeditor\styles.js" />
+    <Content Include="Scripts\Common.js" />
+    <Content Include="Scripts\dropzone.js" />
+    <Content Include="Scripts\elements.treeview.js" />
+    <Content Include="Scripts\flot\jquery.flot.categories.js" />
+    <Content Include="Scripts\flot\jquery.flot.js" />
+    <Content Include="Scripts\flot\jquery.flot.pie.js" />
+    <Content Include="Scripts\flot\jquery.flot.resize.js" />
+    <Content Include="Scripts\flot\jquery.flot.stack.js" />
+    <Content Include="Scripts\fuelux.tree.js" />
+    <Content Include="Scripts\grid.locale-en.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui.custom.js" />
+    <Content Include="Scripts\jquery-ui.min.js" />
+    <Content Include="Scripts\jquery.blockUI.js" />
+    <Content Include="Scripts\jquery.bootstrap-duallistbox.js" />
+    <Content Include="Scripts\jquery.easypiechart.js" />
+    <Content Include="Scripts\jquery.hotkeys.min.js" />
+    <Content Include="Scripts\jquery.jqGrid.min.js" />
+    <Content Include="Scripts\jquery.js" />
+    <Content Include="Scripts\jquery.mobile.custom.js" />
+    <Content Include="Scripts\jquery.raty.js" />
+    <Content Include="Scripts\jquery.raty.min.js" />
+    <Content Include="Scripts\jquery.showMessage.min.js" />
+    <Content Include="Scripts\jquery.sparkline.js" />
+    <Content Include="Scripts\jquery.ui.touch-punch.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jstree.min.js" />
+    <Content Include="Scripts\language\css.js" />
+    <Content Include="Scripts\language\generic.js" />
+    <Content Include="Scripts\language\html.js" />
+    <Content Include="Scripts\language\javascript.js" />
+    <Content Include="Scripts\markdown.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\rainbow.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\select2.js" />
+    <Content Include="Scripts\select2.min.js" />
+    <Content Include="Scripts\typeahead.jquery.js" />
+    <Content Include="Scripts\typeahead.jquery.min.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Uploads\Articles\1038\51eef223-55b3-4979-98c0-320ee4e392b6.jpg" />
+    <Content Include="Uploads\Articles\1038\51eef223-55b3-4979-98c0-320ee4e392b6_thumb.jpg" />
+    <Content Include="Uploads\Articles\1038\5bafc0a8-4827-4822-92aa-7dd472f65555.jpg" />
+    <Content Include="Uploads\Articles\1038\5bafc0a8-4827-4822-92aa-7dd472f65555_thumb.jpg" />
+    <Content Include="Uploads\Articles\14\c80fa88c-c8a4-4de2-afb6-4ae05bfe3a71.jpg" />
+    <Content Include="Uploads\Articles\14\c80fa88c-c8a4-4de2-afb6-4ae05bfe3a71_thumb.jpg" />
+    <Content Include="Uploads\Articles\14\d756aeb6-2392-4b94-a0a4-1ab88cf30a13.jpg" />
+    <Content Include="Uploads\Articles\14\d756aeb6-2392-4b94-a0a4-1ab88cf30a13_thumb.jpg" />
+    <Content Include="Uploads\Articles\37\63ac2fb9-890a-4131-a6e1-cb8aa09ece32.jpg" />
+    <Content Include="Uploads\Articles\37\63ac2fb9-890a-4131-a6e1-cb8aa09ece32_thumb.jpg" />
+    <Content Include="Uploads\Articles\37\6e0fa8f2-ea5e-449d-beea-bab4f9dde6d5.jpg" />
+    <Content Include="Uploads\Articles\37\6e0fa8f2-ea5e-449d-beea-bab4f9dde6d5_thumb.jpg" />
+    <Content Include="Uploads\Articles\37\f3606e41-d4c9-452d-9af1-feebbc3c7ea3.jpg" />
+    <Content Include="Uploads\Articles\37\f3606e41-d4c9-452d-9af1-feebbc3c7ea3_thumb.jpg" />
+    <Content Include="Uploads\Articles\9\15b2316c-c6d1-4f12-999d-45a2e6372de7.jpg" />
+    <Content Include="Uploads\Articles\9\15b2316c-c6d1-4f12-999d-45a2e6372de7_thumb.jpg" />
+    <Content Include="Uploads\Articles\9\3ea65b11-4fe8-4acf-914e-1002fd7f7456.jpg" />
+    <Content Include="Uploads\Articles\9\3ea65b11-4fe8-4acf-914e-1002fd7f7456_thumb.jpg" />
+    <Content Include="Uploads\Articles\9\81c7cc74-b146-4fb8-bddc-7bf8272f5cbe.png" />
+    <Content Include="Uploads\Articles\9\81c7cc74-b146-4fb8-bddc-7bf8272f5cbe_thumb.png" />
+    <Content Include="Uploads\Companies\1011\0f008ea5-15de-48ae-a98b-b99eac7db346.jpg" />
+    <Content Include="Uploads\Companies\1011\0f008ea5-15de-48ae-a98b-b99eac7db346_thumb.jpg" />
+    <Content Include="Uploads\Companies\1011\33a49371-2b03-4113-946d-2d5fdc9fdb5e.png" />
+    <Content Include="Uploads\Companies\1011\33a49371-2b03-4113-946d-2d5fdc9fdb5e_thumb.png" />
+    <Content Include="Uploads\Companies\1011\af614859-80d6-489e-b32d-c030377b5ba6.jpg" />
+    <Content Include="Uploads\Companies\1011\af614859-80d6-489e-b32d-c030377b5ba6_thumb.jpg" />
+    <Content Include="Uploads\Companies\11\1a74a304-a543-48ca-853a-ad057fc8faac.jpg" />
+    <Content Include="Uploads\Companies\11\1a74a304-a543-48ca-853a-ad057fc8faac_thumb.jpg" />
+    <Content Include="Uploads\Companies\8\31367770-f14d-461c-a249-94f1f6ef951d.jpg" />
+    <Content Include="Uploads\Companies\8\31367770-f14d-461c-a249-94f1f6ef951d_thumb.jpg" />
+    <Content Include="Uploads\Companies\8\7ba04a68-0113-4ccb-bd2b-5b411c21a40c.png" />
+    <Content Include="Uploads\Companies\8\7ba04a68-0113-4ccb-bd2b-5b411c21a40c_thumb.png" />
+    <Content Include="Uploads\Companies\8\8ca79ee3-d559-4d5b-8d32-a3deb549137f.jpg" />
+    <Content Include="Uploads\Companies\8\8ca79ee3-d559-4d5b-8d32-a3deb549137f_thumb.jpg" />
+    <Content Include="Uploads\Companies\8\d951706f-27fe-49ea-9e9c-b7ff08f00ab0.jpg" />
+    <Content Include="Uploads\Companies\8\d951706f-27fe-49ea-9e9c-b7ff08f00ab0_thumb.jpg" />
+    <Content Include="Uploads\Companies\8\ead812f9-8897-4870-8e58-99489c0f79bc.jpg" />
+    <Content Include="Uploads\Companies\8\ead812f9-8897-4870-8e58-99489c0f79bc_thumb.jpg" />
+    <Content Include="Uploads\temp\09f062a7-4dc5-4f1a-8d21-04abb14ea538.jpg" />
+    <Content Include="Uploads\temp\11312b2f-806a-4cf8-adca-b476b45c46c1.jpg" />
+    <Content Include="Uploads\temp\15c1cad0-331b-4fd6-9465-74e87b6c1ab9.png" />
+    <Content Include="Uploads\temp\17267406-6e14-4e59-98d7-21b7ccdff673.jpg" />
+    <Content Include="Uploads\temp\27ae6161-20fe-4f7a-8c60-5f0ecca044f5.jpg" />
+    <Content Include="Uploads\temp\3940fde6-49cb-4e3b-9297-e74915e3b623.jpg" />
+    <Content Include="Uploads\temp\3cf0e2fa-9f90-45a7-bf17-352efba551bb.jpg" />
+    <Content Include="Uploads\temp\43abddde-92c3-4b42-b9e1-b19e8fead77c.jpg" />
+    <Content Include="Uploads\temp\4c41bd3f-f38b-4653-843c-e92cd733436f.jpg" />
+    <Content Include="Uploads\temp\5745df10-8a7c-4d82-9b33-59608444594f.jpg" />
+    <Content Include="Uploads\temp\8817585a-6156-431a-bbfb-eb4f54991ce3.jpg" />
+    <Content Include="Uploads\temp\89c8d53f-b86a-4f57-9508-3afc84540aaf.jpg" />
+    <Content Include="Uploads\temp\923e2f26-eb6c-4dd4-bbc9-35e9134b8f4c.jpg" />
+    <Content Include="Uploads\temp\996c2492-a35a-4066-8c53-00f18c1d5c4e.jpg" />
+    <Content Include="Uploads\temp\a76ce9df-e48a-4a0a-a37b-cd8cff075647.jpg" />
+    <Content Include="Uploads\temp\b5e995ce-92dc-408c-878e-081a1fabdc2f.jpg" />
+    <Content Include="Uploads\temp\c2514f48-42a2-490a-a5b1-9ee595ffa24b.jpg" />
+    <Content Include="Uploads\temp\eed197dd-7354-4b70-be57-c5e644debbec.jpg" />
+    <Content Include="Uploads\temp\f0108bd5-e9d2-4627-800a-1297a4f4f48e.jpg" />
+    <Content Include="Uploads\temp\fcb3c0eb-89a2-4685-9829-4777876b133b.jpg" />
+    <Content Include="Uploads\Tickets\1039\5d4f2731-e5d7-4239-85a4-1a1ff16ba955.jpg" />
+    <Content Include="Uploads\Tickets\1039\5d4f2731-e5d7-4239-85a4-1a1ff16ba955_thumb.jpg" />
+    <Content Include="Uploads\Tickets\1039\af3c4587-f9c3-4ac8-9bdb-5fedc985924a.jpg" />
+    <Content Include="Uploads\Tickets\1039\af3c4587-f9c3-4ac8-9bdb-5fedc985924a_thumb.jpg" />
+    <Content Include="Uploads\Tickets\1039\b41455c6-13f8-48f8-a6e1-ada8daf08a78.jpg" />
+    <Content Include="Uploads\Tickets\1039\b41455c6-13f8-48f8-a6e1-ada8daf08a78_thumb.jpg" />
+    <Content Include="Uploads\Tickets\1040\2b4d54f1-f0e6-4ac7-ad8e-2b1e55bfbdfe.jpg" />
+    <Content Include="Uploads\Tickets\1040\2b4d54f1-f0e6-4ac7-ad8e-2b1e55bfbdfe_thumb.jpg" />
+    <Content Include="Uploads\Tickets\1040\2eb14897-4062-4f23-acf3-8f1f72034fdf.jpg" />
+    <Content Include="Uploads\Tickets\1040\2eb14897-4062-4f23-acf3-8f1f72034fdf_thumb.jpg" />
+    <Content Include="Uploads\Tickets\1040\90671790-18f8-4ebe-9cd5-5bec2dc1003a.jpg" />
+    <Content Include="Uploads\Tickets\1040\90671790-18f8-4ebe-9cd5-5bec2dc1003a_thumb.jpg" />
+    <Content Include="Uploads\Tickets\1043\b2a1001d-140b-411e-a274-266de1c979fe.png" />
+    <Content Include="Uploads\Tickets\1043\b2a1001d-140b-411e-a274-266de1c979fe_thumb.png" />
+    <Content Include="Uploads\Tickets\1043\f4614ff8-4467-477c-8fd4-74d92edce66e.png" />
+    <Content Include="Uploads\Tickets\1043\f4614ff8-4467-477c-8fd4-74d92edce66e_thumb.png" />
+    <Content Include="Uploads\Tickets\1045\7bd132a7-b5e2-4dd6-93ed-07a6a68f03f0.jpg" />
+    <Content Include="Uploads\Tickets\1045\7bd132a7-b5e2-4dd6-93ed-07a6a68f03f0_thumb.jpg" />
+    <Content Include="Uploads\Tickets\1046\879ce364-d6e9-49c8-a98e-7c04a6d54a6b.jpg" />
+    <Content Include="Uploads\Tickets\1046\879ce364-d6e9-49c8-a98e-7c04a6d54a6b_thumb.jpg" />
+    <Content Include="Uploads\Tickets\1046\cf07764e-40aa-43ce-9ff7-7bec50205952.jpg" />
+    <Content Include="Uploads\Tickets\1046\cf07764e-40aa-43ce-9ff7-7bec50205952_thumb.jpg" />
+    <Content Include="Uploads\Tickets\1049\23590640-7607-47de-83c9-6d1e93756361.jpg" />
+    <Content Include="Uploads\Tickets\1049\23590640-7607-47de-83c9-6d1e93756361_thumb.jpg" />
+    <Content Include="Uploads\Tickets\1049\57146e1c-3a01-4bb6-aded-73aebc19a59b.jpg" />
+    <Content Include="Uploads\Tickets\1049\57146e1c-3a01-4bb6-aded-73aebc19a59b_thumb.jpg" />
+    <Content Include="Uploads\Tickets\1051\014a3261-fae8-4913-b449-89edd5647ed5.jpg" />
+    <Content Include="Uploads\Tickets\1051\014a3261-fae8-4913-b449-89edd5647ed5_thumb.jpg" />
+    <Content Include="Uploads\Tickets\1051\0ad034d4-8ffa-4bad-bdd7-92dbac084fa9.jpg" />
+    <Content Include="Uploads\Tickets\1051\0ad034d4-8ffa-4bad-bdd7-92dbac084fa9_thumb.jpg" />
+    <Content Include="Uploads\Tickets\1051\159c5157-6a93-4396-8c78-57c99f3eb802.jpg" />
+    <Content Include="Uploads\Tickets\1051\159c5157-6a93-4396-8c78-57c99f3eb802_thumb.jpg" />
+    <Content Include="Uploads\Tickets\1052\22773476-b9ad-42fb-83f2-5ad519ab9ace.jpg" />
+    <Content Include="Uploads\Tickets\1052\22773476-b9ad-42fb-83f2-5ad519ab9ace_thumb.jpg" />
+    <Content Include="Uploads\Tickets\1052\23239fb7-42c5-4727-b228-026e3dad6b9f.png" />
+    <Content Include="Uploads\Tickets\1052\23239fb7-42c5-4727-b228-026e3dad6b9f_thumb.png" />
+    <Content Include="Uploads\Tickets\1052\d019dfee-99ef-4fd6-acb5-e6e4fe0b0fa8.jpg" />
+    <Content Include="Uploads\Tickets\1052\d019dfee-99ef-4fd6-acb5-e6e4fe0b0fa8_thumb.jpg" />
+    <Content Include="Uploads\Tickets\1053\45cb1106-ab4b-4fa9-9ae9-8bc8238d9674.jpg" />
+    <Content Include="Uploads\Tickets\1053\45cb1106-ab4b-4fa9-9ae9-8bc8238d9674_thumb.jpg" />
+    <Content Include="Uploads\Tickets\1053\5eb26087-3c08-4b64-bf70-c0c31187dc72.jpg" />
+    <Content Include="Uploads\Tickets\1053\5eb26087-3c08-4b64-bf70-c0c31187dc72_thumb.jpg" />
+    <Content Include="Uploads\Tickets\1053\dcf3a51f-70d3-4a81-a64e-eb7f2951a4b1.jpg" />
+    <Content Include="Uploads\Tickets\1053\dcf3a51f-70d3-4a81-a64e-eb7f2951a4b1_thumb.jpg" />
+    <Content Include="Uploads\Tickets\1054\757e815c-1b9d-4409-a1e7-5488d20e7bbf.jpg" />
+    <Content Include="Uploads\Tickets\1054\757e815c-1b9d-4409-a1e7-5488d20e7bbf_thumb.jpg" />
+    <Content Include="Uploads\Tickets\1054\970c2b7d-5fe1-4f29-9ce7-84344538fb3d.jpg" />
+    <Content Include="Uploads\Tickets\1054\970c2b7d-5fe1-4f29-9ce7-84344538fb3d_thumb.jpg" />
+    <Content Include="Uploads\Tickets\1054\9dfa77e0-d60c-46da-86bc-e85fc73fc3fe.jpg" />
+    <Content Include="Uploads\Tickets\1054\9dfa77e0-d60c-46da-86bc-e85fc73fc3fe_thumb.jpg" />
+    <Content Include="Uploads\Tickets\16\1c43f1af-c935-4338-aaf2-ed3af4e47b3f.jpg" />
+    <Content Include="Uploads\Tickets\16\1c43f1af-c935-4338-aaf2-ed3af4e47b3f_thumb.jpg" />
+    <Content Include="Uploads\Tickets\16\561e8ebf-6ba0-4955-a565-a78615b5c680.jpg" />
+    <Content Include="Uploads\Tickets\16\561e8ebf-6ba0-4955-a565-a78615b5c680_thumb.jpg" />
+    <Content Include="Uploads\Tickets\16\be2fb4cf-dd56-498b-907f-8f86ae1716c7.jpg" />
+    <Content Include="Uploads\Tickets\16\be2fb4cf-dd56-498b-907f-8f86ae1716c7_thumb.jpg" />
+    <Content Include="Uploads\Tickets\16\d90f30e0-2421-4e63-9dff-d3768ff2befc.jpg" />
+    <Content Include="Uploads\Tickets\16\d90f30e0-2421-4e63-9dff-d3768ff2befc_thumb.jpg" />
+    <Content Include="Views\Home\ChangePassword.cshtml" />
+    <Content Include="Views\Home\ForgotPassword.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Home\ResetPassword.cshtml" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Shared\_LoginLayout.cshtml" />
+    <Content Include="Views\Shared\_ResultMessage.cshtml" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
+    <Content Include="Views\Shared\_Header.cshtml" />
+    <Content Include="Views\Shared\_Sidebar.cshtml" />
+    <Content Include="Views\Knowledgebase\Articles.cshtml" />
+    <Content Include="Views\Knowledgebase\Article.cshtml" />
+    <Content Include="Views\SupportTicket\_TicketDetail.cshtml" />
+    <Content Include="Views\SupportTicket\Create.cshtml" />
+    <Content Include="Views\SupportTicket\Index.cshtml" />
+    <Content Include="Views\SupportTicket\View_Detail.cshtml" />
+    <Content Include="Views\SupportTicket\_AdvancedSearch.cshtml" />
+    <Content Include="Views\SupportTicket\_Comments.cshtml" />
+    <Content Include="Uploads\Companies\1011\cdd88634-fe03-4c7b-b5b0-b4e58ef30ccb.pdf" />
+    <Content Include="Uploads\Companies\11\a6a9dc18-2bf7-4cd6-b8e8-417d3aae4de6.docx" />
+    <Content Include="Uploads\Companies\11\d9c478d8-b36a-46ff-ba6f-93868e725bf3.docx" />
+    <Content Include="Uploads\Companies\8\241e50e9-025f-41fa-9c83-c9d4bf4c3f1f.docx" />
+    <Content Include="Uploads\Companies\8\924dc4ab-1974-477c-972e-4837b3a24c16.docx" />
+    <Content Include="Uploads\temp\0adcc2f3-6c3b-485c-8719-6fd7bf30c7c2.pdf" />
+    <Content Include="Uploads\temp\14828e8f-8250-432f-b570-b944cebc0671.docx" />
+    <Content Include="Uploads\temp\232e8930-e3c6-4f04-86d9-03cece3d9a1d.docx" />
+    <Content Include="Uploads\temp\2d90e58c-73e1-49a9-a211-103424c88bc2.pdf" />
+    <Content Include="Uploads\temp\30613a25-ec9e-4081-992e-410da0bd84aa.docx" />
+    <Content Include="Uploads\temp\4112aa0a-e7fc-4934-a8f9-6496f005e250.docx" />
+    <Content Include="Uploads\temp\57c2ea2b-ff31-465b-b78e-5609d2e67f7f.docx" />
+    <Content Include="Uploads\temp\6e0c7571-b162-471e-af90-a04d6bc8b68f.pdf" />
+    <Content Include="Uploads\temp\7546fed7-bac4-41db-8970-7a0b7f80c8e3.pdf" />
+    <Content Include="Uploads\temp\7a5f8a21-2194-425a-bfe0-c8ab03c9f0c9.docx" />
+    <Content Include="Uploads\temp\a566187d-f983-473d-be79-438968ad46a2.docx" />
+    <Content Include="Uploads\temp\b70cfc4d-34e4-4a03-b8f1-3a4c8e04a588.docx" />
+    <Content Include="Uploads\temp\c3ac8ad0-1d00-4c7a-a3c2-b43a84e72840.docx" />
+    <Content Include="Uploads\temp\cae956a4-ff0d-4bb8-b43e-ef859e4d50d7.docx" />
+    <Content Include="Uploads\temp\ccf18cc5-4433-463b-b6a4-770dd3ce3b6f.docx" />
+    <Content Include="Uploads\temp\d8878d53-b978-482b-a3a1-c46a04c4d08a.docx" />
+    <Content Include="Uploads\temp\deeb34af-f731-4fe4-b670-92b10232629a.pdf" />
+    <Content Include="Uploads\temp\df5df73f-6344-4247-8be2-dd3326fda7c0.pdf" />
+    <Content Include="Uploads\temp\dff79928-cc94-47d7-9b08-73f64c1d1569.docx" />
+    <Content Include="Uploads\temp\f54d1bce-0040-4085-b804-91e1124526b2.pdf" />
+    <Content Include="Uploads\temp\f6b88ac6-d5f8-42de-b714-f5960015985c.docx" />
+    <Content Include="Uploads\temp\fcf23ddb-adf5-4961-a4c7-7153bf185ceb.docx" />
+    <Content Include="Uploads\Tickets\1043\f197c61f-fb14-4a00-afd9-0f30d9105251.pdf" />
+    <Content Include="Uploads\Tickets\16\e8c68118-66af-4f2e-8579-b07d30ce85ad.pdf" />
+    <Content Include="Uploads\Tickets\22\438f2173-a295-4dac-81f3-116cc7332e6b.docx" />
+    <Content Include="Uploads\Tickets\22\c2ba8de5-402b-4eca-9060-5b63001ef4c7.docx" />
+    <Content Include="Uploads\Tickets\30\49966f17-90d2-4143-9835-a110e0291d55.docx" />
+    <Content Include="Uploads\Tickets\30\658e2e0d-1576-43ed-9380-487928f797f3.docx" />
+    <Content Include="Views\SupportTicket\_Attachments.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_KBLayout.cshtml" />
+    <Content Include="Views\Knowledgebase\Index.cshtml" />
+    <Content Include="Views\Dashboard\MyProfile.cshtml" />
+    <Content Include="Views\SupportTicket\_PhoneCalls.cshtml" />
+    <Content Include="Views\SupportTicket\_Activity.cshtml" />
+    <Content Include="Views\SupportTicket\_Mails.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Areas\Account\Models\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="CuteChatSendFiles\" />
+    <Folder Include="CuteSoft_Client\CuteChat\Debug\" />
+    <Folder Include="CuteSoft_Client\CuteChat\NewImages\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="fonts\glyphicons-halflings-regular.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="fonts\glyphicons-halflings-regular.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="fonts\glyphicons-halflings-regular.eot">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="packages.config" />
+    <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HelpDeskBAL\HelpDeskBAL.csproj">
+      <Project>{e0e4ae01-5a14-4d1d-9d71-caf310d64f27}</Project>
+      <Name>HelpDeskBAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HelpDeskDAL\HelpDeskDAL.csproj">
+      <Project>{e3bfdd20-0a7b-49e0-99a7-a54117881fdb}</Project>
+      <Name>HelpDeskDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HelpDeskEntity\HelpDeskEntity.csproj">
+      <Project>{74134529-1c9d-42b8-8bc7-cbf87c517364}</Project>
+      <Name>HelpDeskEntity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utility\Utility.csproj">
+      <Project>{470f47c0-f579-4c02-8d4f-49cd38fcea9c}</Project>
+      <Name>Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>2400</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:2358/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

@@ -1,0 +1,59 @@
+﻿@model List<HelpDeskEntity.KBArticle>
+@{
+    Layout = "~/Views/Shared/_KBLayout.cshtml";
+}
+<script type="text/javascript">
+    function View(id) {
+        window.location = '/Knowledgebase/ViewKBArticle?Articleid=' + id;
+    }
+</script>
+
+
+@if (ViewBag.IsSearch == true)
+{
+    <div id="divSearch">
+        <span id="icon" class="ace-icon fa fa-search icon-on-right bigger-110"></span>&nbsp;
+        <label><b id="title">@ViewBag.LngSearchResults</b></label>
+        <div id="text">@ViewBag.LngThisIsAListOfArticlesFound_ .</div>
+        <br />
+    </div>
+}
+else
+{
+    <div id="div">
+        <span id="icon" class="ace-icon glyphicon glyphicon-book"></span>&nbsp;
+        <label><b id="title">@ViewBag.LngKnowledgeBaseArticles</b></label>
+        <div id="text">@ViewBag.LngWelcomeToOurKnowledgeBase .</div>
+        <br />
+    </div>
+}
+<div class="row">
+    <div class="col-xs-12">
+        @if (Model.Count > 0)
+        {
+            <table class="table table-bordered table-striped" id="simple-table">
+                <thead>
+                    <tr>
+                        <th>@ViewBag.LngArticleTitle</th>
+                        <th style="text-align:center;width:50px;">@ViewBag.LngRead</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var obj in Model.ToList())
+                    {
+                        <tr>
+                            <td>
+                                <a href="javascript:void(0);" onclick="View('@obj.ArticleId');">@obj.Title</a>
+                            </td>
+                            <td style="text-align:center; "><a href="javascript:void(0);" onclick="View('@obj.ArticleId');"><span class="ace-icon fa fa-search icon-on-right bigger-110"></span></a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="alert alert-info" role="alert">@ViewBag.LngNoArticlesFound .</div>
+        }
+    </div><!-- /.span -->
+</div>

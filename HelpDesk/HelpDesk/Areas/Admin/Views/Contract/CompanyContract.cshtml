@@ -1,0 +1,145 @@
+﻿@{
+    ViewBag.Title = "Company Contarct";
+}
+
+<div class="breadcrumbs breadcrumbs-fixed" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="@Url.Action("Index","Dashboard")">Home</a>
+        </li>
+        <li class="active">Support Contracts</li>
+        <li class="active">Companies Contarcts</li>
+    </ul>
+</div>
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+            Company Contarcts
+        </h1>
+    </div>
+    <div class="row" id="dv_row">
+        <div class="col-xs-12">
+            <div class="text-right mar-15">
+                <input type="submit" onclick="ManageCompanyContarct(0);" class="btn btn-sm btn-primary" value="Add Company Contarct">
+            </div>
+            <table id="CompanyContractDataGrid"></table>
+            <div id="CompanyContractDataPager"></div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="dv_PopUp" role="dialog"></div>
+
+<script type="text/javascript">
+
+    var grid_selector = "#CompanyContractDataGrid";
+    var pager_selector = "#CompanyContractDataPager";
+
+    jQuery(function ($) {
+
+      
+        jQuery(grid_selector).jqGrid({
+            url: '/Admin/Contract/CompanyContractGetGridData',
+
+            viewrecords: true, sortname: 'StartDate', sortorder: "asc",
+            colNames: ['CompanyContractId', 'Contract Number', 'Company Name', 'Template Name','Price', 'Start Date', 'End Date', 'Actions'],
+            colModel: [
+                        { name: 'CompanyContractId', width: 1, hidden: true, key: true, align: 'center' },
+                        { name: 'ContractNumber', index: 'ContractNumber', width: 24, align: 'left', search: true, searchoptions: JQ_sopt_int },
+                        { name: 'CompanyName', index: 'CompanyName', width: 60, align: 'left', search: true, searchoptions: JQ_sopt_string },
+                        { name: 'TemplateName', index: 'TemplateName', width: 50, align: 'left', search: true, searchoptions: JQ_sopt_string },
+                         {
+                             name: 'Price', index: 'Price', width: 16, align: 'right', search: true, formatter: 'currency', formatoptions: { prefix: '€ ', decimalSeparator:",", thousandsSeparator: '.' }
+                         },
+                        {
+
+                            name: 'StartDate', index: 'StartDate', width: 18, align: "center", formatter: "date", search: true, searchoptions: {
+                                sopt: ['ge'], dataInit: function (el) {
+                                    $(el).datepicker({
+                                        autoclose: true
+                                    }).on("changeDate", function (e) { $('#CompanyContractDataGrid')[0].triggerToolbar(); });
+                                }
+                            }
+                        },
+
+                         {
+
+                             name: 'EndDate', index: 'EndDate', width: 16, align: "center", formatter: "date", search: true, searchoptions: {
+                                 sopt: ['ge'], dataInit: function (el) {
+                                     $(el).datepicker({
+                                         autoclose: true
+                                     }).on("changeDate", function (e) { $('#CompanyContractDataGrid')[0].triggerToolbar(); });
+                                 }
+                             }
+                         },
+
+                        { name: 'Action', index: 'CompanyContractId', width: 15, align: 'center', formatter: LinkFormatter, search: false, sortable: false },
+            ],
+            pager: pager_selector,
+            rowNum: JQ_pagination,
+            rowList: JQ_rowList,
+            autowidth: true,
+            height: '100%',
+            datatype: 'json',
+            cmTemplate: { title: false },
+            viewrecords: true,
+            mtype: 'GET',
+            loadComplete: function () { ResizeJqgrid(); },
+            jsonReader: {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: false,
+                userdata: "userdata"
+            },
+        }).navGrid('#CompanyContractDataPager', { view: false, del: false, add: false, edit: false, search: false, referesh: true },
+           {}, // default settings for edit
+           {}, // default settings for add
+           {}, // delete instead that del:false we need this
+           { closeOnEscape: true, multipleSearch: true, closeAfterSearch: true }, // search options
+           {} /* view parameters*/
+         ).jqGrid('filterToolbar', { stringResult: true, searchOnEnter: false, defaultSearch: 'cn' });
+    });
+
+    function ManageCompanyContarct(CompContrctId) {
+        $('#dv_PopUp').modal('show');
+        $('#dv_PopUp').html("");
+        $("#dv_PopUp").load('@Url.Action("ManageCompanyContract", "Contract", new { area = "Admin" })', { id: CompContrctId }, function () {
+            $('#CompanyId').chosen({ allow_single_deselect: true });
+        })
+    }
+
+    function LinkFormatter(cellvalue, options, rowObject) {
+        return "<a href='javascript:void(0);'class='ace-icon fa fa-pencil blue bigger-120' onclick='ManageCompanyContarct(\"" + rowObject["CompanyContractId"] + "\");' data-rel='tooltip' title='' data-original-title='Edit'  data-placement='left' ></a> | " +
+          "<a href='javascript:void(0);' class='ace-icon fa fa-trash-o red bigger-120' onclick='DeleteCompanyContarct(\"" + rowObject["CompanyContractId"] + "\");' data-rel='tooltip' title='' data-original-title='Delete' data-placement='left' ></a> | " +
+          "<a href='javascript:void(0);' class='ace-icon glyphicon glyphicon-inbox' onclick='CopyCompanyContarct(\"" + rowObject["CompanyContractId"] + "\");' data-rel='tooltip' title='' data-original-title='Copy' data-placement='left' ></a>";
+    }
+
+
+    function CopyCompanyContarct(CompContrctId) {
+        $('#dv_PopUp').modal('show');
+        $('#dv_PopUp').html("");
+        $("#dv_PopUp").load('@Url.Action("CopyCompanyContract", "Contract", new { area = "Admin" })', { id: CompContrctId }, function () {
+            $('#CompanyId').chosen({ allow_single_deselect: true });
+        })
+    }
+
+
+    function DeleteCompanyContarct(TemplateId) {
+        if (confirm("Are you sure you want to delete this Company Contract?")) {
+            $("#dv_row").block();
+            $.post("/Admin/Contract/DeleteCompanyContract/" + TemplateId, function (data, status) {
+                if (data.success) {
+                    SuccessMessage(data.Message);
+                    $("#CompanyContractDataGrid").trigger('reloadGrid');
+                } else {
+                    ErrorMessage(data.error);
+                }
+                $("#dv_row").unblock();
+            });
+        }
+    }
+</script>
+
+

@@ -1,0 +1,249 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="HelpDesk.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="LoginFailed" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Login Failed|Login fallito</Value>
+    </Setting>
+    <Setting Name="RememberMe" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Remember Me|Ricordami</Value>
+    </Setting>
+    <Setting Name="Login" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Login|Accedi</Value>
+    </Setting>
+    <Setting Name="IforgotMyPassword" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">I forgot my password|Recupera password</Value>
+    </Setting>
+    <Setting Name="InvalidUsername" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Invalid Username|Username non valido</Value>
+    </Setting>
+    <Setting Name="InvalidUsernamePassword" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Invalid Username or Password|Username o Password non validi</Value>
+    </Setting>
+    <Setting Name="AMailWithReset_" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">A mail with reset password link has been sent. Please check your Inbox.|E' stato inviato un link per resettare la tua mail. Controlla la tua posta in arrivo.</Value>
+    </Setting>
+    <Setting Name="ResetPasswordLinkExpired_" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Reset password link is expired, try reset password again.|Il link per resettare la password è scaduto, ripeti la procedura di azzeramento password.</Value>
+    </Setting>
+    <Setting Name="ResetPasswordLinkNotValid" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Reset password link is not valid.</Value>
+    </Setting>
+    <Setting Name="PasswordResetOk" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Your password has been reset successfully.|La tua password è stata resettata con successo.</Value>
+    </Setting>
+    <Setting Name="PasswordResetError" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Error resetting your Password. Please contact site Administrator.|E' avvenuto un errore durante il reset della password. Contattare l'amministratore.</Value>
+    </Setting>
+    <Setting Name="SendMe" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Send Me!|Invia!</Value>
+    </Setting>
+    <Setting Name="BackToLogin" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Back to login|Torna al login</Value>
+    </Setting>
+    <Setting Name="RetrievePassword" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Retrieve Password|Reimposta password</Value>
+    </Setting>
+    <Setting Name="PleaseEnterYourRegisteredEmail" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Please enter your registered email address below and we’ll send you an email with a link to reset password.|Inserisci il tuo indirizzo mail e ti sarà inviato un link per resettare la pasword.</Value>
+    </Setting>
+    <Setting Name="UserName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">User name|Nome utente</Value>
+    </Setting>
+    <Setting Name="Company" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Company|Azienda</Value>
+    </Setting>
+    <Setting Name="ContractPeriod" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Contract Period|Durata del contratto</Value>
+    </Setting>
+    <Setting Name="Unlimited" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Unlimited|illimitati</Value>
+    </Setting>
+    <Setting Name="NoOfTickets" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">No. Of Tickets|Limite tickets</Value>
+    </Setting>
+    <Setting Name="TicketsLeft" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Tickets Left|Tickets mancanti</Value>
+    </Setting>
+    <Setting Name="ResponseWithin" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Response Within|Risposta entro</Value>
+    </Setting>
+    <Setting Name="SolutionWithin" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Solution Within|Soluzione Entro</Value>
+    </Setting>
+    <Setting Name="hours" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">hours|ore</Value>
+    </Setting>
+    <Setting Name="OpenTickets" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Open Tickets|Ticket aperti</Value>
+    </Setting>
+    <Setting Name="CreateSupportTicket" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Create Support Ticket|Crea ticket assistenza</Value>
+    </Setting>
+    <Setting Name="AdvancedSearch" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Advanced Search|Ricerca avanzata</Value>
+    </Setting>
+    <Setting Name="Title" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Title|Titolo</Value>
+    </Setting>
+    <Setting Name="Category" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Category|Categoria</Value>
+    </Setting>
+    <Setting Name="CompanyUser" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Company user|Dipendente</Value>
+    </Setting>
+    <Setting Name="SolPri" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Sol.Pri|Priorità</Value>
+    </Setting>
+    <Setting Name="AssignTo" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Assign To|Assegnato</Value>
+    </Setting>
+    <Setting Name="ProblemDescription" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Problem Description|Problema</Value>
+    </Setting>
+    <Setting Name="YouAreLookingAtTicket" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">You are looking at Ticket|Ticket visualizzato</Value>
+    </Setting>
+    <Setting Name="CreatedOn" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Created On|Creato il</Value>
+    </Setting>
+    <Setting Name="ClosedOn" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Closed On|Chiuso il</Value>
+    </Setting>
+    <Setting Name="NotClosedYet" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Not Closed yet|Non ancora chiuso</Value>
+    </Setting>
+    <Setting Name="NextActionType" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Next Action Type|Tipo prossima azione</Value>
+    </Setting>
+    <Setting Name="NextActionDueFor" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Next Action Due For|Scadenza prossima azione</Value>
+    </Setting>
+    <Setting Name="TicketDetails" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Ticket Details|Dettagli ticket</Value>
+    </Setting>
+    <Setting Name="Comments" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Comments|Commenti</Value>
+    </Setting>
+    <Setting Name="Attachments" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Attachments|Allegati</Value>
+    </Setting>
+    <Setting Name="None" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">None|Nessuna</Value>
+    </Setting>
+    <Setting Name="Response" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Response|Risposta</Value>
+    </Setting>
+    <Setting Name="Solution" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Solution|Soluzione</Value>
+    </Setting>
+    <Setting Name="OutOfSLA" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Out of SLA|Fuori clausole di contratto</Value>
+    </Setting>
+    <Setting Name="ContactInfo" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Contact Info|Info. contatto</Value>
+    </Setting>
+    <Setting Name="Save" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Save|Salva</Value>
+    </Setting>
+    <Setting Name="Cancel" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Cancel|Annulla</Value>
+    </Setting>
+    <Setting Name="CustomerPriority" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Customer Priority|Priorità cliente</Value>
+    </Setting>
+    <Setting Name="CommentsForThisTicket" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Comments for this Ticket|Commenti per questo ticket</Value>
+    </Setting>
+    <Setting Name="Operator" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Operator|Operatore</Value>
+    </Setting>
+    <Setting Name="Customer" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Customer|Cliente</Value>
+    </Setting>
+    <Setting Name="PrivateComment" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Private Comment|Commento privato</Value>
+    </Setting>
+    <Setting Name="ThereAreNoComments_" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">There are No Comments for this Ticket|Non ci sono commenti per questo ticket</Value>
+    </Setting>
+    <Setting Name="AddComment" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Add Comment|Aggiungi commento</Value>
+    </Setting>
+    <Setting Name="AreYouSure_DeleteThisAttachment" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Are you sure you want to delete this attachment|Sei sicuro di volere eliminare questo allegato</Value>
+    </Setting>
+    <Setting Name="AddAttachment" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Add Attachment|Aggiungi allegato</Value>
+    </Setting>
+    <Setting Name="NoFilesAttached" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">No Files Attached|Nessun file allegato</Value>
+    </Setting>
+    <Setting Name="Download" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Download|Scarica</Value>
+    </Setting>
+    <Setting Name="Delete" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Delete|Cancella</Value>
+    </Setting>
+    <Setting Name="SolutionPriority" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Solution Priority|Priorità richiesta</Value>
+    </Setting>
+    <Setting Name="IssueCategory" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Issue Category|Categoria del problema</Value>
+    </Setting>
+    <Setting Name="Search" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Search|Ricerca</Value>
+    </Setting>
+    <Setting Name="KBCategories" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">KB Categories|Categorie KB</Value>
+    </Setting>
+    <Setting Name="SearchResults" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Search Results|Risultati ricerca</Value>
+    </Setting>
+    <Setting Name="KnowledgeBaseArticles" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Knowledge Base Articles|Articoli della Knowledge Base</Value>
+    </Setting>
+    <Setting Name="ArticleTitle" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Article Title|Titolo articolo</Value>
+    </Setting>
+    <Setting Name="Read" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Read|Leggi</Value>
+    </Setting>
+    <Setting Name="NoArticlesFound" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">No Articles Found|Nessun articolo trovato</Value>
+    </Setting>
+    <Setting Name="WelcomeToOurKnowledgeBase" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Welcome to our Knowledge Base. Use the Search or browse the Categories using the tree on the left panel|Benvenuti nella nostra Knowledge Base. Usate la funzionalità di ricerca o navigate tra le categorie del pannello di sinistra</Value>
+    </Setting>
+    <Setting Name="ThisIsAListOfArticlesFound_" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">This is a list of articles that was found for your search|Questa è la lista degli articoli trovati per la tua ricerca</Value>
+    </Setting>
+    <Setting Name="Welcome" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Welcome|Benvenuto</Value>
+    </Setting>
+    <Setting Name="ChangePassword" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Change Password|Cambia password</Value>
+    </Setting>
+    <Setting Name="MyProfile" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">My Profile|Il mio profilo</Value>
+    </Setting>
+    <Setting Name="Logout" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Logout|Esci</Value>
+    </Setting>
+    <Setting Name="CurrentPassword" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Current Password|Password attuale</Value>
+    </Setting>
+    <Setting Name="NewPassword" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">New Password|Nuova password</Value>
+    </Setting>
+    <Setting Name="ConfirmPassword" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Confirm Password|Conferma password</Value>
+    </Setting>
+    <Setting Name="Name" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Name|Nome</Value>
+    </Setting>
+    <Setting Name="Contact" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Contact|Contatto</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

@@ -1,0 +1,70 @@
+﻿@model int
+
+<script type="text/javascript">
+        function Assign() {
+            $.validator.unobtrusive.parse($("#Manage-Ticket-Form"));
+            if ($('#Manage-Ticket-Form').valid()) {
+                if ($("#Ticket").val() == "") {
+                    alert("Please select Ticket");
+                }
+                else {
+                    $('#ManageData').block();
+                    var formData = $("#Manage-Ticket-Form").serialize();
+                    $.post("@Url.Content("~/Admin/Mail/SaveAssignTicket")", { TicketId: $("#Ticket").val(), InboxId: '@Model' }, function (data) {
+                        if (data.success) {//on success refrsh view
+                            $('#dv_PopUp').modal('hide');
+                            SuccessMessage(data.message);
+                            $("#IncomingDataGrid").trigger('reloadGrid');
+                        } else {
+                            $('#ManageData').unblock();
+                            ErrorMessage(data.message);
+                        }
+                    });
+                }
+            }
+        }
+
+    function Cancel() {
+        $('#dv_PopUp').modal('hide');
+    }
+</script>
+<div id="modal-dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="bigger">Assign Ticket</h4>
+            </div>
+            <div class="modal-body" id="ManageData">
+                <div class="col-xs-12">
+                    <div class="row">
+                        @using (Html.BeginForm("SaveAssigTicket", "Mail", FormMethod.Post, new { @class = "form-horizontal", Id = "Manage-Ticket-Form" }))
+                        {
+                            @Html.Hidden("InboxId")
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span> Select Ticket</label>
+                                <div class="col-sm-8">
+                                    @Html.DropDownList("Ticket", new SelectList(ViewBag.lstOpenTickets as System.Collections.IEnumerable, "Value", "Text"), "--- Select ---", new { @class = "form-control"})
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div style="text-align:center;">
+                    <button class="btn btn-sm btn-primary" type="button" onclick="Assign();">
+                        <i class="ace-icon fa fa-check bigger-110"></i>
+                        Save
+                    </button>
+                    &nbsp;
+                    <button class="btn btn-sm" type="button" onclick="Cancel();">
+                        <i class="ace-icon fa fa-times"></i>
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

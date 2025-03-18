@@ -1,0 +1,163 @@
+﻿@{
+    ViewBag.Title = "Email Black Lists";
+}
+@Html.Partial("_ResultMessage")
+<div class="breadcrumbs breadcrumbs-fixed" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="@Url.Action("Index","Dashboard")">Home</a>
+        </li>
+        <li class="active">Incomings</li>
+    </ul>
+</div>
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+            Incomings
+        </h1>
+    </div>
+    <div class="row" id="dv_row">
+        <div class="col-xs-12">
+            @Html.Hidden("TicketId")
+            <table id="IncomingDataGrid"></table>
+            <div id="IncomingDataPager"></div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="dv_PopUp" role="dialog"></div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('<span class="lbl"></span>').insertAfter(":checkbox"); //apply checkbox ace design
+    });
+
+    var grid_selector = "#IncomingDataGrid";
+    var pager_selector = "#IncomingDataPager";
+
+    jQuery(function ($) {
+
+        jQuery(grid_selector).jqGrid({
+            url: '/Admin/Mail/GetIncomingGridData',
+            viewrecords: true, sortname: 'Id', sortorder: "desc",
+            colNames: ['Id', 'Date', 'From', 'Subject', 'Body','Linked TicketId','Is Processed','Action'],
+            colModel: [
+                     { name: 'Id', width: 1, hidden: true, key: true, align: 'center' },
+                     {
+                         name: 'Date', index: 'Date', width: 10, align: "center", formatter: "date", search: true, searchoptions: {
+                             sopt: ['ge'], dataInit: function (el) {
+                                 $(el).datepicker({
+                                     autoclose: true
+                                 }).on("changeDate", function (e) { $('#IncomingDataGrid')[0].triggerToolbar(); });
+                             }
+                         }
+                     },
+                     { name: 'FromAddress', index: 'FromAddress', width: 20, align: 'center', search: true, searchoptions: JQ_sopt_string },
+                     { name: 'Subject', index: 'Subject', width: 30, align: 'left', search: true, searchoptions: JQ_sopt_string },
+                     { name: 'Body', index: 'Body', width: 40, align: 'center', search: true, searchoptions: JQ_sopt_string },
+                     { name: 'LinkedToTicketId', index: 'LinkedToTicketId', width: 12, align: 'center', search: true, searchoptions: JQ_sopt_string },
+                     { name: 'Processed', index: 'Processed', width: 10, align: 'center', search: true, searchoptions: JQ_sopt_string },
+                     { name: 'Action', index: 'Id', width: 10, align: 'center', formatter: LinkFormatter, search: false, sortable: false },
+            ],
+            pager: pager_selector,
+            rowNum: 10,
+            rowList: [5, 10, 20, 50, 100],
+            autowidth: true,
+            height: '100%',
+            datatype: 'json',
+            cmTemplate: { title: false },
+            viewrecords: true,
+            mtype: 'GET',
+            loadComplete: function () { ResizeJqgrid(); },
+            jsonReader: {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: false,
+                userdata: "userdata"
+            },
+        }).navGrid('#IncomingDataPager', { view: false, del: false, add: false, edit: false, search: false, referesh: true },
+           {}, // default settings for edit
+           {}, // default settings for add
+           {}, // delete instead that del:false we need this
+           { closeOnEscape: true, multipleSearch: true, closeAfterSearch: true }, // search options
+           {} /* view parameters*/
+         ).jqGrid('filterToolbar', { stringResult: true, searchOnEnter: false, defaultSearch: 'cn' });
+    });
+
+    function LinkFormatter(cellvalue, options, rowObject) {
+        return "<a href='javascript:void(0);'class='ace-icon fa fa-exclamation-triangle red bigger-120' onclick='AddToBlackList(\"" + rowObject["Id"] + "\");' data-rel='tooltip' title='Add To Blacklist' data-original-title='Add To Blacklist'  data-placement='left'></a> | " +
+        "<a href='javascript:void(0);' class='ace-icon glyphicon glyphicon-tag bigger-120' onclick='CreateTicket(\"" + rowObject["Id"] + "\");' data-rel='tooltip' title='Create Ticket' data-original-title='Create Ticket' data-placement='left' ></a> | " +
+        "<a href='javascript:void(0);' class='ace-icon glyphicon glyphicon-user bigger-120' onclick='AssignToUser(\"" + rowObject["Id"] + "\");' data-rel='tooltip' title='Assign To User' data-original-title='Assign To User' data-placement='left' ></a> | " +
+        "<a href='javascript:void(0);' class='ace-icon glyphicon glyphicon-share bigger-120' onclick='AssignToTicket(\"" + rowObject["Id"] + "\");' data-rel='tooltip' title='Assign To Ticket' data-original-title='Assign To Ticket' data-placement='left' ></a> | " +
+        "<a href='javascript:void(0);' class='ace-icon glyphicon glyphicon-check bigger-120' onclick='Processed(\"" + rowObject["Id"] + "\");' data-rel='tooltip' title='Processed' data-original-title='Processed' data-placement='left' ></a> ";
+    }
+
+    function AddToBlackList(id)
+    {
+        if (confirm("Are you sure you want to Add to Black list?")) {
+            $("#dv_row").block();
+            $.post("/Admin/Mail/AddToBlacklist?id=" + id, function (data, status) {
+                if (data.success) {
+                    SuccessMessage(data.message);
+                    $("#IncomingDataGrid").trigger('reloadGrid');
+                } else {
+                    ErrorMessage(data.message);
+                }
+                $("#dv_row").unblock();
+            });
+        }
+    }
+
+    function CreateTicket(id)
+    {
+        $.post("/Admin/Mail/CreateTicket?id=" + id, function (data, status) {
+            if (data.success) {
+                $("#TicketId").val(data.TicketId)
+                SuccessMessage(data.message);
+                $("#IncomingDataGrid").trigger('reloadGrid');
+            } else {
+                ErrorMessage(data.message);
+            }
+            $("#dv_row").unblock();
+        });
+    }
+
+    function AssignToUser(id)
+    {
+        if ($("#TicketId").val() > 0) {
+            $('#dv_PopUp').modal('show');
+            $('#dv_PopUp').html("");
+            $("#dv_PopUp").load("/Admin/Mail/AssignToUser?id=" + id + "&TicketId=" + $("#TicketId").val(), function () {
+            });
+        }
+        else
+            alert("Please create Ticket");
+    }
+
+    function AssignToTicket(id)
+    {
+        $('#dv_PopUp').modal('show');
+        $('#dv_PopUp').html("");
+        $("#dv_PopUp").load("/Admin/Mail/AssignToTicket?Id=" + id, function () {
+        });
+    }
+
+    function Processed(id)
+    {
+        $.post("/Admin/Mail/Processed?id=" + id, function (data, status) {
+            if (data.success) {
+                SuccessMessage(data.message);
+                $("#IncomingDataGrid").trigger('reloadGrid');
+            } else {
+                ErrorMessage(data.message);
+            }
+            $("#dv_row").unblock();
+        });
+    }
+</script>
+
+
+

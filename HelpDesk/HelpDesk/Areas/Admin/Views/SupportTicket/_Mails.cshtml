@@ -1,0 +1,73 @@
+﻿@{
+    ViewBag.Title = "Mails";
+    int TicketId = ViewBag.TicketId;
+}
+
+@Html.Partial("_ResultMessage")
+
+<table id="MailsDataGrid"></table>
+<div id="MailsDataPager"></div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('<span class="lbl"></span>').insertAfter(":checkbox"); //apply checkbox ace design
+    });
+
+    var grid_selector = "#MailsDataGrid";
+    var pager_selector = "#MailsDataPager";
+
+    jQuery(function ($) {
+
+        jQuery(grid_selector).jqGrid({
+            url: '/Admin/SupportTicket/GetMailsGridData?Id=' + '@TicketId',
+            viewrecords: true, sortname: 'Id', sortorder: "desc",
+            colNames: ['Id','Date','From', 'Subject', 'Body'],
+            colModel: [
+                     { name: 'Id', width: 1, hidden: true, key: true, align: 'center' },
+                     {
+                          name: 'Date', index: 'Date', width: 10, align: "center", formatter: "date", search: true, searchoptions: {
+                              sopt: ['ge'], dataInit: function (el) {
+                                  $(el).datepicker({
+                                      autoclose: true
+                                  }).on("changeDate", function (e) { $('#MailsDataGrid')[0].triggerToolbar(); });
+                              }
+                          }
+                     },
+                     { name: 'FromAddress', index: 'FromAddress', width: 20, align: 'center', search: true, searchoptions: JQ_sopt_string },
+                     { name: 'Subject', index: 'Subject', width: 30, align: 'left', search: true, searchoptions: JQ_sopt_string },
+                     { name: 'Body', index: 'Body', width: 40, align: 'center', search: true, searchoptions: JQ_sopt_string },
+            ],
+            pager: pager_selector,
+            rowNum: 10,
+            rowList: [5, 10, 20, 50, 100],
+            autowidth: true,
+            height: '100%',
+            datatype: 'json',
+            cmTemplate: { title: false },
+            viewrecords: true,
+            mtype: 'GET',
+            loadComplete: function () { ResizeJqgrid(); },
+            jsonReader: {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: false,
+                userdata: "userdata"
+            },
+        }).navGrid('#MailsDataPager', { view: false, del: false, add: false, edit: false, search: false, referesh: true },
+           {}, // default settings for edit
+           {}, // default settings for add
+           {}, // delete instead that del:false we need this
+           { closeOnEscape: true, multipleSearch: true, closeAfterSearch: true }, // search options
+           {} /* view parameters*/
+         ).jqGrid('filterToolbar', { stringResult: true, searchOnEnter: false, defaultSearch: 'cn' });
+    });
+
+</script>
+
+
+
+
+

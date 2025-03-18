@@ -1,0 +1,65 @@
+body { font-family:  Arial, Helvetica, sans-serif; font-size:13px; line-height:140%; color:#393939;  background-color:#fff;}
+
+
+.l{ float:left;}
+.c{ clear:both;}
+.r{ float:right;}
+img{ vertical-align:middle; border:none;}
+a{ color:#393939; text-decoration:none;text-decoration:none;-webkit-transition: all 300ms ease-in-out;-moz-transition: all 300ms ease-in-out;-ms-transition: all 300ms ease-in-out;-o-transition: all 300ms ease-in-out;transition: all 300ms ease-in-out;}
+a:hover{ color:#0099FF}
+*{ padding:0px; margin:0px;box-sizing: border-box;}
+*:before, *:after {  box-sizing: border-box;}
+
+#wrapper{ /*max-width:1000px;*/ width:90%; margin:auto; padding:5px 0;}
+.wrapper{/*max-width:1000px;*/ width:90%; margin:auto;}
+
+.heading-left{ padding:5px 0 0 0; float:left; font-size:20px;}
+.atached-file ul{ padding:15px 0; margin:0px;}
+.atached-file ul li{ padding:0px; margin:0px 15px; display:inline-block; text-align:center; vertical-align:top;max-width:125px;}
+.atached-file ul li a{text-decoration:none;}
+
+.total-count{ display:block; padding:8px 0 0 0; color:#009900;}
+.total-count1 .form-control{ padding-left:5px;padding-right:5px; }
+
+/*-------------------------new class added by Bhaveshjariwala on  Wednesday, 29 January 2015-----------------*/
+.login{max-width:420px; margin:50px auto auto auto;}
+.login-box{}
+.login-box-detail{}
+.before-space{margin-left:10px;}
+/*.multi-tabs{background: none repeat scroll 0 0 #5190c6;border-top-left-radius: 3px;border-top-right-radius: 3px;padding: 10px 15px;border-bottom:0px solid #ddd;}
+.multi-tabs > li > a{ font-weight:bold; color:#FFF;border: 1px solid transparent;border-radius: 2px; padding: 4px 12px;}
+.multi-tabs > li > a:hover{color:#333333;}*/
+
+.box{border:1px solid #dddddd; border-radius:3px; padding:15px; min-height:650px;}
+.heading1{border-bottom:1px solid #dddddd; padding-bottom:10px; margin-bottom:10px;}
+.user-listing{width:100%; overflow:auto; margin-bottom:10px;}
+.order-listing{width:100%; overflow:auto;}
+.order-item{width:100%; overflow:auto;}
+.device-list{width:100%; overflow:auto;}
+.field-validation-error {
+    color: red;
+}
+.light-red {
+    color: #f77 !important;
+}
+.loginuser{padding: 15px 0 0 0;}
+.loginuser a{text-decoration:underline;}
+.loader-sm-img{background:url(/Images/loader.gif) no-repeat  center center;background-size: 75% 75%;position: absolute;top: 50%;left: 0px;right: 0px;width: 35px;height: 35px;display: block;margin: auto;background-color: #fff;border-radius: 5px;border: solid 1px #ccc;}
+.orderinfo .row {padding-bottom:0px;
+}
+.itemtypelabel { padding:6px 0 0 6px; float:left;
+}
+    .itemtypelabel span { display:inline-block; margin-right:15px;
+    }
+.Todate {padding:7px 5px;
+}
+.label-text {padding-top:8px;
+}
+.table1 th { background:#eee!important;
+}
+.table1 { width: auto!important;  
+}
+.grid-acton{font-size:18px;}
+.highlightrow td{
+       background: #DCE9F4!important;
+}

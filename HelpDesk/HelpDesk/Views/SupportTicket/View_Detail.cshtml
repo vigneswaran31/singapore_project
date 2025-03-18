@@ -1,0 +1,341 @@
+﻿@using HelpDeskEntity;
+@using HelpDeskBAL
+@using HelpDeskEntity.Classes;
+@model Nullable<Guid>
+@{
+    ViewBag.Title = "Manage Support Ticket";
+    Ticket oTicket = new SupportTicketBL().GetByTicketId(Model.Value);
+    Config config = new ConfigsBL().GetByName(En_Config.AttachmentType.ToString());
+    vw_SupportTicket vwTicket = new SupportTicketBL().GetTicketViewDetailById(oTicket.TicketId);
+
+    var dateNow = DateTime.Now;
+    string TotalPhoneCalls = "";
+    string TotalActivity = "";
+    string TotalTime = "";
+    if (vwTicket.PhoneCall != null)
+    {
+        TotalPhoneCalls = vwTicket.PhoneCall.Value / 60 + " : " + vwTicket.PhoneCall.Value % 60;
+    }
+    if (vwTicket.Activity != null)
+    {
+        TotalActivity = vwTicket.Activity.Value / 60 + " : " + vwTicket.Activity.Value % 60;
+    }
+
+    if (vwTicket.PhoneCall != null && vwTicket.Activity != null)
+    {
+        TotalTime = (vwTicket.PhoneCall.Value + vwTicket.Activity.Value) / 60 + " : " +
+            (vwTicket.PhoneCall.Value + vwTicket.Activity.Value) % 60;
+    }
+}
+
+<link href="@Url.Content("~/Content/dropzone.css")" rel="stylesheet" />
+<script src="@Url.Content("~/Scripts/dropzone.js")"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('<span class="lbl"></span>').insertAfter(":checkbox");
+        var IsError = false;
+        Dropzone.options.dzAttachments = {
+            paramName: "file", // The name that will be used to transfer the file
+            maxFilesize: 2, // MB
+            autoProcessQueue: false,
+            dictDefaultMessage: 'Drop files here or click to upload.',
+            addRemoveLinks: true,
+            acceptedFiles: '@config.Value',
+            init: function () {
+                var myDropzone = this; //closure
+                $('#SaveFiles').click(function () {
+                    myDropzone.processQueue();
+                    $('#dzAttachments').block();
+                });
+            },
+            queuecomplete: function () {
+                if (!IsError) {
+                    $('#dzAttachments').unblock();
+                    $('#dv_files_popup').modal('hide');
+                    var myDropzone = this; //closure
+                    myDropzone.removeAllFiles();
+                    LoadAttachments();
+                }
+            },
+            success: function () {
+                var myDropzone = this; //closure
+                myDropzone.processQueue();
+            },
+            error: function (file) {
+                IsError = true;
+                if (!file.accepted) {
+                    this.removeFile(file);
+                    alert("You cannot add this type of file.");
+                }
+                $('#dzAttachments').unblock();
+            }
+        };
+
+
+        if ('@ViewBag.tab' == 'TicketView') {
+            $("#tabTicketDetail").addClass("active");
+            $("#tabComments").removeClass("active");
+        }
+        else if ('@ViewBag.tab' == 'Comments') {
+            LoadComments();
+        }
+        else if ('@ViewBag.tab' == 'ContactDetails') {
+            LoadContractDetails();
+        }
+        else if ('@ViewBag.tab' == 'Attachments') {
+            LoadAttachments();
+        }
+
+    });
+    function LoadTicketDetails() {
+        $('#dvRow').block();
+            $("#dvLoadData").load("/SupportTicket/TicketDetail?id=" + '@Model', function () {
+                $('#dvRow').unblock();
+                $("#tabTicketDetail").addClass("active");
+                $("#tabComments").removeClass("active");
+                $("#tabAttachment").removeClass("active");
+                $("#tabPhoneCalls").removeClass("active");
+                $("#tabMails").removeClass("active");
+                $("#tabActivity").removeClass("active");
+            });
+    }
+
+    function LoadComments() {
+        $('#dvRow').block();
+            $("#dvLoadData").load("/SupportTicket/Comments?id=" + '@Model', function () {
+                $('#dvRow').unblock();
+                $("#tabComments").addClass("active");
+                $("#tabTicketDetail").removeClass("active");
+                $("#tabAttachment").removeClass("active");
+                $("#tabPhoneCalls").removeClass("active");
+                $("#tabMails").removeClass("active");
+                $("#tabActivity").removeClass("active");
+            });
+    }
+
+    function LoadAttachments() {
+        if ('@Model' != null && '@Model' != '0') {
+            $('#dvRow').block();
+            $("#dvLoadData").html('');
+            $("#dvLoadData").load("/SupportTicket/Attachments?id=" + '@oTicket.TicketId', function () { $('#dvRow').unblock(); });
+            $("#tabComments").removeClass("active");
+            $("#tabTicketDetail").removeClass("active");
+            $("#tabAttachment").addClass("active");
+            $("#tabPhoneCalls").removeClass("active");
+            $("#tabMails").removeClass("active");
+            $("#tabActivity").removeClass("active");
+        }
+        else
+            alert("Please first Create a Ticket.");
+    }
+
+    function LoadPhoneCalls() {
+        if ('@Model' != null && '@Model' != '0') {
+            $('#dvRow').block();
+            $("#dvLoadData").html('');
+            $("#dvLoadData").load("/SupportTicket/PhoneCalls?id=" + '@oTicket.TicketId', function () { $('#dvRow').unblock(); });
+            $("#tabComments").removeClass("active");
+            $("#tabTicketDetail").removeClass("active");
+            $("#tabAttachment").removeClass("active");
+            $("#tabPhoneCalls").addClass("active");
+            $("#tabMails").removeClass("active");
+            $("#tabActivity").removeClass("active");
+        }
+        else
+            alert("Please first Create a Ticket.");
+    }
+
+
+    function LoadMails() {
+        if ('@Model' != null && '@Model' != '0') {
+            $('#dvRow').block();
+            $("#dvLoadData").html('');
+            $("#dvLoadData").load("/SupportTicket/Mails?id=" + '@oTicket.TicketId', function () { $('#dvRow').unblock(); });
+            $("#tabComments").removeClass("active");
+            $("#tabTicketDetail").removeClass("active");
+            $("#tabAttachment").removeClass("active");
+            $("#tabPhoneCalls").removeClass("active");
+            $("#tabMails").addClass("active");
+            $("#tabActivity").removeClass("active");
+        }
+        else
+            alert("Please first Create a Ticket.");
+    }
+
+
+    function LoadActivity() {
+        if ('@Model' != null && '@Model' != '0') {
+            $('#dvRow').block();
+            $("#dvLoadData").html('');
+            $("#dvLoadData").load("/SupportTicket/Activity?id=" + '@oTicket.TicketId', function () { $('#dvRow').unblock(); });
+            $("#tabComments").removeClass("active");
+            $("#tabTicketDetail").removeClass("active");
+            $("#tabAttachment").removeClass("active");
+            $("#tabPhoneCalls").removeClass("active");
+            $("#tabActivity").addClass("active");
+            $("#tabMails").removeClass("active");
+        }
+        else
+            alert("Please first Create a Ticket.");
+    }
+
+</script>
+@Html.Partial("_ResultMessage")
+<div class="breadcrumbs breadcrumbs-fixed" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="@Url.Action("Index","Dashboard")">Home</a>
+        </li>
+        <li class="active">Support Ticket</li>
+    </ul>
+
+</div>
+
+<div class="page-content">
+    @if (Model != null)
+    {
+        <div class="widget-box SupportTicket">
+
+
+            <div class="widget-body">
+                <div class="widget-main">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label for="form-field-9"><strong>@ViewBag.LngYouAreLookingAtTicket :</strong></label>
+                            <div class="input-group">
+                                #@ViewBag.TicketId
+                            </div>
+                        </div>
+                        @if (vwTicket.PhoneCall != null)
+                        {
+                            <div class="col-sm-3">
+                                <label for="form-field-9"><strong>Total time of Phone Calls :</strong></label>
+                                <div class="input-group">
+                                    @TotalPhoneCalls
+                                </div>
+                            </div>
+                        }
+                        @if (vwTicket.Activity != null)
+                        {
+                            <div class="col-sm-3">
+                                <label for="form-field-9"><strong>Total time of Activity  :</strong></label>
+                                <div class="input-group">
+                                    @TotalActivity
+                                </div>
+                            </div>
+                        }
+                        @if (vwTicket.PhoneCall != null && vwTicket.Activity != null)
+                        {
+                            <div class="col-sm-3">
+                                <label for="form-field-9"><strong>Total Time :</strong></label>
+                                <div class="input-group">
+                                    @TotalTime
+                                </div>
+                            </div>
+                        }
+                        <div class="col-sm-2">
+                            <label for="form-field-9"><strong>@ViewBag.LngCreatedOn :</strong></label>
+                            <div class="input-group">
+                                @ViewBag.CreatedOn.ToString()
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <label for="form-field-9"><strong>@ViewBag.LngClosedOn :</strong></label>
+                            <div class="input-group">
+                                @(ViewBag.ClosedOn != null ? ViewBag.ClosedOn.ToString() : "("+@ViewBag.LngNotClosedYet+")")
+                            </div>
+                        </div>
+                        @if (ViewBag.NextActionType != null && ViewBag.NextActionDueFor != null)
+                        {
+
+                            <div class="col-sm-2">
+                                <label for="form-field-9"><strong>@ViewBag.LngNextActionType :</strong></label>
+                                <div class="input-group">
+                                    @ViewBag.NextActionType
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <label for="form-field-9"><strong>@ViewBag.LngNextActionDueFor :</strong></label>
+                                <div class="input-group">
+                                    @ViewBag.NextActionDueFor
+                                </div>
+                            </div>
+                        }
+                        <div class="c"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+
+
+
+
+    <div class="row" id="dvRow">
+        <div class="col-xs-12">
+            <div class="tabbable">
+                <ul class="nav nav-tabs" id="myTab">
+                    <li class="" id="tabTicketDetail">
+                        <a href="javascript:void(0);" data-toggle="tab" aria-expanded="false" onclick="LoadTicketDetails();">@ViewBag.LngTicketDetails</a>
+                    </li>
+                    <li class="" id="tabComments">
+                        <a href="javascript:void(0);" data-toggle="tab" aria-expanded="false" onclick="LoadComments();">@ViewBag.LngComments</a>
+                    </li>
+                    <li class="" id="tabActivity">
+                        <a href="javascript:void(0);" data-toggle="tab" aria-expanded="false" onclick="LoadActivity();">Activity</a>
+                    </li>
+                    <li class="" id="tabAttachment">
+                        <a href="javascript:void(0);" data-toggle="tab" aria-expanded="false" onclick="LoadAttachments();">@ViewBag.LngAttachments</a>
+                    </li>
+                    <li class="" id="tabPhoneCalls">
+                        <a href="" data-toggle="tab" aria-expanded="false" onclick="LoadPhoneCalls();">Phone Calls</a>
+                    </li>
+                    <li class="" id="tabMails">
+                        <a href="" data-toggle="tab" aria-expanded="false" onclick="LoadMails();">Mails</a>
+                    </li>
+                </ul>
+
+                <br />
+                <div class="tab-pane active" id="dvLoadData">
+                    @{Html.RenderAction("TicketDetail", "SupportTicket");}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" role="dialog" id="dv_files_popup">
+    <div class="modal-dialog modal-sm1" style="width:800px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"> Add Files </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <!-- PAGE CONTENT BEGINS -->
+                        <div class="dzdetails">
+                            <form action="~/SupportTicket/AddFiles?id=@oTicket.TicketId" class="dropzone" id="dzAttachments" method="post" enctype="multipart/form-data"></form>
+                        </div><!-- PAGE CONTENT ENDS -->
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+                <div class="clearfix form-group form-actions">
+                    <div style="text-align:center">
+                        <button class="btn btn-sm btn-primary" type="button" id="SaveFiles">
+                            <i class="ace-icon fa fa-check bigger-110"></i>
+                            Save
+                        </button>
+                        &nbsp;
+                        <button class="btn btn-sm" type="button" onclick="$('#dv_files_popup').modal('hide');" id="SaveFiles">
+                            <i class="ace-icon fa fa-times"></i>
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,116 @@
+﻿@model HelpDeskEntity.TicketActivity
+@{
+    Layout = null;
+}
+<script src="@Url.Content("~/Scripts/bootstrap-datepicker.js")"></script>
+<script src="@Url.Content("~/Scripts/bootstrap-timepicker.js")"></script>
+<script src="@Url.Content("~/Scripts/moment.js")"></script>
+<script src="@Url.Content("~/Scripts/bootstrap-datetimepicker.js")"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $('#FromDate').datetimepicker().next().on(ace.click_event, function () {
+          $(this).prev().focus();
+        });        $('#ToDate').datetimepicker().next().on(ace.click_event, function () {
+            $(this).prev().focus();
+        });
+        $('<span class="lbl"></span>').insertAfter(":checkbox"); //apply checkbox ace design
+    });
+
+    function Cancel() {
+        $('#dv_PopUp').modal('hide');
+    }
+
+    function SaveActivity() {
+        $.validator.unobtrusive.parse($("#Manage-Activity-Form"));
+        if ($('#Manage-Activity-Form').valid()) {
+            $('#ManageData').block();
+            var formData = $("#Manage-Activity-Form").serialize();
+            $.post("@Url.Content("~/Account/SupportTicket/SaveActivity")", formData, function (data) {
+                if (data.success) {//on success refrsh view
+                    $('#dv_PopUp').modal('hide');
+                    SuccessMessage(data.message);
+                    $("#ActivityDataGrid").trigger('reloadGrid');
+                } else {
+                    $('#ManageData').unblock();
+                    ErrorMessage(data.message);
+                }
+            });
+        }
+    }
+</script>
+
+<div id="modal-dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="bigger">Manage Ticket Activity</h4>
+            </div>
+            <div class="modal-body" id="ManageData">
+                <div class="">
+                    <div class="">
+                        @using (Html.BeginForm("SaveActivity", "SupportTicket", FormMethod.Post, new { @class = "form-horizontal", Id = "Manage-Activity-Form" }))
+                        {
+                            @Html.HiddenFor(c => c.Id)
+                            @Html.HiddenFor(c => c.TicketId)
+                            @Html.HiddenFor(c => c.CreatedOn)
+                            @Html.HiddenFor(c => c.CreatedBy)
+
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span> Description</label>
+                                <div class="col-sm-8">
+                                    @Html.TextAreaFor(c => c.Description, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(c => c.Description)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span> Note</label>
+                                <div class="col-sm-8">
+                                    @Html.TextAreaFor(c => c.Note, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(c => c.Note)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span> From Date</label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(c => c.FromDate, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(c => c.FromDate)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span> To Date</label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(c => c.ToDate, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(c => c.ToDate)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"> Is SubtractFromContract</label>
+                                <label class="col-sm-8 " style="margin-top:6px">
+                                    @Html.CheckBoxFor(c => c.SubtractFromContract, new { @class = "ace" })
+                                </label>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div style="text-align:center;">
+                    <button class="btn btn-sm btn-primary" type="button" onclick="SaveActivity();">
+                        <i class="ace-icon fa fa-check bigger-110"></i>
+                        Save
+                    </button>
+                    &nbsp;
+                    <button class="btn btn-sm" type="button" onclick="Cancel();">
+                        <i class="ace-icon fa fa-times"></i>
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

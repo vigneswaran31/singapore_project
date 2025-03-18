@@ -1,0 +1,87 @@
+﻿@model int
+@using HelpDeskEntity.Classes
+@{
+    ViewBag.Title = "Manage User";
+}
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $.validator.unobtrusive.parse($("#Manage-User-Form"));
+
+        $('<span class="lbl"></span>').insertAfter(":checkbox"); //apply checkbox ace design
+
+        if ('@ViewBag.tab' == 'Permissions')
+            LoadPermission();
+        else
+            LoadDetails();
+    })
+
+
+    function LoadDetails() {
+        $('#dvRow').block();
+        $("#dvLoadData").load("/Admin/Users/Details?id=" + '@Model', function () { $('#dvRow').unblock(); });
+        if ('@Model' > 0) {
+            $("#tabDetails").addClass("active");
+           
+            if ('@ViewBag.Role' == '@En_Role.Operator.ToString()') {
+                $("#tabPermissions").removeClass("active");
+            }
+            else
+                $("#tabPermissions").addClass('hide');
+        }
+        else {
+            $("#tabDetails").addClass("active");
+            $("#tabPermissions").addClass('hide');
+        }
+    }
+
+
+    function LoadPermission() {
+        if ('@Model' != null && '@Model' != '0') {
+            $('#dvRow').block();
+            $("#dvLoadData").load("/Admin/Users/Permissions?id=" + '@Model', function () { $('#dvRow').unblock(); });
+            $("#tabDetails").removeClass("active");
+            $("#tabPermissions").addClass("active");
+        }
+        else
+            alert("Please first Details.");
+    }
+</script>
+
+@Html.Partial("_ResultMessage")
+
+<div class="breadcrumbs breadcrumbs-fixed" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="@Url.Action("Index","Dashboard")">Home</a>
+        </li>
+        <li class="active">Manage User</li>
+    </ul>
+</div>
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+            Users
+        </h1>
+    </div>
+    <div class="row" id="dvRow">
+        <div class="col-xs-12">
+            <div class="tabbable">
+                <ul class="nav nav-tabs" id="myTab">
+                    <li class="" id="tabDetails">
+                        <a href="javascript:void(0);" data-toggle="tab" aria-expanded="false" onclick="LoadDetails();">Details</a>
+                    </li>
+                    <li class="" id="tabPermissions">
+                        <a href="javascript:void(0);" data-toggle="tab" aria-expanded="false" onclick="LoadPermission();">Permissions</a>
+                    </li>
+                </ul>
+                <br />
+                <div class="tab-pane active" id="dvLoadData"></div>
+            </div>
+        </div>
+    </div>
+</div>
+

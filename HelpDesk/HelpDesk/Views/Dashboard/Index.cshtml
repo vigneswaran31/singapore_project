@@ -1,0 +1,95 @@
+﻿@model HelpDeskEntity.DashboardCountModel
+@using HelpDeskEntity
+@using HelpDeskBAL
+@{
+    ViewBag.Title = "Dashboard";
+    vw_CompanyContract vwCompanyContract = (vw_CompanyContract)ViewBag.CompanyContract;
+}
+<div class="breadcrumbs breadcrumbs-fixed" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="#">Home</a>
+        </li>
+        <li class="active">Dashboard</li>
+    </ul>
+</div>
+<div class="page-content">
+    <div class="row">
+        <div class="col-xs-12">
+            @if (vwCompanyContract != null)
+            {
+                <div class="well well-sm">
+                    <div class="col-sm-4 no-padding-left">
+                        <strong>@ViewBag.Company :</strong> @vwCompanyContract.CompanyName <br />
+                        <strong>@ViewBag.ContractPeriod :</strong> @vwCompanyContract.StartDate.ToShortDateString() - @vwCompanyContract.EndDate.ToShortDateString() <br />
+                        @if (vwCompanyContract.NoOfTickets == null)
+                        {
+                            @: <strong>@ViewBag.NoOfTickets :</strong> @ViewBag.Unlimited
+                        }
+                        else
+                        {
+                            @: <strong>@ViewBag.TicketsLeft :</strong> @vwCompanyContract.TicketsLeft / @vwCompanyContract.NoOfTickets
+                        }
+                        <br />
+                        @if (vwCompanyContract.Hours != null)
+                        {
+                            Nullable<int> time = new CompanyContractBL().GetContractRemainingTime(vwCompanyContract.CompanyContractId);
+                            <strong>Remaining Time for Contract : </strong> @(time != null ? time / 60 + " : " + time % 60 : null);
+                        }
+                    </div>
+                    <div class="col-sm-4">
+                        @if (vwCompanyContract.ResponseWithInHours != null)
+                        {
+                            @:<strong>@ViewBag.ResponseWithin :</strong> @vwCompanyContract.ResponseWithInHours (@ViewBag.hours) <br />
+                        }
+                        @if (vwCompanyContract.SolutionWithInHours != null)
+                        {
+                            @:<strong>@ViewBag.SolutionWithin :</strong> @vwCompanyContract.SolutionWithInHours (@ViewBag.hours)
+                        }
+                    </div>
+                    <div class="c"></div>
+                </div>
+            }
+        </div>
+        <div class="col-xs-12">
+            <div class="row">
+                <div class="space-6"></div>
+                <div class="col-sm-7 infobox-container" style="text-align:left;">
+                    <div class="infobox infobox-wood">
+                        <div class="infobox-icon">
+                            <i class="ace-icon glyphicon glyphicon-tags"></i><b></b>
+                        </div>
+                        <a class="infobox-data" href="@Url.Action("Index", "SupportTicket")">
+                            <span class="infobox-data-number">@ViewBag.TotalOpenTicket</span>
+                            <div class="infobox-content">@ViewBag.OpenTickets</div>
+                        </a>
+                    </div>
+                    <div class="space-6"></div>
+                </div>
+                <div class="vspace-12-sm"></div>
+            </div>
+            <div class="">
+                <div class="">
+                    <input type="submit" onclick="ManageSupportTickets();" class="btn btn-sm btn-primary" value="@ViewBag.CreateSupportTicket">
+                </div>
+            </div>
+            <div class="hr hr32 hr-dotted"></div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function ManageSupportTickets() {
+        $.post("/SupportTicket/IsActiveContract/", function (data, status) {
+            if (data.success) {
+                window.location.href = "/SupportTicket/Create";
+            } else if (data.errormsg == 'NoActiveContract') {
+                alert("\tYou cannot create a new ticket \nThere is no Active Contract exist for your company.");
+            }
+
+            else if (data.errormsg == 'NoTicket') {
+                alert("\tYou cannot create a new ticket \nAll Tickets are used for existing Contract.");
+            }
+        });
+    }
+</script>

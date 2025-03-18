@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c92287730bbd4561b56ff09c7f3dee93" Name="Diagram1" ZoomLevel="64">
+        <EntityTypeShape EntityType="HelpDeskModel.Attachment" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="HelpDeskModel.AutoAssign" Width="1.5" PointX="6" PointY="10.25" />
+        <EntityTypeShape EntityType="HelpDeskModel.Comment" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="HelpDeskModel.CompanyCategory" Width="1.5" PointX="10.75" PointY="0.75" />
+        <EntityTypeShape EntityType="HelpDeskModel.CompanyCategoryException" Width="1.5" PointX="6" PointY="4" />
+        <EntityTypeShape EntityType="HelpDeskModel.CompanyContract" Width="1.5" PointX="0.75" PointY="20.5" />
+        <EntityTypeShape EntityType="HelpDeskModel.CompanyProduct" Width="1.5" PointX="12.75" PointY="0.75" />
+        <EntityTypeShape EntityType="HelpDeskModel.Config" Width="1.5" PointX="13.75" PointY="6.75" />
+        <EntityTypeShape EntityType="HelpDeskModel.ContractTemplate" Width="1.5" PointX="14.75" PointY="0.75" />
+        <EntityTypeShape EntityType="HelpDeskModel.CuteChat4_InstantMessage" Width="1.5" PointX="5.75" PointY="14.75" />
+        <EntityTypeShape EntityType="HelpDeskModel.CuteChat4_Lobby" Width="1.5" PointX="15.75" PointY="5.75" />
+        <EntityTypeShape EntityType="HelpDeskModel.CuteChat4_LogEvent" Width="1.5" PointX="13.75" PointY="15.75" />
+        <EntityTypeShape EntityType="HelpDeskModel.CuteChat4_LogMessage" Width="1.5" PointX="15.75" PointY="15.75" />
+        <EntityTypeShape EntityType="HelpDeskModel.CuteChat4_Portal" Width="1.5" PointX="16.75" PointY="0.75" />
+        <EntityTypeShape EntityType="HelpDeskModel.CuteChat4_Rule" Width="1.5" PointX="7.75" PointY="16.75" />
+        <EntityTypeShape EntityType="HelpDeskModel.CuteChat4_Settings" Width="1.5" PointX="16.75" PointY="10.75" />
+        <EntityTypeShape EntityType="HelpDeskModel.CuteChat4_SupportAgent" Width="1.5" PointX="5" PointY="0.875" />
+        <EntityTypeShape EntityType="HelpDeskModel.CuteChat4_SupportCustomer" Width="1.5" PointX="17.75" PointY="3.75" />
+        <EntityTypeShape EntityType="HelpDeskModel.CuteChat4_SupportDepartment" Width="1.5" PointX="2.75" PointY="0.875" />
+        <EntityTypeShape EntityType="HelpDeskModel.CuteChat4_SupportFeedback" Width="1.5" PointX="17.75" PointY="6.75" />
+        <EntityTypeShape EntityType="HelpDeskModel.CuteChat4_SupportMessage" Width="1.5" PointX="17.75" PointY="13.75" />
+        <EntityTypeShape EntityType="HelpDeskModel.CuteChat4_SupportSession" Width="1.5" PointX="17.75" PointY="17.75" />
+        <EntityTypeShape EntityType="HelpDeskModel.CuteChat4_User" Width="1.5" PointX="19.75" PointY="0.75" />
+        <EntityTypeShape EntityType="HelpDeskModel.EmailQueue" Width="1.5" PointX="5.75" PointY="19.75" />
+        <EntityTypeShape EntityType="HelpDeskModel.Event" Width="1.5" PointX="9.75" PointY="19.75" />
+        <EntityTypeShape EntityType="HelpDeskModel.KBArticle" Width="1.5" PointX="11.25" PointY="16" />
+        <EntityTypeShape EntityType="HelpDeskModel.KBCategory" Width="1.5" PointX="11.75" PointY="19.75" />
+        <EntityTypeShape EntityType="HelpDeskModel.Language" Width="1.5" PointX="19.75" PointY="13.75" />
+        <EntityTypeShape EntityType="HelpDeskModel.OperatorPermission" Width="1.5" PointX="11.25" PointY="11" />
+        <EntityTypeShape EntityType="HelpDeskModel.Permission" Width="1.5" PointX="9" PointY="6" />
+        <EntityTypeShape EntityType="HelpDeskModel.Role" Width="1.5" PointX="6.75" PointY="7.25" />
+        <EntityTypeShape EntityType="HelpDeskModel.SupplierProduct" Width="1.5" PointX="20.75" PointY="8.75" />
+        <EntityTypeShape EntityType="HelpDeskModel.SupplierProductsType" Width="1.5" PointX="13.75" PointY="20.75" />
+        <EntityTypeShape EntityType="HelpDeskModel.Supplier" Width="1.5" PointX="19.75" PointY="20.75" />
+        <EntityTypeShape EntityType="HelpDeskModel.SupportTeamMember" Width="1.5" PointX="11.25" PointY="8" />
+        <EntityTypeShape EntityType="HelpDeskModel.SupportTeamPermission" Width="1.5" PointX="14.25" PointY="12.125" />
+        <EntityTypeShape EntityType="HelpDeskModel.SupportTeam" Width="1.5" PointX="3.75" PointY="17.25" />
+        <EntityTypeShape EntityType="HelpDeskModel.TicketActivity" Width="1.5" PointX="21.75" PointY="0.75" />
+        <EntityTypeShape EntityType="HelpDeskModel.TicketPriority" Width="1.5" PointX="0.75" PointY="5.25" />
+        <EntityTypeShape EntityType="HelpDeskModel.TicketStatu" Width="1.5" PointX="0.75" PointY="16.375" />
+        <EntityTypeShape EntityType="HelpDeskModel.User" Width="1.5" PointX="9" PointY="9" />
+        <EntityTypeShape EntityType="HelpDeskModel.vw_AutoAssign" Width="1.5" PointX="21.75" PointY="13.75" />
+        <EntityTypeShape EntityType="HelpDeskModel.vw_Comments" Width="1.5" PointX="21.75" PointY="4.75" />
+        <EntityTypeShape EntityType="HelpDeskModel.vw_CompanyCategoryException" Width="1.5" PointX="21.75" PointY="18.75" />
+        <EntityTypeShape EntityType="HelpDeskModel.vw_CompanyUser" Width="1.5" PointX="22.75" PointY="8.75" />
+        <EntityTypeShape EntityType="HelpDeskModel.vw_Events" Width="1.5" PointX="15.75" PointY="22.75" />
+        <EntityTypeShape EntityType="HelpDeskModel.vw_KBArticle" Width="1.5" PointX="23.75" PointY="0.75" />
+        <EntityTypeShape EntityType="HelpDeskModel.vw_KBCategory" Width="1.5" PointX="23.75" PointY="4.75" />
+        <EntityTypeShape EntityType="HelpDeskModel.vw_User" Width="1.5" PointX="23.75" PointY="23.75" />
+        <AssociationConnector Association="HelpDeskModel.FK_AutoAssign_SupportTeams" />
+        <AssociationConnector Association="HelpDeskModel.FK_AutoAssign_Users" />
+        <AssociationConnector Association="HelpDeskModel.FK_Comments_Comments" />
+        <AssociationConnector Association="HelpDeskModel.FK_CuteChat4_SupportAgent_CuteChat4_SupportDepartment" />
+        <AssociationConnector Association="HelpDeskModel.FK_KBArticles_Users" />
+        <AssociationConnector Association="HelpDeskModel.FK_OperatorPermissions_Permissions" />
+        <AssociationConnector Association="HelpDeskModel.FK_OperatorPermissions_Users" />
+        <AssociationConnector Association="HelpDeskModel.FK_SupportTeamPermission_Permission" />
+        <AssociationConnector Association="HelpDeskModel.FK_Users_Roles" />
+        <AssociationConnector Association="HelpDeskModel.FK_Support_Team_Members_SupportTeam" />
+        <AssociationConnector Association="HelpDeskModel.FK_Support_Team_Members_Users" />
+        <AssociationConnector Association="HelpDeskModel.FK_SupportTeamPermission_SupportTeam" />
+        <EntityTypeShape EntityType="HelpDeskModel.Ticket" Width="1.5" PointX="6" PointY="24.625" />
+        <AssociationConnector Association="HelpDeskModel.FK_Tickets_CompanyContracts" />
+        <AssociationConnector Association="HelpDeskModel.FK_Tickets_TicketPriority" />
+        <AssociationConnector Association="HelpDeskModel.FK_Tickets_TicketPriority1" />
+        <AssociationConnector Association="HelpDeskModel.FK_Tickets_TicketsStatus" />
+        <EntityTypeShape EntityType="HelpDeskModel.PhoneCall" Width="1.5" PointX="11.25" PointY="27.875" />
+        <AssociationConnector Association="HelpDeskModel.FK_PhoneCalls_Users" />
+        <EntityTypeShape EntityType="HelpDeskModel.EmailTemplate" Width="1.5" PointX="22" PointY="28.75" />
+        <AssociationConnector Association="HelpDeskModel.FK_EmailTemplates_Languages" />
+        <EntityTypeShape EntityType="HelpDeskModel.EmailBlackList" Width="1.5" PointX="12.375" PointY="24.75" />
+        <EntityTypeShape EntityType="HelpDeskModel.SupportCategory" Width="1.5" PointX="3.75" PointY="10.125" />
+        <AssociationConnector Association="HelpDeskModel.FK_AutoAssign_SupportCategories" />
+        <AssociationConnector Association="HelpDeskModel.FK_CompanyCategoryException_TicketCategory" />
+        <AssociationConnector Association="HelpDeskModel.FK_Tickets_TicketCategory" />
+        <EntityTypeShape EntityType="HelpDeskModel.vw_SupportCategory" Width="1.5" PointX="8.375" PointY="22.75" />
+        <EntityTypeShape EntityType="HelpDeskModel.TicketsSource" Width="1.5" PointX="3.375" PointY="6.75" />
+        <EntityTypeShape EntityType="HelpDeskModel.vw_SupportTicket" Width="1.5" PointX="0.75" PointY="24.75" />
+        <EntityTypeShape EntityType="HelpDeskModel.Company" Width="1.5" PointX="24.75" PointY="14.125" />
+        <AssociationConnector Association="HelpDeskModel.FK_AutoAssign_Companies" />
+        <AssociationConnector Association="HelpDeskModel.FK_Companies_Companies" />
+        <AssociationConnector Association="HelpDeskModel.FK_Tickets_Company" />
+        <AssociationConnector Association="HelpDeskModel.FK_Users_Companies" />
+        <EntityTypeShape EntityType="HelpDeskModel.vw_CompanyContract" Width="1.5" PointX="0.75" PointY="9.75" />
+        <EntityTypeShape EntityType="HelpDeskModel.EmailInbox" Width="1.5" PointX="25.375" PointY="8.75" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

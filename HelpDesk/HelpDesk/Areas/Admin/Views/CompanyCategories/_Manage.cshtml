@@ -1,0 +1,78 @@
+﻿@model HelpDeskEntity.CompanyCategory
+
+@{
+    Layout = null;
+}
+
+@using HelpDeskEntity.Classes
+
+<script type="text/javascript">
+
+    $(document).ready(function () { });
+
+    function Cancel() {
+        $('#dv_PopUp').modal('hide');
+    }
+
+    function Save() {
+        $.validator.unobtrusive.parse($("#Manage-CompanyCategory-Form"));
+        if ($('#Manage-CompanyCategory-Form').valid()) {
+            $('#ManageData').block();
+            var formData = $("#Manage-CompanyCategory-Form").serialize();
+            $.post("@Url.Content("~/Admin/CompanyCategories/Save")", formData, function (data) {
+                if (data.success) {//on success refrsh view
+                    $('#dv_PopUp').modal('hide');
+                    SuccessMessage(data.message);
+                    $("#CompanyCategoryDataGrid").trigger('reloadGrid');
+                } else {
+                    $('#ManageData').unblock();
+                    ErrorMessage(data.message);
+                }
+            });
+        }
+    }
+
+</script>
+<div id="modal-dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="bigger">Manage Company Category</h4>
+            </div>
+            <div class="modal-body" id="ManageData">
+                <div class="col-xs-12">
+                    <div class="row">
+                        @using (Html.BeginForm("Save", "CompanyCategories", FormMethod.Post, new { @class = "form-horizontal", Id = "Manage-CompanyCategory-Form" }))
+                        {
+                            @Html.HiddenFor(c => c.Id)
+                            @Html.HiddenFor(c => c.CreatedOn)
+                            @Html.HiddenFor(c => c.CreatedBy)
+
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"><span class="light-red">* </span>Name</label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(c => c.Name, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(c => c.Name)
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div style="text-align:center;">
+                    <button class="btn btn-sm btn-primary" type="button" onclick="Save();">
+                        <i class="ace-icon fa fa-check bigger-110"></i>
+                        Save
+                    </button>
+                    &nbsp;
+                    <button class="btn btn-sm" type="button" onclick="Cancel();">
+                        <i class="ace-icon fa fa-times"></i>
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

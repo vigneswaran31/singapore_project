@@ -1,0 +1,222 @@
+﻿@model int
+@using HelpDeskEntity
+@using HelpDesk.Classes
+@using HelpDeskEntity.Classes
+@using HelpDeskBAL
+@{
+    ViewBag.Title = "Manage Company";
+    Config config = new ConfigsBL().GetByName(En_Config.AttachmentType.ToString());
+}
+<link href="@Url.Content("~/Content/dropzone.css")" rel="stylesheet" />
+<script src="@Url.Content("~/Scripts/dropzone.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery.blockUI.js")"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var IsError = false;
+        Dropzone.options.dzAttachments = {
+            paramName: "file", // The name that will be used to transfer the file
+            maxFilesize: 2, // MB
+            autoProcessQueue: false,
+            dictDefaultMessage: 'Drop files here or click to upload.',
+            addRemoveLinks: true,
+            acceptedFiles: '@config.Value',
+            init: function () {
+                var myDropzone = this; //closure
+                $('#SaveFiles').click(function () {
+                    myDropzone.processQueue();
+                    $('#dzAttachments').block();
+                });
+            },
+            queuecomplete: function () {
+                if (!IsError) {
+                    $('#dzAttachments').unblock();
+                    $('#dv_files_popup').modal('hide');
+                    var myDropzone = this; //closure
+                    myDropzone.removeAllFiles();
+                    LoadAttachments();
+                }
+            },
+            success: function () {
+                var myDropzone = this; //closure
+                myDropzone.processQueue();
+            },
+            error: function (file) {
+                IsError = true;
+                if (!file.accepted) {
+                    this.removeFile(file);
+                    alert("You cannot add this type of file.");
+                }
+                $('#dzAttachments').unblock();
+            }
+        };
+
+        $('<span class="lbl"></span>').insertAfter(":checkbox");
+
+        if ('@ViewBag.tab' == 'Details')
+            LoadCompanyDetails();
+        else if ('@ViewBag.tab' == 'CategoryExceptions')
+            LoadCategoryException();
+        else if ('@ViewBag.tab' == 'Users')
+            LoadUsers();
+
+    });
+    function LoadCompanyDetails() {
+        $('#dvRow').block();
+        $("#dvLoadData").load("/Admin/Companies/CompanyDetail?id=" + '@Model', function () { $('#dvRow').unblock(); });
+        if ('@Model' > 0) {
+            $("#tabCompanyDetails").addClass("active");
+            $("#tabCatgryException").removeClass("active");
+            $("#tabUsers").removeClass("active");
+            $("#tabAttachments").removeClass("active");
+            $("#tabContract").removeClass("active");
+        }
+        else {
+            $("#tabCompanyDetails").addClass("active");
+            $("#tabCatgryException").addClass('hide');
+            $("#tabUsers").addClass("hide");
+            $("#tabAttachments").addClass("hide");
+            $("#tabContract").addClass("hide");
+        }
+    }
+
+    function LoadCategoryException() {
+        if ('@Model' != null && '@Model' != '0') {
+            $('#dvRow').block();
+            $("#dvLoadData").load("/Admin/Companies/CompanyException?id=" + '@Model', function () { $('#dvRow').unblock(); });
+            $("#tabCompanyDetails").removeClass("active");
+            $("#tabCatgryException").addClass("active");
+            $("#tabAttachments").removeClass("active");
+            $("#tabContract").removeClass("active");
+            $("#tabUsers").removeClass("active");
+        }
+        else
+            alert("Please first Add Company.");
+    }
+
+
+    function LoadUsers() {
+        if ('@Model' != null && '@Model' != '0') {
+            $('#dvRow').block();
+            $("#dvLoadData").load("/Admin/Companies/Users?id=" + '@Model', function () { $('#dvRow').unblock(); });
+            $("#tabCompanyDetails").removeClass("active");
+            $("#tabCatgryException").removeClass("active");
+            $("#tabUsers").addClass("active");
+            $("#tabContract").removeClass("active");
+            $("#tabAttachments").removeClass("active");
+        }
+        else
+            alert("Please first Add Company.");
+    }
+
+    function LoadAttachments() {
+        if ('@Model' != null && '@Model' != '0') {
+            $('#dvRow').block();
+            $("#dvLoadData").load("/Admin/Companies/Attachments?id=" + '@Model', function () { $('#dvRow').unblock(); });
+            $("#tabCompanyDetails").removeClass("active");
+            $("#tabCatgryException").removeClass("active");
+            $("#tabUsers").removeClass("active");
+            $("#tabContract").removeClass("active");
+            $("#tabAttachments").addClass("active");
+        }
+        else
+            alert("Please first Add Company.");
+    }
+
+    function LoadContractHistory()
+    {
+        if ('@Model' != null && '@Model' != '0') {
+            $('#dvRow').block();
+            $("#dvLoadData").load("/Admin/Companies/ContractHistory?id=" + '@Model', function () { $('#dvRow').unblock(); });
+            $("#tabCompanyDetails").removeClass("active");
+            $("#tabCatgryException").removeClass("active");
+            $("#tabUsers").removeClass("active");
+            $("#tabAttachments").removeClass("active");
+            $("#tabContract").addClass("active");
+        }
+        else
+            alert("Please first Add Company.");
+    }
+
+</script>
+@Html.Partial("_ResultMessage")
+<div class="breadcrumbs breadcrumbs-fixed" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="@Url.Action("Index","Dashboard")">Home</a>
+        </li>
+        <li class="active">Companies</li>
+    </ul>
+</div>
+
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+            Manage Company
+        </h1>
+    </div>
+    <div class="row" id="dvRow">
+        <div class="col-xs-12">
+            <div class="tabbable">
+                <ul class="nav nav-tabs" id="myTab">
+                    <li class="" id="tabCompanyDetails">
+                        <a href="javascript:void(0);" data-toggle="tab" aria-expanded="false" onclick="LoadCompanyDetails();">Details</a>
+                    </li>
+                    <li class="" id="tabUsers">
+                        <a href="javascript:void(0);" data-toggle="tab" aria-expanded="false" onclick="LoadUsers();">Users</a>
+                    </li>
+                    <li class="" id="tabCatgryException">
+                        <a href="javascript:void(0);" data-toggle="tab" aria-expanded="false" onclick="LoadCategoryException();">Category Exceptions</a>
+                    </li>
+                    <li class="" id="tabAttachments">
+                        <a href="javascript:void(0);" data-toggle="tab" aria-expanded="false" onclick="LoadAttachments();">Attachments</a>
+                    </li>
+                    <li class="" id="tabProducts">
+                        <a href="javascript:void(0);" data-toggle="tab" aria-expanded="false">Products</a>
+                    </li>
+                    <li class="" id="tabContract">
+                        <a href="javascript:void(0);" data-toggle="tab" aria-expanded="false" onclick="LoadContractHistory();">Contract History</a>
+                    </li>
+                </ul>
+                <br />
+                <div class="tab-pane active" id="dvLoadData">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="dv_PopUp" role="dialog"></div>
+<div class="modal fade" role="dialog" id="dv_files_popup">
+    <div class="modal-dialog modal-sm1" style="width:800px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"> Add Files </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <!-- PAGE CONTENT BEGINS -->
+                        <div class="dzdetails">
+                            <form action="~/Admin/Companies/AddFiles?id=@Model" class="dropzone" id="dzAttachments" method="post" enctype="multipart/form-data"></form>
+                        </div><!-- PAGE CONTENT ENDS -->
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+                <div class="clearfix form-group form-actions">
+                    <div style="text-align:center">
+                        <button class="btn btn-sm btn-primary" type="button" id="SaveFiles">
+                            <i class="ace-icon fa fa-check bigger-110"></i>
+                            Save
+                        </button>
+                        &nbsp;
+                        <button class="btn btn-sm" type="button" onclick="$('#dv_files_popup').modal('hide');" id="SaveFiles">
+                            <i class="ace-icon fa fa-times"></i>
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

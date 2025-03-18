@@ -1,0 +1,219 @@
+﻿@using HelpDeskEntity;
+@using HelpDeskEntity.Classes;
+@using HelpDeskBAL;
+@using HelpDesk.Classes
+@model HelpDeskEntity.Ticket
+@{
+    ViewBag.Title = "Create Ticket";
+    User oUser = (User)Session[En_UserSession.User.ToString()];
+    Config config = new ConfigsBL().GetByName(En_Config.AttachmentType.ToString());
+}
+
+<link href="@Url.Content("~/Content/dropzone.css")" rel="stylesheet" />
+<script src="@Url.Content("~/Scripts/dropzone.js")"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.validator.unobtrusive.parse($("#Manage-SupportTicket-Form"));
+
+        if ('@Model.TicketId' == 0) {
+            jQuery(function ($) {
+                var IsError = false;
+                Dropzone.autoDiscover = false;
+                try {
+                    var myDropzone = new Dropzone("#dropzone", {
+                        url: "/SupportTicket/SaveUploadedFile?TicketId=0",
+                        paramName: "file", // The name that will be used to transfer the file
+                        maxFilesize: 20, // MB
+                        maxFiles: 5,
+                        addRemoveLinks: true,
+                        acceptedFiles: '@config.Value',
+                        clickable: true,
+                        parallelUploads: 1,
+                        dictDefaultMessage:
+                        '<span class="bigger-150 bolder"><i class="ace-icon fa fa-caret-right red"></i> Drop files</span> to upload \
+			    <span class="smaller-80 grey">(or click)</span> <br /> \
+			    <i class="upload-icon ace-icon fa fa-cloud-upload blue fa-3x"></i>',
+                        dictResponseError: 'Error while uploading file!',
+                        autoProcessQueue: true,
+                        //change the previewTemplate to use Bootstrap progress bars
+                        previewTemplate: "<div class=\"dz-preview dz-file-preview\">\n  <div class=\"dz-details\">\n      <img data-dz-thumbnail />\n  </div>\n  <div class=\"progress progress-small progress-striped active\"><div class=\"progress-bar progress-bar-success\" data-dz-uploadprogress></div></div>\n  <div class=\"dz-success-mark\"><span></span></div>\n  <div class=\"dz-error-mark\"><span></span></div>\n  <div class=\"dz-error-message\"><span data-dz-errormessage></span></div>\n</div>"
+                        ,
+                        init: function () {
+                            var thisDropzone = this;
+                            var Attachments = JSON.parse('@Html.Raw(ViewBag.Attachments)');
+                            var imagepath = "";
+                            if (Attachments.length > 0) {
+                                for (var i = 0; i < Attachments.length; i++) {
+                                    var mockFile = { name: Attachments[i].FilePath, fileId: Attachments[i].AttachmentId };
+                                    thisDropzone.emit("addedfile", mockFile);
+                                    imagepath = "@(SiteUtility.GetImageUrl())" + "/Tickets/" + Attachments[i].FilePath;
+
+                                    thisDropzone.emit("thumbnail", mockFile, imagepath);
+
+                                    thisDropzone.files[i] = mockFile;
+                                }
+
+                                thisDropzone.options.maxFiles = thisDropzone.options.maxFiles - Attachments.length; //adjust max file count
+                                $('.dz-preview').addClass('dz-success'); //mark imgs uploaded
+                                RefreshMainImg();
+
+                                $('.dropzone img').each(function () {
+                                    var $this = $(this);
+                                    if (!$this.parent().is("a"))
+                                        $this.wrap('<a data-rel="colorbox" href="' + $this.attr('src') + '"></a>');
+                                });
+                            }
+                        }
+                    });
+                } catch (e) {
+                }
+
+                myDropzone.on("maxfilesexceeded", function (file) {
+                    file.FilesExceeded = true;
+                    myDropzone.removeFile(file);
+                    alert("You cannot add more files.");
+                });
+                myDropzone.on("removedfile", function (file) {
+                    if (file.FilesExceeded == true || IsError)
+                        return;
+                    if (file.fileId > 0) {
+                        $.post("/SupportTicket/DeleteUploadedFile", { serverId: 0, fileId: file.fileId },
+                            function (data) {
+                                SuccessMessage(data.message);
+                                if (file.notUpdateMaxfiles != true)
+                                    myDropzone.options.maxFiles += 1; //adjust max file count if db file deleted
+                            });
+                    }
+                    else {
+                        $.post("/SupportTicket/DeleteUploadedFile", { serverId: file.serverId, fileId: 0 });
+                        $('input[name="adImgs"][value="' + file.serverId + '"]').remove();
+                    }
+                    RefreshMainImg();
+                });
+                myDropzone.on("success", function (file, response) {
+                    if (response.fileId != null) {
+                        file.fileId = response.fileId;
+                        file.notUpdateMaxfiles = true;
+                        SuccessMessage(response.message);
+                    }
+                    else {
+                        file.serverId = response.serverId;
+                        $('#Manage-SupportTicket-Form').append('<input type="hidden" name="adImgs" value="' + file.serverId + '" />');
+                        $('#Manage-SupportTicket-Form').append('<input type="hidden" name="imgNames" value="' + file.name + '" />');
+                    }
+                    RefreshMainImg();
+                });
+                myDropzone.on("error", function (file) {
+                    IsError = true;
+                    if (!file.accepted) {
+                        this.removeFile(file);
+                        alert("You cannot add this type of file.");
+                    }
+                });
+            });
+        }
+
+    })
+
+    function RefreshMainImg() {
+        if ($('.dz-preview:first').find('.dz-mainimg-mark').length <= 0)
+            $('.dz-preview:first').append("<div class='dz-mainimg-mark'><span></span></div>");
+    }
+
+    function Cancel() {
+        window.location.href = "/SupportTicket/Index";
+    }
+
+    function CreateTicket() {
+        if ($('#Manage-SupportTicket-Form').valid()) {
+            $('#Manage-SupportTicket-Form').block();
+        }
+    }
+</script>
+@Html.Partial("_ResultMessage")
+
+<div class="breadcrumbs breadcrumbs-fixed" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="@Url.Action("Index","Dashboard")">Home</a>
+        </li>
+        <li class="active">Create Ticket</li>
+    </ul>
+</div>
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+            Create Support Ticket
+        </h1>
+    </div>
+    <div class="col-xs-12">
+        @using (Html.BeginForm("Save", "SupportTicket", FormMethod.Post, new { @id = "Manage-SupportTicket-Form", @name = "Manage-SupportTicket-Form", @class = "form-horizontal" }))
+        {
+            @Html.HiddenFor(c => c.TicketId)
+            @Html.HiddenFor(c => c.CreatedOn)
+            @Html.HiddenFor(c => c.CompanyId)
+            @Html.HiddenFor(c => c.CurrentStatus)
+            @Html.HiddenFor(c => c.ContractId)
+            @Html.HiddenFor(c => c.OperatorPriority)
+            @Html.HiddenFor(c => c.CompanyUserId)
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span> @ViewBag.LngTitle :</label>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(c => c.Title, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(c => c.Title)
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span>  @ViewBag.LngProblemDescription :</label>
+                <div class="col-sm-9">
+                    @Html.TextAreaFor(c => c.ProblemDescription, new { @class = "form-control", @rows = "5" })
+                    @Html.ValidationMessageFor(c => c.ProblemDescription)
+                </div>
+            </div>
+            <div class="form-group" style="display:none;" id="divContractBlock">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Note</label>
+                <div class="col-sm-4" id="divContractError" style="color:#b94a48;">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span> @ViewBag.LngSolutionPriority</label>
+                <div class="col-sm-4">
+                    @Html.DropDownListFor(p => p.CustomerPriority, new SelectList(ViewBag.CustomerPriorities as System.Collections.IEnumerable, "TicketPriorityId", "Description"), "--- Select ---", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(p => p.CustomerPriority)
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span> @ViewBag.LngIssueCategory</label>
+                <div class="col-sm-4">
+                    @Html.DropDownListFor(p => p.CategoryId, new SelectList(ViewBag.Categories as System.Collections.IEnumerable, "CategoryId", "CategoryName"), "--Select--", new { @class = "chosen-select form-control" })
+                    @Html.ValidationMessageFor(p => p.CategoryId)
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right">@ViewBag.LngAttachments</label>
+                <div class="col-sm-9">
+                    <div class="dropzone" id="dropzone" style="min-height:200px;">
+                        <div class="fallback">
+                            <input name="file" type="file" multiple="" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix form-group form-actions">
+                <div class="col-md-offset-3 col-md-9">
+                    <button id="btnSaveTickets" type="submit" class="btn btn-sm btn-primary" onclick="CreateTicket();">
+                        <i class="ace-icon fa fa-check bigger-110"></i>
+                        @ViewBag.LngSave
+                    </button>
+                    &nbsp;
+                    <button type="button" class="btn btn-sm" onclick="Cancel();">
+                        <i class="ace-icon fa fa-times"></i>
+                        @ViewBag.LngCancel
+                    </button>
+                </div>
+            </div>
+        }
+    </div>
+</div>

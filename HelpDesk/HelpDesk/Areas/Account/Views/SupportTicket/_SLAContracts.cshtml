@@ -1,0 +1,94 @@
+﻿@model HelpDeskEntity.vw_CompanyContract
+@using HelpDeskEntity
+<div class="widget-box">
+    <div class="widget-header">
+        <h4 class="widget-title lighter smaller">
+            <i class="ace-icon fa fa-gavel blue"></i>
+            Contract Details
+        </h4>
+    </div>
+    <div class="widget-body">
+        <div class="widget-main">
+            <div class="dialogs">
+                @if (Model.ResponseWithInHours != null && Model.SolutionWithInHours != null)
+                {
+                    <div class="form-group">
+                        <div class="row">
+                            <label class="col-xs-12 col-sm-2 col-md-2 control-label"><b> Contract Name :</b> </label>
+                            <div class="col-xs-12 col-sm-4 col-md-2">
+                                <label class="control-label ">@Model.TemplateName</label>
+                            </div>
+                            <label class="col-xs-12 col-sm-2 col-md-3 control-label"> <b> Valid from :</b> </label>
+                            <div class="col-xs-12 col-sm-4 col-md-4">
+                                <label class="control-label ">@Model.StartDate</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <label class="col-xs-12 col-sm-2 col-md-2 control-label"><b> Ticket Left : </b></label>
+                            <div class="col-xs-12 col-sm-4 col-md-2">
+                                <label class="control-label ">@Model.TicketsLeft</label>
+                            </div>
+                            <label class="col-xs-12 col-sm-2 col-md-3 control-label"><b>  Valid to : </b></label>
+                            <div class="col-xs-12 col-sm-4 col-md-4">
+                                <label class="control-label ">@Model.EndDate</label>
+                            </div>
+                        </div>
+                    </div>                    
+                    <div class="form-group">
+                        <div class="row">
+                            <label class="col-xs-12 col-sm-2 col-md-2 control-label"><b> Response SLA Limit:</b></label>
+                            <div class="col-xs-12 col-sm-4 col-md-2">
+                                <label class="control-label ">@(Model.ResponseWithInHours != null ? Model.ResponseWithInHours + " hrs." : "No SLA associated")</label>
+                            </div>
+                            <label class="col-xs-12 col-sm-2 col-md-3 control-label"> <b> Solution SLA Limit  : </b></label>
+                            <div class="col-xs-12 col-sm-4 col-md-4">
+                                <label class="control-label ">@(Model.SolutionWithInHours != null ? Model.SolutionWithInHours + " hrs." : "No SLA associated")</label>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    if (Model.Hours != null )
+                    {
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-xs-12 col-sm-2 col-md-2 control-label"><b> Contract Name :</b> </label>
+                                <div class="col-xs-12 col-sm-4 col-md-2">
+                                    <label class="control-label ">@Model.TemplateName</label>
+                                </div>
+                                <label class="col-xs-12 col-sm-2 col-md-3 control-label"> <b> Valid from :</b> </label>
+                                <div class="col-xs-12 col-sm-4 col-md-4">
+                                    <label class="control-label ">@Model.StartDate</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-xs-12 col-sm-2 col-md-2 control-label"><b> Hours limit : </b></label>
+                                <div class="col-xs-12 col-sm-4 col-md-2">
+                                    <label class="control-label ">@Model.Hours</label>
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-info" role="alert">
+                            <ul class="fa-ul">
+                                <li>
+                                    <i class="fa fa-exclamation-triangle fa-li fa-lg"></i>
+                                    No Contracts used for this Ticket.
+                                </li>
+                            </ul>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

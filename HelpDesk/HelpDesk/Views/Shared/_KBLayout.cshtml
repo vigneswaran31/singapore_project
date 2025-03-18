@@ -1,0 +1,218 @@
+﻿@using HelpDeskEntity;
+@using HelpDeskBAL
+@using HelpDeskEntity.Classes
+<!DOCTYPE html>
+@{
+    string MetaTitle = new ConfigsBL().GetByName(En_Config.MetaTitle.ToString()).Value;
+    string MetaDescription = new ConfigsBL().GetByName(En_Config.MetaDescription.ToString()).Value;
+    string MetaKeyword = new ConfigsBL().GetByName(En_Config.MetaKeyword.ToString()).Value;
+    string Copyright = new ConfigsBL().GetByName(En_Config.Copyright.ToString()).Value;
+    List<KBCategory> lstKBCategory = (List<KBCategory>)ViewBag.lstKBCategory;
+    int KBCategoryId = ViewBag.KBCategoryId != null ? (int)ViewBag.KBCategoryId : 0;
+}
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="utf-8" />
+    <title>@MetaTitle | KnowledgeBase</title>
+
+    <meta name="description" content="@MetaDescription" />
+    <meta name="keywords" content="@MetaKeyword" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+    <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/font-awesome.css")" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="@Url.Content("~/Content/showMessage.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/common.css")" rel="stylesheet" />
+    <!-- Custom styles for Jq Grid -->
+    <link href="@Url.Content("~/Content/ui.jqgrid.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/datepicker.css")" rel="stylesheet" />
+    <link href="~/Content/datepicker.css" rel="stylesheet" />
+
+    <!-- page specific plugin styles -->
+    <!-- text fonts -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/ace-fonts.css")" />
+    <link href="@Url.Content("~/Content/chosen.css")" rel="stylesheet" />
+    <!-- ace styles -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/ace.css")" class="ace-main-stylesheet" id="main-ace-style" />
+
+    <script src="@Url.Content("~/Scripts/jquery-1.10.2.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.showMessage.min.js")"></script>
+
+
+    <script src="@Url.Content("~/Scripts/ace-extra.min.js")"></script>
+
+    @*<script src="@Url.Content("~/Scripts/jquery-ui.custom.js")"></script>*@
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-en.js")"></script>
+
+    <script src="@Url.Content("~/Scripts/jquery.blockUI.js")"></script>
+    <script src="@Url.Content("~/Scripts/Common.js")"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap-datepicker.js")"></script>
+    <script src="@Url.Content("~/Scripts/ace/ace.js")"></script>
+    <script src="@Url.Content("~/Scripts/chosen.jquery.js")"></script>
+
+    <!-- ace scripts -->
+    <script src="../../Scripts/ace/elements.scroller.js"></script>
+
+    <script src="../../Scripts/ace/ace.sidebar.js"></script>
+    <script src="../../Scripts/ace/ace.sidebar-scroll-1.js"></script>
+    <script src="../../Scripts/ace/ace.submenu-hover.js"></script>
+    <script src="../../Scripts/ace/ace.widget-box.js"></script>
+
+    <link href="@Url.Content("~/Content/jstree/style.min.css")" rel="stylesheet" />
+    <script src="@Url.Content("~/Scripts/jstree.min.js")"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#Category').jstree();
+
+            if ('@KBCategoryId' > 0) {
+                $('#Category').jstree('select_node', '#' + '@KBCategoryId');
+            }
+
+            $('#Category').on("select_node.jstree", function (e, data) {
+
+                var id = $('#Category').jstree('get_selected').toString().split("_").pop();
+                window.location = '/Knowledgebase/Articles?cid=' + id;
+            });
+        });
+
+        function Search() {
+            var text = $("#search").val();
+            window.location = '/Knowledgebase/Search?SearchText=' + text;
+        }
+
+    </script>
+</head>
+
+<body class="no-skin">
+    <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+        <script type="text/javascript">
+            try { ace.settings.check('navbar', 'fixed') } catch (e) { }
+        </script>
+
+        <div class="navbar-container" id="navbar-container">
+            <!-- #section:basics/sidebar.mobile.toggle -->
+            <button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
+                <span class="sr-only">Toggle sidebar</span>
+
+                <span class="icon-bar"></span>
+
+                <span class="icon-bar"></span>
+
+                <span class="icon-bar"></span>
+            </button>
+            <div class="navbar-header pull-left">
+                <!-- #section:basics/navbar.layout.brand -->
+                <a href="#" class="navbar-brand">
+                    <small>
+                        <i class="fa fa-leaf"></i>
+                        Help Desk
+                    </small>
+                </a>
+            </div>
+        </div><!-- /.navbar-container -->
+    </div>
+
+    <div class="main-container" id="main-container">
+        <script type="text/javascript">
+            try { ace.settings.check('main-container', 'fixed') } catch (e) { }
+        </script>
+        <div class="main-content">
+            <div class="main-content-inner">
+                <div class="page-content">
+                    <div class="page-header">
+                        <h1>
+                            KnowledgeBase
+                        </h1>
+                    </div><!-- /.page-header -->
+                    <div class="row" id="dvRow">
+                        <div class="col-xs-12">
+                            <div class="col-xs-12 col-sm-3 col-md-3 ">
+                                <label class="label-bg">@ViewBag.LngSearch</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="search" id="search" style="border-right:0px;" />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-sm btn-default" type="button" onclick="Search();">
+                                            <span class="ace-icon fa fa-search icon-on-right bigger-110"></span>
+                                        </button>
+                                    </span>
+                                </div>
+                                <br />
+                                <label class="label-bg">@ViewBag.LngKBCategories</label>
+                                <div id="KBCategory">
+
+                                </div>
+                                <div id="Category">
+                                    @{
+                                        var lstParents = lstKBCategory.Where(p => p.ParentId == 0).ToList();
+                                    }
+
+                                    <ul>
+                                        @foreach (var parent in lstParents)
+                                        {
+                                            <li id="@parent.KBCategoryId">
+                                                @parent.CategoryName
+                                                @{
+                                            var lstChild = lstKBCategory.Where(p => p.ParentId == parent.KBCategoryId).ToList();
+                                                }
+                                                @if (lstChild.Count > 0)
+                                                {
+                                                    <ul>
+                                                        @foreach (var child in lstChild)
+                                                        {
+                                                            <li id="@child.KBCategoryId">
+                                                                @child.CategoryName
+                                                                @{
+                                                            var Childs = lstKBCategory.Where(p => p.ParentId == child.KBCategoryId).ToList();
+                                                                }
+                                                                @if (Childs.Count > 0)
+                                                                {
+                                                                    <ul>
+                                                                        @foreach (var obj in Childs)
+                                                                        {
+                                                                            <li id="@obj.KBCategoryId">@obj.CategoryName</li>
+                                                                        }
+                                                                    </ul>
+                                                                }
+                                                            </li>
+                                                        }
+                                                    </ul>
+                                                }
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-9 col-md-9 right-panel">
+                                <div id="dvLoadArticleData">
+                                </div>
+                                <div id="dvLoadData">
+                                    @RenderBody()
+                                </div>
+
+                            </div>
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div><!-- /.page-content -->
+            </div>
+        </div><!-- /.main-content -->
+        <div class="footer">
+            <div class="footer-inner">
+                <div class="footer-content">
+                    <span class="bigger-120">
+                        <span class="blue bolder">@Copyright</span>
+                    </span>
+                    &nbsp; &nbsp;
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

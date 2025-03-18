@@ -1,0 +1,83 @@
+﻿@model List<HelpDeskEntity.Attachment>
+@using HelpDeskEntity
+@using Utility
+@using HelpDeskEntity.Classes
+@using HelpDeskBAL
+
+@{
+    User oUser = (User)Session[En_UserSession.User.ToString()];
+    Ticket oTicket = new SupportTicketBL().GetById(ViewBag.TicketId);
+}
+
+<script>
+    function DeleteFile(id) {
+        if (!confirm(@ViewBag.AreYouSure_DeleteThisAttachment+" ?"))
+            return;
+
+        $("#divAttachments").block();
+        $.post('@Url.Content("~/SupportTicket/DeleteFile")', { id: id }, function (data) {
+            if (data.success) {
+                SuccessMessage(data.message);
+                LoadAttachments();
+            } else {
+                $('#divAttachments').unblock();
+                ErrorMessage(data.message);
+            }
+        });
+    }
+
+    function DownloadFile(id) {
+        window.open("@Url.Content("~/SupportTicket/DownloadFile/")" + id, "_self");
+    }
+</script>
+@Html.Partial("_ResultMessage")
+
+@if (oTicket.CompanyUserId == oUser.UserId && ViewBag.IsTicket_Open == true)
+{
+    <div class="text-right mar-15">
+        <input type="button" onclick="$('#dv_files_popup').modal('show');" class="btn btn-sm btn-primary" value="@ViewBag.LngAddAttachment">
+    </div>
+}
+<div class="atached-file">
+    @if (Model.Count == 0)
+    {
+        <div class="alert alert-info" role="alert">@ViewBag.LngNoFilesAttached.</div>
+    }
+    else
+    {
+        <ul id="lightGallery">
+            @foreach (Attachment itm in Model)
+            {
+                if (CommonFunction.IsImage(itm.FileName))
+                {
+                    <li>
+                        <span>@itm.FileName </span><br />
+                        <a href="@(Url.Content(Constants.TicketImgUploadPath + "/" + itm.FilePath))" data-lightbox="attachment">
+                            <img style="max-width:120px;max-height:120px;" src="@(Url.Content(Constants.TicketImgUploadPath + "/" + itm.FilePath.Replace(".", "_thumb.")))" alt="@itm.FileName" />
+                        </a>
+                        <br /><br />
+                        <button type="button" onclick="DownloadFile('@itm.AttachmentId')" title="@ViewBag.LngDownload" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-save" aria-hidden="true"></span></button>
+                        @if (ViewBag.IsTicket_Open == true)
+                        {
+                            <button type="button" onclick="DeleteFile('@itm.AttachmentId')" title="@ViewBag.LngDelete" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                        }
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <span>@itm.FileName </span><br />
+                        <img src="~/Content/Images/file-icon.png" alt="@itm.FileName" />
+                        <br /><br />
+                        <button type="button" onclick="DownloadFile('@itm.AttachmentId')" title="@ViewBag.LngDownload" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-save" aria-hidden="true"></span></button>
+                        @if (ViewBag.IsTicket_Open == true)
+                        {
+                            <button type="button" onclick="DeleteFile('@itm.AttachmentId')" title="@ViewBag.LngDelete" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                        }
+                    </li>
+                }
+            }
+        </ul>
+    }
+    <div class="c"></div>
+</div>

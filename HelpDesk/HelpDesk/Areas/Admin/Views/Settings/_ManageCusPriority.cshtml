@@ -1,0 +1,93 @@
+﻿@using HelpDeskEntity;
+@model HelpDeskEntity.TicketPriority
+@{
+    Layout = null;
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('<span class="lbl"></span>').insertAfter(":checkbox"); //apply checkbox ace design
+    })
+
+    function Cancel() {
+        $('#dv_PopUp').modal('hide');
+    }
+
+    function SaveCusPriority() {
+        $.validator.unobtrusive.parse($("#Manage-CusPriority-Form"));
+        if ($('#Manage-CusPriority-Form').valid()) {
+            $('#ManageCusPriority').block();
+            var formData = $("#Manage-CusPriority-Form").serialize();
+            $.post("@Url.Content("~/Admin/Settings/SaveCusPriority")", formData, function (data) {
+                if (data.success) {//on success refrsh view
+                    $('#dv_PopUp').modal('hide');
+                    SuccessMessage(data.message);
+                    $("#CusPriorityDataGrid").trigger('reloadGrid');
+                } else {
+                    $('#ManageCusPriority').unblock();
+                    ErrorMessage(data.message);
+                }
+            });
+        }
+    }
+</script>
+
+<div id="modal-dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="bigger">Manage Customer Priority</h4>
+            </div>
+            <div class="modal-body" id="ManageCusPriority">
+                <div class="col-xs-12">
+                    <div class="row">
+                        @using (Html.BeginForm("Save", "Category", FormMethod.Post, new { Id = "Manage-CusPriority-Form", @name = "Manage-Category-Form", @class = "form-horizontal" }))
+                        {
+                            @Html.HiddenFor(c => c.TicketPriorityId)
+                            @Html.HiddenFor(c => c.Type)
+                            @Html.HiddenFor(c => c.CreatedOn)
+                            @Html.HiddenFor(c => c.CreatedBy)
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span>  Description </label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(c => c.Description, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(c => c.Description)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"> Is Enable </label>
+                                <label class="col-sm-8 " style="margin-top:6px">
+                                    @Html.CheckBoxFor(c => c.IsEnable, new { @class = "ace" })
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"> Default For New Ticket </label>
+                                <label class="col-sm-8 " style="margin-top:6px">
+                                    @Html.CheckBoxFor(c => c.DefaultForNewTicket, new { @class = "ace" })
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"><span class="light-red">*</span>  Sort Order </label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(c => c.OrderByNo)
+                                    @Html.ValidationMessageFor(c => c.OrderByNo)
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div style="text-align:center;">
+                    <button class="btn btn-sm btn-primary" type="button" onclick="SaveCusPriority();">
+                        <i class="ace-icon fa fa-check bigger-110"></i>Save
+                    </button>
+                    <button type="button" class="btn btn-sm" onclick="Cancel();">
+                        <i class="ace-icon fa fa-times"></i>
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

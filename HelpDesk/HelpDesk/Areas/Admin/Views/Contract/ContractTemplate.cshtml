@@ -1,0 +1,120 @@
+﻿@{
+    ViewBag.Title = "Contarct Templates";
+}
+
+<div class="breadcrumbs breadcrumbs-fixed" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="@Url.Action("Index","Dashboard")">Home</a>
+        </li>
+        <li class="active">Support Contracts</li>
+        <li class="active">Templates</li>
+    </ul>
+</div>
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+            Contarct Templates
+        </h1>
+    </div>
+    <div class="row" id="dv_row">
+        <div class="col-xs-12">
+            <div class="text-right mar-15">
+                <input type="submit" onclick="ManageContractTemplate(0);" class="btn btn-sm btn-primary" value="Add Contract Template">
+            </div>
+            <table id="ContractTemplateDataGrid"></table>
+            <div id="ContractTemplateDataPager"></div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="dv_PopUp" role="dialog"></div>
+
+<script type="text/javascript">
+
+    var grid_selector = "#ContractTemplateDataGrid";
+    var pager_selector = "#ContractTemplateDataPager";
+
+    jQuery(function ($) {
+
+       
+        jQuery(grid_selector).jqGrid({
+            url: '/Admin/Contract/ContractTemplateGetGridData',
+
+            viewrecords: true, sortname: 'TemplateName', sortorder: "asc",
+            colNames: ['ContractTemplateId', 'Contract Name', 'No Of Tickets', 'Response (Hours)', 'Solution (Hours)', 'Budget (Hours)', 'Enable ?', "Actions"],
+            colModel: [
+                        { name: 'ContractTemplateId', width: 1, hidden: true, key: true, align: 'center' },
+                        { name: 'TemplateName', index: 'TemplateName', width: 60, align: 'left', search: true, searchoptions: JQ_sopt_string },
+                        { name: 'NoOfTickets', index: 'NoOfTickets', width: 18, align: 'center', formatter: ActionFormatter, search: true, searchoptions: JQ_sopt_int },
+                        { name: 'ResponseWithInHours', index: 'ResponseWithInHours', width: 23, align: 'center', search: true, searchoptions: JQ_sopt_int },
+                        { name: 'SolutionWithInHours', index: 'SolutionWithInHours', width: 23, align: 'center', search: true, searchoptions: JQ_sopt_int },
+                        { name: 'Hours', index: 'Hours', width: 22, align: 'center', search: true, searchoptions: JQ_sopt_int },
+                        { name: 'IsEnable', index: 'IsEnable', width: 15, align: "center", search: true, searchoptions: JQ_sopt_bool },
+                        { name: 'Action', index: 'ContractTemplateId', width: 15, align: 'center', formatter: LinkFormatter, search: false, sortable: false },
+            ],
+            pager: pager_selector,
+            rowNum: JQ_pagination,
+            rowList: JQ_rowList,
+            autowidth: true,
+            height: '100%',
+            datatype: 'json',
+            cmTemplate: { title: false },
+            viewrecords: true,
+            mtype: 'GET',
+            loadComplete: function () { ResizeJqgrid(); },
+            jsonReader: {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: false,
+                userdata: "userdata"
+            },
+        }).navGrid('#ContractTemplateDataPager', { view: false, del: false, add: false, edit: false, search: false, referesh: true },
+           {}, // default settings for edit
+           {}, // default settings for add
+           {}, // delete instead that del:false we need this
+           { closeOnEscape: true, multipleSearch: true, closeAfterSearch: true }, // search options
+           {} /* view parameters*/
+         ).jqGrid('filterToolbar', { stringResult: true, searchOnEnter: false, defaultSearch: 'cn' });
+    });
+
+    function ActionFormatter(cellvalue, options, rowObject) {
+        if (cellvalue!=null) {
+            return cellvalue;
+        }
+        else {
+            return "Unlimited";
+        }
+    }
+
+
+    function ManageContractTemplate(TemplateId) {
+        $('#dv_PopUp').modal('show');
+        $('#dv_PopUp').html("");
+        $("#dv_PopUp").load('@Url.Action("ManageContractTemplate", "Contract", new { area = "Admin" })', { id: TemplateId }, function () { })
+    }
+
+    function LinkFormatter(cellvalue, options, rowObject) {
+        return "<a href='javascript:void(0);'class='ace-icon fa fa-pencil blue bigger-120' onclick='ManageContractTemplate(\"" + rowObject["ContractTemplateId"] + "\");' data-rel='tooltip' title='' data-original-title='Edit'  data-placement='left' ></a> | " +
+          "<a href='javascript:void(0);' class='ace-icon fa fa-trash-o red bigger-120' onclick='DeleteContractTemplate(\"" + rowObject["ContractTemplateId"] + "\");' data-rel='tooltip' title='' data-original-title='Delete' data-placement='left' ></a>";
+    }
+
+    function DeleteContractTemplate(TemplateId) {
+        if (confirm("Are you sure you want to delete this Contract Template?")) {
+            $("#dv_row").block();
+            $.post("/Admin/Contract/DeleteContractTemplate/" + TemplateId, function (data, status) {
+                if (data.success) {
+                    SuccessMessage(data.Message);
+                    $("#ContractTemplateDataGrid").trigger('reloadGrid');
+                } else {
+                    ErrorMessage(data.error);
+                }
+                $("#dv_row").unblock();
+            });
+        }
+    }
+</script>
+
+

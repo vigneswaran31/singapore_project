@@ -1,0 +1,106 @@
+﻿@model HelpDeskEntity.OperatorDashboardCount
+@using HelpDesk.Classes;
+@using HelpDeskEntity.Classes;
+@{
+    ViewBag.Title = "Dashboard";
+}
+<div class="breadcrumbs breadcrumbs-fixed" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="#">Home</a>
+        </li>
+        <li class="active">Dashboard</li>
+    </ul>
+</div>
+<div class="page-content">
+    <div class="">
+        <h4>
+            <i class="ace-icon fa fa-angle-double-right"></i>
+            Ticket Counts
+        </h4>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="col-xs-12 col-sm-6 col-md-6 no-padding">
+
+                <table class="table table-striped table-bordered table-hover">
+                    <tbody>
+                        <tr>
+                            <th>
+                                &nbsp;
+                            </th>
+                            <th style="text-align:center;font">
+                                No SLA or below 50% before Out of SLA
+                            </th>
+                            <th style="text-align:center;">
+                                Between 50% and 80% before Out of SLA
+                            </th>
+                            <th style="text-align:center;">
+                                Close to of Out SLA or Out of SLA (Urgent!)
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>Assigned To Me</span>
+                            </td>
+                            <td align="center">
+                                <span>@Model.AssignedToMe_Below_fifty</span>
+                            </td>
+                            <td align="center">
+                                <span>@Model.AssignedToMe_Beetween_Fifty_Eighty</span>
+                            </td>
+                            <td align="center">
+                                <span>@Model.AssignedToMe_Above_Eighty</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td nowrap="">
+                                <span>Assigned To Teams</span>
+                            </td>
+                            <td align="center">
+                                <span>@Model.AssignedToTeams_Below_fifty</span>
+                            </td>
+                            <td align="center">
+                                <span>@Model.AssignedToTeams_Beetween_Fifty_Eighty</span>
+                            </td>
+                            <td align="center">
+                                <span>@Model.AssignedToTeams_Above_Eighty</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td nowrap="">
+                                <span class="" id="dnn_ctr415_Main_op_dashboard_lb_UnassignedTickets">Unassigned Tickets</span>
+                            </td>
+                            <td align="center">
+                                <span>@Model.UnassignedTickets_Below_fifty</span>
+                            </td>
+                            <td align="center">
+                                <span>@Model.UnassignedTickets_Beetween_Fifty_Eighty</span>
+                            </td>
+                            <td align="center">
+                                <span>@Model.UnassignedTickets_Above_Eighty</span>
+                            </td>
+                        </tr>
+                        <tr></tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="c"></div>
+            <div class="">
+                @if (SiteUtility.IsAllow((int)En_Permission.CreateNewTickets))
+                {
+                    <div class="">
+                        <input type="submit" onclick="ManageSupportTickets();" class="btn btn-sm btn-primary" value="Create Support Ticket">
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function ManageSupportTickets() {
+        window.location.href = "/Account/SupportTicket/Create";
+    }
+</script>

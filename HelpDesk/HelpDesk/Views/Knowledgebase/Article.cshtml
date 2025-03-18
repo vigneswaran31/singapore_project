@@ -1,0 +1,56 @@
+﻿@model HelpDeskEntity.vw_KBArticle
+@using HelpDeskEntity
+@using HelpDeskEntity.Classes
+@using HelpDeskBAL
+@using Utility
+@{
+    List<Attachment> lstAttachment = new AttachmentsBL().GetByTypeAndId((int)En_LinkType.KBArticle, Model.ArticleId);
+    Layout = "~/Views/Shared/_KBLayout.cshtml";
+}
+<script type="text/javascript">
+    function DownloadFile(id) {
+        window.open("@Url.Content("~/Knowledgebase/DownloadFile/")" + id, "_self");
+    }
+</script>
+
+<div class="row" id="ManageData">
+    <div class="page-content">
+        <div class="page-header">
+            <h3 style="margin:0 !important">
+                <span id="icon" class="ace-icon glyphicon glyphicon-book"></span>&nbsp;&nbsp;@Model.Title
+            </h3>
+        </div>
+        @Html.Raw(Model.Description)<br /><br />
+        @if (lstAttachment.Count > 0)
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span id="icon" class="ace-icon fa fa-download"></span>&nbsp;&nbsp;@ViewBag.LngAttachments</h3>
+                </div>
+                <div class="atached-file panel-body">
+                    @if (lstAttachment.Count == 0)
+                    {
+                        <div class="alert alert-info" role="alert">@ViewBag.LngNoFilesAttached .</div>
+                    }
+                    else
+                    {
+                        <table class="table table-bordered table-striped">
+                            @foreach (Attachment itm in lstAttachment)
+                            {
+                                <tr>
+                                    <td><a href="javascript:void(0);" onclick="DownloadFile('@itm.AttachmentId')">@itm.FileName</a></td>
+                                    <td style="width:20px;text-align:center;">
+                                        <a href="javascript:void(0);" onclick="DownloadFile('@itm.AttachmentId')">
+                                            <span class="ace-icon fa fa-download icon-on-right bigger-140 green"></span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    }
+                    <div class="c"></div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
